@@ -1,0 +1,342 @@
+---
+title: "Basic R"
+author: "Sue"
+date: "21/12/2019"
+output: 
+        html_document:
+                theme: cosmo
+                highlight: tango
+                toc: true
+                toc_float: true
+                toc_depth: 5
+                df_print: kable
+---
+
+```{r setup, include=FALSE}
+# RMarkdown set-up; disregard this 
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
+```
+
+
+# R basic building block  
+## Functions
+We can perform basic arithmetic in R. 
+```{r}
+1 + 1
+```
+
+R language uses the same mathematical operators: 
+```
++
+-
+/
+^
+*
+```
+
+We can apply functions for common calculations, such as mean, median, and standard deviations.
+```
+mean(x)
+median(x)
+mode(x)
+sd(x)
+var(x)
+sqrt(x) 
+abs(x)
+```
+
+We can also conduct statistical tests using built-in functions 
+```
+cor(x, y)
+cov(x, y)
+t.test(x, y)
+```
+
+## **Exercise 1** {.tabset .tabset-fade .tabset-pills}
+
+### Question
+
+Calculate your age by subtracting your birth year from 2020. 
+
+### Answer 
+
+```{r, echo = TRUE, eval = TRUE, code = readLines("Q1.R")}
+```
+
+
+## Object
+You can save the output of the previous calculation into an **object**. 
+
+To create an object, you have to use the assignment operators of either `<-` or `=`. 
+```{r my_age, eval=TRUE}
+my_age <- 2020 - 1991
+my_age = 2020 - 1991 
+
+my_age
+```
+
+
+Objects are things saved in your current environment. To inspect objects availalbe in your local workspace, check the Environment panel, or run `ls()`.
+```{r}
+ls()
+```
+
+
+### **Exercise 2** {.tabset .tabset-fade .tabset-pills}
+
+Life expectancies for male and female Canadians are different (i.e., 80 and 84, respectively; [Statistics Canada](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310038901)); indicate your sex below. 
+
+```{r}
+# Are you female? 
+my_sex <- "female" # change this to "male" if you are male
+```
+
+
+#### Question
+Let's find out how long we have left. 
+You will get an error message, "*object 'your_sex' not found*." Fix this error to calculate how many years you have left. 
+
+```{r eval=FALSE}
+ifelse(test = my_sex == "female", # if you are female...
+       yes = 84 - your_age, # female life expectacny will be used to calculate the remaining years
+       no = 80 - your_age) # if not, male life expectacny will be used 
+```
+
+
+#### Answer
+You need to create a new object that will be piped into the `ifelse` statement. 
+```{r, echo = TRUE, eval = TRUE, code = readLines("Q1b.R")}
+```
+
+
+
+
+### Class attributes
+Objects can have different class attributes. They can be
+
+<div class = "row">
+<div class = "col-md-3">
+<br><br> numeric (numbers)
+
+```{r}
+typeof(1)
+```
+</div>
+
+<div class = "col-md-3">
+<br><br>integer (whoe number)
+
+```{r}
+typeof(2L)
+```
+</div>
+
+<div class = "col-md-3">
+<br><br>character (or *string*)
+```{r}
+typeof("a")
+```
+</div>
+
+<div class = "col-md-3">
+<br><br>or logical (TRUE/FALSE)
+```{r}
+typeof(TRUE)
+```
+</div>
+</div>
+
+#### Example   
+Class attirubtes of an object will determine whether you can apply certain functions and the accuracy of calculation. 
+
+As an example, let's compute an average height in our dataset called *women* (an example dataset of the average height & weight of American women).
+```{r}
+data(women)
+
+head(women)
+```
+
+The average height of our dataset is 65 inches.
+```{r}
+mean(women$height)
+```
+
+If some of the numeric data gets converted into a character variable...
+```{r}
+women[c(1, 3, 5, 7), 1] <- c("58 inches" ,"60 inches", "62 inches", "64 inches")
+
+women # our dataset now contains 4 height observations that are character. 
+```
+
+We can no longer use the `mean()` function as the height column got converted into a character vector. 
+```{r}
+mean(women$height)
+```
+
+If we convert the column into numeric, we'd get a different average height as the non-numeric observations are not included in our calculation. 
+```{r}
+mean(as.numeric(women$height), na.rm = T)
+```
+
+
+### Multiple values
+Objects can contain more than 1 value in the forms of **vectors** or **data frames**. 
+
+#### Vectors
+Vectors can be created by using `c()`: a function that combines multiple values. 
+```{r}
+c(1, 3, 7, 10)
+```
+
+You can perform simple arithmetics on the vectors. 
+```{r}
+c(1, 3) + c(0.25, -2)
+```
+
+
+When the vectors differ in length, the Recycling Rule applies:
+```{r}
+long_vector <- 1:6
+shorter_vector <- 1:3
+
+long_vector + shorter_vector
+```
+
+| long_vector  | shorter_vector  | long + shorter | R returns.. |
+|:---:|:---:|:---:|:---:|
+| 1  | 1  | 1 + 1 | 2  |
+| 2  | 2  | 2 + 2 | 4  |
+| 3  | 3  | 3 + 3 | 6  |
+| 4  |   | 4 + 1 | 5  |
+| 5  |   | 5 + 2 | 7  |
+| 6  |   | 6 + 3 | 9  |
+
+
+##### **Exercise 3** {.tabset .tabset-fade .tabset-pills}
+
+###### Question
+
+Compute the average age of the students whose ages are as follows:
+
+28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26. 
+
+###### Answer 
+
+```{r, echo = TRUE, eval = TRUE, code = readLines("Q2.R")}
+```
+
+
+
+
+One thing to note is that the values must have the same class attributes. 
+For example, let's create a vector `x` with values of different class attributes. 
+```{r}
+(x <- c(1, 3, 5, 7, # numeric
+       "a", # character
+       TRUE)) # logical
+```
+
+When we inspect class attribute of this vector, it forces all the variables to have the same data type.   
+```{r}
+typeof(x)
+```
+
+Inspect the vector below: 
+```{r}
+c(1, 2, 3, TRUE, FALSE)
+```
+
+#### Lists
+If you want to create a collection of vectors with varying data types, create a list.
+```{r}
+list(c(1, 3, 5, 7), # numeric
+     "a", # character
+     TRUE) # logical
+```
+
+
+#### Matrix
+A matrix contains multiple vectors.
+```{r}
+(height_weight <- matrix(
+        c(72, 58, 67, 59, 60, 61, 164, 115, 142, 117, 120, 123), # data
+        nrow = 6, # number of rows
+        ncol = 2, # number of columns
+        byrow = FALSE, # arranging the matrix by rows
+        dimnames = list(c("p1", "p2", "p3", "p4", "p5", "p6"), # name of the row
+                        c("height", "weight")) # name of the column
+        ))
+```
+
+
+We can add a column to our existing matrix by using `cbind()`,
+```{r}
+cbind(height_weight, age = c(25, 22, 21, 23, 27, 19))
+```
+
+or add a row by using, `rbind()`
+```{r}
+rbind(height_weight, p7 = c(51, 109))
+```
+
+Like vectors, a matrix can only be of the same data type. Adding a column of different data type (e.g., character) will coerce data into the same type. 
+```{r}
+cbind(height_weight, name = c("Joe", "Jane", "Bill", "Charlie", "Toto"))
+```
+
+#### Data frames
+We can use a data frame to store data of different types. 
+```{r}
+(height_weight <- data.frame(height_weight,
+                            name = c("Joe", "Jane", "Bill", "Charlie", "Toto", "Bruce")))
+```
+
+One thing to note is that the rows and columns should be consistent within the data frame. 
+Try running this code where we are missing one of participants' (i.e., p6) age. Try fixing this error. 
+```{r eval=FALSE}
+data.frame(height_weight,
+           age = c(25, 22, 21, 23, 27))
+```
+
+Like vectors, we can perform arithmatic operations on the datasets.
+
+##### **Exercise 4** {.tabset .tabset-fade .tabset-pills}
+###### Question
+Compute BMI for every participants using the following formula: $703 * weight (lbs) / height (in)^2$. 
+
+###### Answer
+```{r, echo = TRUE, eval = TRUE, code = readLines("Q3.R")}
+```
+    
+
+
+
+
+##### **Exercise 5** {.tabset .tabset-fade .tabset-pills}
+
+Participants reported on the number of apples they consumed for 5 days (i.e., day1:day5).
+```{r}
+(height_weight <- data.frame(height_weight,
+                             day1 = c(sample(1:10, 3),NA, sample(1:10, 2)),
+                             day2 = c(sample(1:10, 5), NA),
+                             day3 = sample(1:10, 6),
+                             day4 = c(sample(1:10, 2), NA, sample(1:10, 3)),
+                             day5 = sample(1:10, 6)))
+
+# readr::write_csv(height_weight, here::here("dataset", "height_weight.csv"))
+```
+
+
+
+###### Question  
+Compute an average number of apples each participant consumed for the 5 days.
+```{r eval=FALSE}
+# If you do not currently have height_weight object in your environment, read in the data instead by executing the code below.
+height_weight <- readr::read_csv(here::here("dataset", "height_weight.csv"))
+```
+
+###### Answer
+```{r, echo = TRUE, eval = TRUE, code = readLines("Q5.R")}
+```
+
+

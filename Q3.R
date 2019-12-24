@@ -1,0 +1,1 @@
+height_weight$bmi = 703*(height_weight$weight/(height_weight$height^2))
