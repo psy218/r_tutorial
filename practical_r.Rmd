@@ -1,0 +1,86 @@
+---
+title: "Practical R"
+author: "Sue"
+date: "24/12/2019"
+output: 
+  html_document:
+    keep_md: true
+    theme: cosmo
+    highlight: tango
+    toc: true
+    toc_depth: 5
+    df_print: kable
+---
+
+```{r setup, include=FALSE}
+# RMarkdown set-up; disregard this 
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
+```
+
+```{r}
+library("tidyverse")
+```
+
+# Data Wrangling
+
+We will use an example dataset, starwars, to work through data manipulations. 
+
+```{r paged.print=TRUE}
+data(starwars)
+starwars
+```
+
+## **piping** (%>%) 
+Base R and tidyverse R take different approaches to perform multiple functions.
+Tidyverse R uses the pipe operator (`%>%`), which translates as "then."
+
+As an example, let's calculate the average height of female Starwars characters.
+
+<div class = "row">
+<div class = "col-md-6">
+<br><br> base R   
+In order to perform multiple functions using base R, we perform them sequentially or nest functions. 
+```{r ex1_baseR, eval = FALSE}
+# sequential operations
+female_height_only <- starwars[starwars$gender=="female", ]$height # subset data 
+mean(female_height_only, na.rm = T) # calculate mean of the subset
+
+# nesting subset function inside mean
+colMeans(subset(starwars, # subsetting the data frame 
+                subset = gender == "female", # based on the condition 
+                select = "height"), # column of interest
+         na.rm = T) # then perform mean on the subsetted data
+```
+</div>
+
+<div class = "col-md-6">
+<br><br>tidyverse R    
+tidyverse uses a pipe (`%>%`) to perform multiple functions sequentially without creating an object. 
+```{r ex1_tidyverseR, eval = FALSE}
+starwars %>% # take the starwars dataset, then (`%>%`)
+  subset(subset = gender == "female", select = "height") %>% # subset the data, then (`%>%`)
+  colMeans(na.rm = T) # calculate the mean
+```
+</div>
+</div>
+
+
+The piping technique becomes handy when you have 
+1. many interim stpes
+```{r}
+
+```
+
+
+## *dplyr* verbs  
+
+There are 5 dplyr functions that are useful for data manipulation. 
+
+
+
+|verb|function|example|
+|:-|:-|:-|
+|`select()`|choose variables by (column) names|select(starwars, height, mass)|
+|`filter()`|choose observations by (conditional) values|filter(starwars, gender == "none" )|
+|`mutate()`|transform or create new variables|mutate(starwars, BMI = $weight/height^2$)|
+|`summarize()`|summarize variables|summarize(starwars, mean_height = mean(height, na.rm = T))|
