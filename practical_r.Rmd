@@ -65,11 +65,38 @@ starwars %>% # take the starwars dataset, then (`%>%`)
 </div>
 
 
-The piping technique becomes handy when you have 
-1. many interim stpes
+The piping technique becomes handy when you...
+1. have many interim stpes  
+For example, when we want to run a regression with mean-centred variables   
 ```{r}
-
+starwars %>% 
+  group_by(gender) %>% # step 1) mean centering height around gender
+  mutate(height_mc = height - mean(height, na.rm = T)) %>% 
+  lm(mass ~ height_mc, # step 2) then run a regression model using the mean-centered height
+     data = .) %>% 
+  summary # step 3) see the summary table
 ```
+
+2. do not wish to save the output (e.g., exploratory data analysis)  
+For example, when we want to summarize our data and plot the summary data without saving it.
+```{r}
+starwars %>% 
+  #filter(mass < 1000) %>% 
+  group_by(gender) %>% 
+  summarize_at(vars(c("height", "mass")), list(~mean(., na.rm = T), ~sd(.,na.rm = T))) %>% 
+  pivot_longer(cols = -gender, 
+               names_to = c("var", "stat"),
+               names_sep = "_",
+               values_to = "value") %>% 
+  spread(stat, value) %>% 
+  ggplot(aes(x = as.factor(gender), y = mean, fill = as.factor(var))) +
+  geom_col(position = position_dodge(width=0.9)) +
+  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), 
+                position = position_dodge(width=0.9), width = 0.25) + 
+  theme_bw()
+  
+```
+
 
 
 ## *dplyr* verbs  
