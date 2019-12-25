@@ -1,7 +1,7 @@
 ---
 title: "Intro_R"
 author: "Sue"
-date: `r Sys.Date()`
+date: "Sys.Date()"
 output: 
   html_document:
     keep_md: true
@@ -18,117 +18,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
 ```
 
-# R Packages 
-R packages can be thought of as *software* or *applications* that allow you to perform different functions.
-
-## Package installation
-Although you have to load your packages into your R environment for every session, you only have to install packages once. 
-```{r eval=FALSE}
-install.packages(c("tidyverse", "here"))
-# packages that are not available on CRAN
-devtools::install_github("hadley/emo") 
-```
-
-### For PSY2002
-These are the packages you would need for PSY2002 lectures. Once you have them installed, you would only have to "load" them into your environment on an as-needed basis. 
-```{r eval=FALSE}
-install.packages(c("plotrix", "car", # lecture 1
-                   "mediation", # lecture 2
-                   "lavaan", "semPlot", # Lecture 3
-                   "lme4", "lmerTest", "emmeans", "e1071", # Lectures 4 & 5
-                   "pscl", "MASS", "boot", # Lecture 6
-                   "cluster", # lecture 9
-                   "psych", # lecture 10
-                   "survival", "km.ci", # lecture 11
-                   "TSA", "TTR", "tseries", "nlme" # lecture 12
-                   ))
-
-```
-
-## Package loading  
-You have to load necessary package(s) to your current R environment using library() function.
 ```{r}
-library("tidyverse")
+library(tidyverse)
 ```
-
-You can check what packages are currently loaded into memory by executing `search()` function. 
-```{r}
-search()
-```
-
-# R environment
-Setting up your R environment from the get-go will prevent any future headaches with respect to importing files and exporting your output.  
-
-Your current R session may be opearating at a specific folder, or *working directory* (i.e., WD). Your default working directory may be where your R is installed, like a permanent address. You can change this to a new folder, like a mailing address. 
-
-A mailing address is useful for file organization. When you are importing a file (e.g., a dataset) into your R environment, your R will assume the file is located at the working directory. When you are exporting an output or saving a file (e.g., plots, processed datasets), the default location will also be your working directory. 
-
-## Working Directory 
-
-Let's find where our current R session is operating at. 
-```{r eval = FALSE}
-getwd()
-```
-
-We can look at the files available at the current folder by either going to the *Files* tab in the RStudio panel, or run the following codes.
-```{r eval=FALSE}
-list.files()
-dir()
-```
-
-## Absolute vs. Relative Path
-In our current working directory (i.e., the folder we are operating in), we only have to specify the location **relative** to the working directory (i.e., **relative path**) as opposed to the full location (i.e., **absolute path**). 
-
-There is a R package for the relative path, `here`. Install & load the package. 
-```{r}
-# install.packages("here")
-library(here)
-```
-
-
-## RStudio Project
-To avoid importing and exporting errors, we can create a new project inside the RStudio. 
-
-Consider creating a separate project for every new study and for different purposes (e.g., workshops, courses). 
-
-You can open the RProject project *project_name.Rproj*, which will oepn a separate RStudio window with the scripts you have been working prior to closing.  
-
-For example, you would click on the `r_tutorial.Rproj` when you want to resume working on the project.
-![](rproj.png)
-
-
-### Exercise 1
-
-Let's create a new project for PSY2002. 
-
-Step 1: Creating a new project
-File → New Project → New Directory
-![](https://rc2e.com/images_v2/rstudio.newproject.dialog.png)
-
-Having a separate RStudio Project will allow you to have a working directory dedicated for a specific projet. 
-
-Step 2: Importing a file
-Create a new folder called *dataset*.
-```{r eval=FALSE}
-dir.create(here::here("dataset"))
-```
-
-Then create a copy of the example dataset called **GLMData.csv**, and move it into the new *dataset* folder.
-```{r eval=FALSE}
-file.copy(from = here::here("GLMData.csv"), # the original file & its location
-          to = here::here("dataset", "GLMData.csv")) # the new folder location
-```
-
-
-## Importing files
-We can now use a relative path to import files. 
-
-Import example dataset "GLMData.csv" located in the dataset folder, and assign an object name (e.g., "df").
-```{r}
-df <- read_csv(here::here("dataset", "GLMData.csv"))
-```
-
-
 
 # Data Structure
 ## Accessing data inside a data frame
@@ -206,26 +98,40 @@ Try pressing the *Tab* key after typing the `dollar sign`.
 
 #### By conditions
 We can also select elements conditionally; that is, we can specify what element we want. 
-R will evaluate the statement and return only those elements that meet the specified condition. Conditional statements follow the same mathematical operations:
-`==` equal to
-`> x` greater than
-`< x` less than
-`>= x` greater than or equal to
-`<= x` less than or equal to.
+R will evaluate the statement and return only those elements that meet the specified condition. 
+
+##### Mathematical Annotations  
+Conditional statements follow the same operations:  
+|syntax|meaning|example|
+|:-:|:-|:-|
+|`==`|equal to|x == y|
+|`!=`|not equal to|x != y|
+|`>`|greater than|x > y|
+|`<`|less than|x < y|
+|`>=`|greater than or equal to|x >= y|
+|`<=`|less than or equal to|x <= y|
 
 You can have multiple conditions by using the following operators:
-`|` or
-`&` and
-`%in%` testing multiple elements in a specified vector.
+|syntax|meaning|example|
+|:-:|:-|:-|
+|`|`|or|x == 1 | x == 2|
+|`&`|and|x == 1 & y == 2|
+|`%in%`|testing multiple elements|x %in% c(1, 2)|
 
-For example, let's say I only want a specific fruit, pear: 
+A reference list for the operators can be found [here](https://stat.ethz.ch/R-manual/R-devel/library/grDevices/html/plotmath.html) or [R Cookbook Table 2.1](https://rc2e.com/SomeBasics.html#tab:precedence).  
+
+For example, let's say I only want a specific veggie, carrots: 
 ```{r}
-basket$fruits[basket$fruits=="pear"] # within the fruit column, element named "pear"
+basket$veggies[basket$veggies == "carrots"] # within the fruit column, element named "pear"
 ```
 
-Or, the strawberry and apple:
+Or, the broccoli and celery:
 ```{r}
-basket$fruits[basket$fruits %in% c("apple", "strawberry")]
+# using OR (`|`)
+basket$veggies[basket$veggies == "broccoli" | basket$veggies == "celery"]
+
+# using %in%
+basket$veggies[basket$veggies %in% c("broccoli", "celery")]
 ```
 
 Or, a fruit whose quantity exceeds 3. 
@@ -234,7 +140,12 @@ basket$fruits[basket$quantity > 3]
 ```
 
 
-A reference list for the operators can be found here: [R Cookbook Table 2.1](https://rc2e.com/SomeBasics.html#tab:precedence)
+
+
+
+
+
+# Data Manipulation
 
 For the exercises, we will use an example dataset, starwars. 
 ```{r starwars_data}
@@ -254,8 +165,6 @@ starwars %<>%
     TRUE ~ NA_real_))
 ```
 
-
-# Data Manipulation
 ## 1) Data Preparation  
 Before analyzing your data, make sure your data is *clean*. 
 
@@ -329,7 +238,7 @@ ggplot(subset(starwars, mass < 1000),
 
 
 We can convert the gender variable using the `factor()` function.
-```{r eval = FALSE}
+```{r eval = TRUE}
 starwars$gender <- factor(starwars$gender, 
                           levels = c(0:3), # numeric values representing the levels
                           labels = c("female", "male","hermaphrodite", "none"), # corresponding lables for each of the numeric value
