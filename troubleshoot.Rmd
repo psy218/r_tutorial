@@ -282,7 +282,7 @@ If the error persists, use `Import Dataset` instead:
 ![](Fig/RStudio_import_dataset.png) 
 
 
-## Error 6  
+## Error 6 {.tabset .tabset-fade .tabset-pills}    
 ### `subscript out of bounds`  
 
 ```{r}
@@ -296,9 +296,11 @@ dim(starwars)
 ```
 The first corresponds to the number of rows (observations) and the second corresponds to the number of columns (variables).  
 
-## Error 7  
+## Error 7 {.tabset .tabset-fade .tabset-pills}   
 ### Missing values    
 `NA` serves as a placeholder for missing values. Untreated NAs may (or may not) throw an error message.   
+
+a) 
 ```{r eval = FALSE, message=TRUE, error=TRUE}
 starwars %>% 
   lm(height ~ mass, 
@@ -306,13 +308,18 @@ starwars %>%
      data = .)
 ```
 
+b) 
 ```{r}
 mean(starwars$mass)
 ```
 
 ### Solutions  
-```{r}
+a) 
+```{r, echo = TRUE, eval = TRUE, code = readLines("ts_error7a.R")}
+```
 
+b) 
+```{r, echo = TRUE, eval = TRUE, code = readLines("ts_error7b.R")}
 ```
 
 
