@@ -395,21 +395,6 @@ Create an aggregate score of `neuroticism` for each participant by 1a) reverse-c
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/pr_Q2.R")}
 ```
 
-# Troubleshoot  
-
-## cannot find a function
-Different packages may include different functions of the same name, which will create a conflict. 
-
-When you get an error that a function cannot be found, explicitly specify what package includes the function you are referring to by using `package_name::function`. 
-```
-dplyr::select()
-```
-
-## Syntax errors  
-```{r eval = FALSE}
-starwars %>% 
-  filter(eye_color %in% c("blue", "brown"))
-```
 
 
 
