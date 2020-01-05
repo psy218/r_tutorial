@@ -3,7 +3,7 @@
 * [Intro to R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/intro_R.html)  
 * [RStudio Setup](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/r_environment.html)
 * [Troubleshooting in R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/troubleshoot.html)
-* [Practical R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/practical_r.html)
+* [Practical R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/practical_r.html?versionId=null)
 
 ## Before the Tutorial
 * Please download & install [R](https://www.r-project.org/) and [RStudio](https://rstudio.com/products/rstudio/download/).
