@@ -3,4 +3,7 @@
 .RData
 .Ruserdata
 tutorial_html/
-*.key
+rtutorial_draft.key
+~Fig/
+intro_R_files/
+practical_r_files/
