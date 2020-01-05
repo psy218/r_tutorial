@@ -8,6 +8,7 @@ output:
     theme: cosmo
     highlight: tango
     toc: true
+    toc_float: true
     toc_depth: 5
     df_print: kable
 ---
@@ -15,18 +16,19 @@ output:
 ```{r setup, include=FALSE}
 # RMarkdown set-up; disregard this 
 knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
+options(digits = 3, scipen = 999)
 ```
 
 
 # Tidyverse  
-[Tidyverse](https://www.tidyverse.org/) is a collection of R packages that facilitate data manipulation and exploration (cf. [a blog post](https://blog.ephorie.de/why-i-dont-use-the-tidyverse)). 
+[Tidyverse](https://www.tidyverse.org/) is a collection of R packages that facilitate data manipulation and exploration (cf. [a blog post on not using Tidyverse](https://blog.ephorie.de/why-i-dont-use-the-tidyverse)). 
 
 Let's load tidyverse, and see what packages are included. 
 ```{r}
 library(tidyverse)
 ```
 
-![](tidyverse_pkg.png)
+![](Fig/tidyverse_pkg.png)
 
 Note the packages under tidyverse_conflicts(); these are tidyverse functions that have the same name as other functions from different packages (e.g., base R).  
 
@@ -37,6 +39,12 @@ We will use an example dataset, starwars, to work through data manipulations.
 ```{r}
 data(starwars)
 ```
+
+Let's first inspect our dataset using `glimpse()`.  
+```{r}
+glimpse(starwars)
+```
+
 
 ## **piping** (%>%) 
 Base R and tidyverse R take different approaches to perform multiple functions.
@@ -115,18 +123,18 @@ There are [5 dplyr functions](https://dplyr.tidyverse.org/) that are useful for 
 
 |verb|function|example|
 |:-|:-|:-|
-|`select()`|choose variables by (column) names|select(starwars, height, mass)|
-|`filter()`|choose observations by (conditional) values|filter(starwars, gender == "none" )|
-|`mutate()`|transform or create new variables|mutate(starwars, BMI = $weight/height^2$)|
-|`summarize()`|summarize variables|summarize(starwars, mean_height = mean(height, na.rm = T))|
+|[`select()`](#select)|choose variables by (column) names|select(starwars, height, mass)|
+|[`filter()`](#filter)|choose observations by (conditional) values|filter(starwars, gender == "none" )|
+|[`mutate()`](#mutate)|transform or create new variables|mutate(starwars, BMI = $weight/height^2$)|
+|[`summarize()`](#summarize)|summarize variables|summarize(starwars, mean_height = mean(height, na.rm = T))|
 |`arrange()`|order variables|arrange(starwars, height, desc(mass))|
 
 ## Subsetting data with `select()` & `filter()`  
 
-### `select()` columns    
-Like the square bracket `[]` and the dollar sign `$` in base R, `select()` allows you to extract elements by the column name(s). 
+### <a name="select"></a>`select()` columns    
+Like the square bracket `[]`, the dollar sign `$` in base R, and `subset(data, select = column)`, `select()` allows you to extract elements by the column name(s). 
 
-![](https://andyteucher.ca/rcourse_site/fig/dplyr_tidyr/05-dplyr-fig1.png)
+![](Fig/select_func.png)
 
 <div class = "row">
 <div class = "col-md-6">
@@ -170,14 +178,15 @@ These are some useful conditional statements you can use with `select()`:
 |`one_of(c("height", "mass"))`|select one of `height` or `mass`|
 
 
-### `filter()` observations  
+### <a name="filter"></a>`filter()` observations  
 
 Like the conditional statement inside the square bracket `[]`, `filter()` allows you to extract elements that meet the specified conditions.   
+![](Fig/filter_func.png)  
 
 <div class = "row">
 <div class = "col-md-6">
 <br><br>Base R
-```{r include = FALSE}
+```{r results="hide"}
 starwars[c(starwars$mass<1000 & starwars$height > 100), ]
 ```
 
@@ -185,12 +194,12 @@ starwars[c(starwars$mass<1000 & starwars$height > 100), ]
 
 <div class = "col-md-6">
 <br><br>tidyverse R
-```{r include = FALSE}
+```{r results="hide"}
 starwars %>% 
   filter(mass < 1000, height > 100)
 ```
 </div>
-</div>
+</div>  
 
 #### conditional filtering  
 Like `select()`, you can add more specification inside the `filter()` function with logical operators (e.g., `==`), and `between()` or `is.na()` statements. 
@@ -210,14 +219,16 @@ Let's subset our starwars dataset using multiple conditions.
 Find the names (`name`) and gender (`gender`) of human characters (i.e., `species == Human`) who are between 23 to 35 years of age (i.e., `birth_year`)and do not have blue eyes (i.e., `eye_colour`). 
 
 #### Answer
-```{r, echo = TRUE, eval = TRUE, code = readLines("pr_Q1.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/pr_Q1.R")}
 ```
 
 
 ## Summarize data with `mutate()` and `summarize()`   
 
-### `mutate()` variables  
+### <a name="mutate"></a>`mutate()` variables  
 `mutate()` creates a new variable by operating on our dataset. 
+
+![](Fig/mutate_func.png)  
 
 <div class = "row">
 <div class = "col-md-6">
@@ -237,7 +248,7 @@ starwars$bmi = 703 * starwars$mass/(starwars$height^2)
 ```{r eval=TRUE, paged.print=TRUE}
 starwars %>% 
   mutate(bmi = 703 * mass/(height^2)) %>% 
-  select(name, height, mass, bmi) %>% # to quickly take a look at our new variable
+  select(name, height, mass, bmi) %>% 
   head()
 ```
 </div>
@@ -295,9 +306,12 @@ example_data <- example_data %>%
 ```
 
 
-### `summarize()` data 
+### <a name="summarize"></a>`summarize()` data  
 
 Without creating a new variable, we can create a summary of our data. For example, let's look at average height and mass with their standard deviations using `mean()` and `sd()` function. 
+
+![](Fig/summarize_func.png)
+
 
 ```{r}
 starwars %>% 
@@ -314,6 +328,47 @@ starwars %>%
   summarise_at(vars(height, mass), # variables we want to apply functions on
                list(~mean(., na.rm = T), # first function 
                     ~sd(., na.rm = T))) # second function
+```
+
+#### summary functions  
+You can use the following functions with `summary()`. 
+
+|name|function|
+|:-|:-|
+|`n()`|# of observations or row |
+|`mean(x)`|average of x |
+|`sd(x)`|standard deviation of x |
+|`min(x)`|minimum value of x |
+|`max(x)`|maximum value of x |
+|`sum(is.na(x))`|# of missing observations|
+
+
+
+```{r}
+starwars %>% 
+  summarize(height_n = n(),
+            height_mean = mean(height, na.rm = T),
+            height_sd = sd(height, na.rm = T),
+            height_min = min(height, na.rm = T),
+            height_max = max(height, na.rm = T),
+            height_na = sum(is.na(height)))
+```
+Check for more useful summary functions with `?summarize()` 
+
+#### selective summary with `summarize_at()`   
+
+You can selectively apply the same functions to multiple variables using `summarize_at()`:  
+```{r}
+starwars %>% 
+  summarize_at(.vars = vars("height", "mass"), # specify which variables  
+               .funs = list(~mean(., na.rm = T), # list of functions you want to apply
+                    ~sd(., na.rm = T),
+                    ~min(., na.rm = T),
+                    ~max(., na.rm = T),
+                    ~sum(is.na(.)))) %>% 
+  pivot_longer(cols = everything(), # (optional) to make the summary table easier to read  
+               names_to = c(".value", "test"),
+               names_sep = "_")
 ```
 
 
@@ -337,7 +392,7 @@ starwars %>%
 Create an aggregate score of `neuroticism` for each participant by 1a) reverse-coding BFI_4, and BFI_11, 1b) averaging neuroticm items (i.e., BFI_4, BFI_9, and BFI_11), and 2) mean-center neuroticism score on gender. 
 
 ##### Answer    
-```{r, echo = TRUE, eval = TRUE, code = readLines("pr_Q2.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/pr_Q2.R")}
 ```
 
 # Troubleshoot  

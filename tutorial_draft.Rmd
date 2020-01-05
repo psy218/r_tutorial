@@ -26,13 +26,12 @@ We can perform basic arithmetic in R.
 ```
 
 R language uses the same mathematical operators: 
-```
-+
--
-/
-^
-*
-```
+|syntax|meaning|example|
+|:-:|:-|:-|
+|`+`|plus|x + y|
+|`-`|minus|x - y|
+|`*`|multiply|x * y|
+|`/`|divide|x / y|
 
 We can apply functions for common calculations, such as mean, median, and standard deviations.
 ```
@@ -56,11 +55,11 @@ t.test(x, y)
 
 ### Question
 
-Calculate your age by subtracting your birth year from 2020. 
+Calculate your age by subtracting your birth year from 2020. gi
 
 ### Answer 
 
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q1.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q1.R")}
 ```
 
 
@@ -105,7 +104,7 @@ ifelse(test = my_sex == "female", # if you are female...
 
 #### Answer
 You need to create a new object that will be piped into the `ifelse` statement. 
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q1b.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q1b.R")}
 ```
 
 
@@ -222,7 +221,7 @@ Compute the average age of the students whose ages are as follows:
 
 ###### Answer 
 
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q2.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q2.R")}
 ```
 
 
@@ -305,7 +304,7 @@ Like vectors, we can perform arithmatic operations on the datasets.
 Compute BMI for every participants using the following formula: $703 * weight (lbs) / height (in)^2$. 
 
 ###### Answer
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q3.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q3.R")}
 ```
     
 
@@ -332,11 +331,14 @@ Participants reported on the number of apples they consumed for 5 days (i.e., da
 Compute an average number of apples each participant consumed for the 5 days.
 ```{r eval=FALSE}
 # If you do not currently have height_weight object in your environment, read in the data instead by executing the code below.
+
+# TODO: check if the github raw link is valid
 height_weight <- readr::read_csv(here::here("dataset", "height_weight.csv"))
+height_weight <- readr::read_csv("https://raw.github.com/psy218/r_tutorial/master/dataset/height_weight.csv")
 ```
 
 ###### Answer
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q5.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q5.R")}
 ```
 
 

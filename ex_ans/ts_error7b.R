@@ -1,0 +1,1 @@
+mean(starwars$mass, na.rm = T)

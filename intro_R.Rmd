@@ -330,7 +330,7 @@ Within the starwars dataset, find the names of the character whose height falls 
 
 ##### Answer  
 
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q6.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q6.R")}
 ```
 
 
@@ -339,11 +339,11 @@ Within the starwars dataset, find the names of the character whose height falls 
 For each of the gender group, find the means and stadnard deviations of their height. 
 
 ##### Answer  
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q7.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q7.R")}
 ```
 
 
-## 3) Data Transformation    
+## <a id="data_transformation"></a>3) Data Transformation    
 
 Let's use an example data with participant's demographic data (i.e., age, gender) and responses to BFI-10 (Rammstedt & John, 2007)  
 
@@ -411,80 +411,8 @@ reverse_data <- cbind(apply(example_data[ ,paste("BFI", c(1, 3, 4, 5), sep = "_"
 Create 1) an aggregate score of `extraversion` for each participant by averaging reverse-coded BFI_1 and BFI_6 and 2) mean-center extraversion score on gender. 
 
 ##### Answer
-```{r, echo = TRUE, eval = TRUE, code = readLines("Q8.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q8.R")}
 ```
 
 
-# Troubleshooting
-## General tips
-1. Debug sequentially
-Run `traceback()`, and check at which step you got the error message. 
-```{r}
-```
-
-2. Start small
-
-When there are multiple functions, start from the nested function and work out.
-```{r}
-```
-
-
-## Functions
-### Help for a function
-Looking for a manual for a function in two ways:
-1. using ?function
-```{r}
-?sum
-```
-
-2. help(function)
-```{r}
-help(sum)
-```
-
-If help page returns no documentation, try ??function
-```{r}
-??sum
-```
-
-### Funtion arguments
-```{r}
-args(sum)
-```
-
-Type the function name (e.g., sum()) and press `Tab` key
-![](https://rc2e.com/images_v2/mean_tooltip.png)
-
-```{r}
-
-```
-
-
-## Look for relevant functions & packages  
-1. [CRAN Task Views](http://cran.r-project.org/web/views/)
-Packages related to [Social Science research](http://cran.r-project.org/web/views/SocialSciences.html) and [Reproducible Research](http://cran.r-project.org/web/views/ReproducibleResearch.html)
-
-2. [crantastic](http://crantastic.org)
-Keyword-based search tool for R packages.  
-
-3. [ROpenSci](http://ropensci.org/packages/)
-Open science tools & R packages 
-
-4. [rseek](http://rseek.org)
-Search by name or keyworld 
-
-## Everything failed
-Search the web
-1. [rseek](http://rseek.org)
-2. [StackOverflow](http://stackoverflow.com)
-
-# Resources & References 
-## Interactive tutorial with Swirl
-```{r eval=FALSE}
-install.packages("swirl")
-librar("swirl")
-swirl()
-```
-
-This tutorial heavily relies on the [R Cookbook](https://rc2e.com/), [R for Data Science](https://r4ds.had.co.nz/), and [Data Carpentry](https://datacarpentry.org/).
 

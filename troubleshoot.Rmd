@@ -234,7 +234,7 @@ starwars[starwars$height < 100 | = 200, ]
 ### Solutions
 Chekc your logical operators   
 
-```{r, echo =TRUE, eval = TRUE, code = readLines("ts_error3.R")}
+```{r, echo =TRUE, eval = TRUE, code = readLines("ex_ans/ts_error3.R")}
 ```
 
 Make sure each logical operator is accompanied by its corresponding object(s), and check your operators are correctly specified. For example, one equal sign (`=`) is designated for object assignment; two equal signs (`==`) should be used to denote equal to. 
@@ -261,11 +261,11 @@ starwars[ ,c("height", "mass)]
 The prompt sign `+` denotes incomplete code. When this happens, 
 a) check whether you forgot to close a bracket in your code; Type `)` to close the bracket  
 
-```{r, echo = TRUE, eval = TRUE, code = readLines("ts_error4a.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/ts_error4a.R")}
 ```
 
 b) check your quotes   
-```{r, echo = TRUE, eval = TRUE, code = readLines("ts_error4b.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/ts_error4b.R")}
 ```
 
 c) Or hit `esc` key  
@@ -325,11 +325,11 @@ mean(starwars$mass)
 
 ### Solutions  
 a) 
-```{r, echo = TRUE, eval = TRUE, code = readLines("ts_error7a.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/ts_error7a.R")}
 ```
 
 b) 
-```{r, echo = TRUE, eval = TRUE, code = readLines("ts_error7b.R")}
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/ts_error7b.R")}
 ```
 
 

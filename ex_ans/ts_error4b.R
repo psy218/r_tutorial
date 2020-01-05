@@ -1,0 +1,1 @@
+starwars[ ,c("height", "mass")]
