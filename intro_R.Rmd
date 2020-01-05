@@ -102,19 +102,21 @@ R will evaluate the statement and return only those elements that meet the speci
 
 ##### Mathematical Annotations  
 Conditional statements follow the same operations:  
-|syntax|meaning|example|
-|:-:|:-|:-|
-|`==`|equal to|x == y|
-|`!=`|not equal to|x != y|
+
+|syntax|meaning|example|  
+|:--:|:--|:--|  
+|`==`|equal to|x == y|  
+|`!=`|not equal to|x != y|  
 |`>`|greater than|x > y|
 |`<`|less than|x < y|
 |`>=`|greater than or equal to|x >= y|
 |`<=`|less than or equal to|x <= y|
 
 You can have multiple conditions by using the following operators:
+
 |syntax|meaning|example|
-|:-:|:-|:-|
-|`|`|or|x == 1 | x == 2|
+|:--:|:--|:--|
+|`|`|or|x == 1 `|` x == 2|
 |`&`|and|x == 1 & y == 2|
 |`%in%`|testing multiple elements|x %in% c(1, 2)|
 
