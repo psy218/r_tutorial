@@ -1592,12 +1592,7 @@ div.tocify {
 <p>We can perform basic arithmetic in R.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a></code></pre></div>
 <pre><code>## [1] 2</code></pre>
-<p>R language uses the same mathematical operators:</p>
-<pre><code>+
--
-/
-^
-*</code></pre>
+<p>R language uses the same mathematical operators: |syntax|meaning|example| |:-:|:-|:-| |<code>+</code>|plus|x + y| |<code>-</code>|minus|x - y| |<code>*</code>|multiply|x * y| |<code>/</code>|divide|x / y|</p>
 <p>We can apply functions for common calculations, such as mean, median, and standard deviations.</p>
 <pre><code>mean(x)
 median(x)
@@ -1619,7 +1614,7 @@ t.test(x, y)</code></pre>
 </div>
 <div id="answer" class="section level3">
 <h3>Answer</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span> </a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span> </a></code></pre></div>
 <pre><code>## [1] 29</code></pre>
 </div>
 </div>
@@ -1627,39 +1622,39 @@ t.test(x, y)</code></pre>
 <h2>Object</h2>
 <p>You can save the output of the previous calculation into an <strong>object</strong>.</p>
 <p>To create an object, you have to use the assignment operators of either <code>&lt;-</code> or <code>=</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">my_age &lt;-<span class="st"> </span><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span></a>
-<a class="sourceLine" id="cb8-2" title="2">my_age =<span class="st"> </span><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span> </a>
-<a class="sourceLine" id="cb8-3" title="3"></a>
-<a class="sourceLine" id="cb8-4" title="4">my_age</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">my_age &lt;-<span class="st"> </span><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span></a>
+<a class="sourceLine" id="cb7-2" title="2">my_age =<span class="st"> </span><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span> </a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4">my_age</a></code></pre></div>
 <pre><code>## [1] 29</code></pre>
 <p>Objects are things saved in your current environment. To inspect objects availalbe in your local workspace, check the Environment panel, or run <code>ls()</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">ls</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">ls</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;my_age&quot;</code></pre>
 <div id="exercise-2" class="section level3 tabset tabset-fade tabset-pills">
 <h3><strong>Exercise 2</strong></h3>
 <p>Life expectancies for male and female Canadians are different (i.e., 80 and 84, respectively; <a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310038901">Statistics Canada</a>); indicate your sex below.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># Are you female? </span></a>
-<a class="sourceLine" id="cb12-2" title="2">my_sex &lt;-<span class="st"> &quot;female&quot;</span> <span class="co"># change this to &quot;male&quot; if you are male</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># Are you female? </span></a>
+<a class="sourceLine" id="cb11-2" title="2">my_sex &lt;-<span class="st"> &quot;female&quot;</span> <span class="co"># change this to &quot;male&quot; if you are male</span></a></code></pre></div>
 <div id="question-1" class="section level4">
 <h4>Question</h4>
 <p>Let’s find out how long we have left. You will get an error message, “<em>object ‘your_sex’ not found</em>.” Fix this error to calculate how many years you have left.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">ifelse</span>(<span class="dt">test =</span> my_sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>, <span class="co"># if you are female...</span></a>
-<a class="sourceLine" id="cb13-2" title="2">       <span class="dt">yes =</span> <span class="dv">84</span> <span class="op">-</span><span class="st"> </span>your_age, <span class="co"># female life expectacny will be used to calculate the remaining years</span></a>
-<a class="sourceLine" id="cb13-3" title="3">       <span class="dt">no =</span> <span class="dv">80</span> <span class="op">-</span><span class="st"> </span>your_age) <span class="co"># if not, male life expectacny will be used </span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">ifelse</span>(<span class="dt">test =</span> my_sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>, <span class="co"># if you are female...</span></a>
+<a class="sourceLine" id="cb12-2" title="2">       <span class="dt">yes =</span> <span class="dv">84</span> <span class="op">-</span><span class="st"> </span>your_age, <span class="co"># female life expectacny will be used to calculate the remaining years</span></a>
+<a class="sourceLine" id="cb12-3" title="3">       <span class="dt">no =</span> <span class="dv">80</span> <span class="op">-</span><span class="st"> </span>your_age) <span class="co"># if not, male life expectacny will be used </span></a></code></pre></div>
 </div>
 <div id="answer-1" class="section level4">
 <h4>Answer</h4>
 <p>You need to create a new object that will be piped into the <code>ifelse</code> statement.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># you can either create a new object called your_age</span></a>
-<a class="sourceLine" id="cb14-2" title="2">your_age =<span class="st"> </span><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="kw">ifelse</span>(<span class="dt">test =</span> my_sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>, </a>
-<a class="sourceLine" id="cb14-4" title="4">       <span class="dt">yes =</span> <span class="dv">84</span> <span class="op">-</span><span class="st"> </span>your_age, </a>
-<a class="sourceLine" id="cb14-5" title="5">       <span class="dt">no =</span> <span class="dv">80</span> <span class="op">-</span><span class="st"> </span>your_age) </a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># you can either create a new object called your_age</span></a>
+<a class="sourceLine" id="cb13-2" title="2">your_age =<span class="st"> </span><span class="dv">2020</span> <span class="op">-</span><span class="st"> </span><span class="dv">1991</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="kw">ifelse</span>(<span class="dt">test =</span> my_sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>, </a>
+<a class="sourceLine" id="cb13-4" title="4">       <span class="dt">yes =</span> <span class="dv">84</span> <span class="op">-</span><span class="st"> </span>your_age, </a>
+<a class="sourceLine" id="cb13-5" title="5">       <span class="dt">no =</span> <span class="dv">80</span> <span class="op">-</span><span class="st"> </span>your_age) </a></code></pre></div>
 <pre><code>## [1] 55</code></pre>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># Or, change the argument inside the ifelse function.</span></a>
-<a class="sourceLine" id="cb16-2" title="2"><span class="kw">ifelse</span>(<span class="dt">test =</span> my_sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>, </a>
-<a class="sourceLine" id="cb16-3" title="3">       <span class="dt">yes =</span> <span class="dv">84</span> <span class="op">-</span><span class="st"> </span><span class="dv">29</span>, </a>
-<a class="sourceLine" id="cb16-4" title="4">       <span class="dt">no =</span> <span class="dv">80</span> <span class="op">-</span><span class="st"> </span><span class="dv">29</span>) </a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># Or, change the argument inside the ifelse function.</span></a>
+<a class="sourceLine" id="cb15-2" title="2"><span class="kw">ifelse</span>(<span class="dt">test =</span> my_sex <span class="op">==</span><span class="st"> &quot;female&quot;</span>, </a>
+<a class="sourceLine" id="cb15-3" title="3">       <span class="dt">yes =</span> <span class="dv">84</span> <span class="op">-</span><span class="st"> </span><span class="dv">29</span>, </a>
+<a class="sourceLine" id="cb15-4" title="4">       <span class="dt">no =</span> <span class="dv">80</span> <span class="op">-</span><span class="st"> </span><span class="dv">29</span>) </a></code></pre></div>
 <pre><code>## [1] 55</code></pre>
 </div>
 </div>
@@ -1669,22 +1664,22 @@ t.test(x, y)</code></pre>
 <div class="row">
 <div class="col-md-3">
 <p><br><br> numeric (numbers)</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1"><span class="kw">typeof</span>(<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="kw">typeof</span>(<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 </div>
 <div class="col-md-3">
 <p><br><br>integer (whoe number)</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">typeof</span>(2L)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw">typeof</span>(2L)</a></code></pre></div>
 <pre><code>## [1] &quot;integer&quot;</code></pre>
 </div>
 <div class="col-md-3">
 <p><br><br>character (or <em>string</em>)</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="kw">typeof</span>(<span class="st">&quot;a&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">typeof</span>(<span class="st">&quot;a&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
 <div class="col-md-3">
 <p><br><br>or logical (TRUE/FALSE)</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">typeof</span>(<span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
 </div>
 </div>
@@ -1692,9 +1687,9 @@ t.test(x, y)</code></pre>
 <h4>Example</h4>
 <p>Class attirubtes of an object will determine whether you can apply certain functions and the accuracy of calculation.</p>
 <p>As an example, let’s compute an average height in our dataset called <em>women</em> (an example dataset of the average height &amp; weight of American women).</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">data</span>(women)</a>
-<a class="sourceLine" id="cb26-2" title="2"></a>
-<a class="sourceLine" id="cb26-3" title="3"><span class="kw">head</span>(women)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">data</span>(women)</a>
+<a class="sourceLine" id="cb25-2" title="2"></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="kw">head</span>(women)</a></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -1732,12 +1727,12 @@ t.test(x, y)</code></pre>
 </table>
 </div>
 <p>The average height of our dataset is 65 inches.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">mean</span>(women<span class="op">$</span>height)</a></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">mean</span>(women<span class="op">$</span>height)</a></code></pre></div>
 <pre><code>## [1] 65</code></pre>
 <p>If some of the numeric data gets converted into a character variable…</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">women[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;58 inches&quot;</span> ,<span class="st">&quot;60 inches&quot;</span>, <span class="st">&quot;62 inches&quot;</span>, <span class="st">&quot;64 inches&quot;</span>)</a>
-<a class="sourceLine" id="cb29-2" title="2"></a>
-<a class="sourceLine" id="cb29-3" title="3">women <span class="co"># our dataset now contains 4 height observations that are character. </span></a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">women[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;58 inches&quot;</span> ,<span class="st">&quot;60 inches&quot;</span>, <span class="st">&quot;62 inches&quot;</span>, <span class="st">&quot;64 inches&quot;</span>)</a>
+<a class="sourceLine" id="cb28-2" title="2"></a>
+<a class="sourceLine" id="cb28-3" title="3">women <span class="co"># our dataset now contains 4 height observations that are character. </span></a></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -1811,10 +1806,10 @@ t.test(x, y)</code></pre>
 </table>
 </div>
 <p>We can no longer use the <code>mean()</code> function as the height column got converted into a character vector.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">mean</span>(women<span class="op">$</span>height)</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">mean</span>(women<span class="op">$</span>height)</a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>If we convert the column into numeric, we’d get a different average height as the non-numeric observations are not included in our calculation.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">mean</span>(<span class="kw">as.numeric</span>(women<span class="op">$</span>height), <span class="dt">na.rm =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw">mean</span>(<span class="kw">as.numeric</span>(women<span class="op">$</span>height), <span class="dt">na.rm =</span> T)</a></code></pre></div>
 <pre><code>## [1] 66.45455</code></pre>
 </div>
 </div>
@@ -1824,16 +1819,16 @@ t.test(x, y)</code></pre>
 <div id="vectors" class="section level4">
 <h4>Vectors</h4>
 <p>Vectors can be created by using <code>c()</code>: a function that combines multiple values.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">10</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">7</span>, <span class="dv">10</span>)</a></code></pre></div>
 <pre><code>## [1]  1  3  7 10</code></pre>
 <p>You can perform simple arithmetics on the vectors.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="fl">0.25</span>, <span class="dv">-2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="fl">0.25</span>, <span class="dv">-2</span>)</a></code></pre></div>
 <pre><code>## [1] 1.25 1.00</code></pre>
 <p>When the vectors differ in length, the Recycling Rule applies:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">long_vector &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></a>
-<a class="sourceLine" id="cb38-2" title="2">shorter_vector &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb38-3" title="3"></a>
-<a class="sourceLine" id="cb38-4" title="4">long_vector <span class="op">+</span><span class="st"> </span>shorter_vector</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">long_vector &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">6</span></a>
+<a class="sourceLine" id="cb37-2" title="2">shorter_vector &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb37-3" title="3"></a>
+<a class="sourceLine" id="cb37-4" title="4">long_vector <span class="op">+</span><span class="st"> </span>shorter_vector</a></code></pre></div>
 <pre><code>## [1] 2 4 6 5 7 9</code></pre>
 <table>
 <thead>
@@ -1892,25 +1887,25 @@ t.test(x, y)</code></pre>
 </div>
 <div id="answer-2" class="section level6">
 <h6>Answer</h6>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">students_age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>, <span class="dv">19</span>, <span class="ot">NA</span>, <span class="dv">18</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">26</span>)</a>
-<a class="sourceLine" id="cb40-2" title="2"><span class="kw">mean</span>(students_age, <span class="dt">na.rm =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">students_age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>, <span class="dv">19</span>, <span class="ot">NA</span>, <span class="dv">18</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">26</span>)</a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="kw">mean</span>(students_age, <span class="dt">na.rm =</span> T)</a></code></pre></div>
 <pre><code>## [1] 23.09091</code></pre>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="co"># NOT this:</span></a>
-<a class="sourceLine" id="cb42-2" title="2"><span class="kw">mean</span>(<span class="dv">28</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>, <span class="dv">19</span>, <span class="ot">NA</span>, <span class="dv">18</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">26</span>) <span class="co"># this will give you 28.</span></a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># NOT this:</span></a>
+<a class="sourceLine" id="cb41-2" title="2"><span class="kw">mean</span>(<span class="dv">28</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>, <span class="dv">19</span>, <span class="ot">NA</span>, <span class="dv">18</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">26</span>) <span class="co"># this will give you 28.</span></a></code></pre></div>
 <pre><code>## [1] 28</code></pre>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="co"># Or this:</span></a>
-<a class="sourceLine" id="cb44-2" title="2"><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>, <span class="dv">19</span>, <span class="ot">NA</span>, <span class="dv">18</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">26</span>)) <span class="co"># you have to say na. rm = T</span></a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="co"># Or this:</span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="kw">mean</span>(<span class="kw">c</span>(<span class="dv">28</span>, <span class="dv">20</span>, <span class="dv">24</span>, <span class="dv">27</span>, <span class="dv">19</span>, <span class="ot">NA</span>, <span class="dv">18</span>, <span class="dv">28</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">21</span>, <span class="dv">26</span>)) <span class="co"># you have to say na. rm = T</span></a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
 <p>One thing to note is that the values must have the same class attributes. For example, let’s create a vector <code>x</code> with values of different class attributes.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="co"># numeric</span></a>
-<a class="sourceLine" id="cb46-2" title="2">       <span class="st">&quot;a&quot;</span>, <span class="co"># character</span></a>
-<a class="sourceLine" id="cb46-3" title="3">       <span class="ot">TRUE</span>)) <span class="co"># logical</span></a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="co"># numeric</span></a>
+<a class="sourceLine" id="cb45-2" title="2">       <span class="st">&quot;a&quot;</span>, <span class="co"># character</span></a>
+<a class="sourceLine" id="cb45-3" title="3">       <span class="ot">TRUE</span>)) <span class="co"># logical</span></a></code></pre></div>
 <pre><code>## [1] &quot;1&quot;    &quot;3&quot;    &quot;5&quot;    &quot;7&quot;    &quot;a&quot;    &quot;TRUE&quot;</code></pre>
 <p>When we inspect class attribute of this vector, it forces all the variables to have the same data type.</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="kw">typeof</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="kw">typeof</span>(x)</a></code></pre></div>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>Inspect the vector below:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="ot">TRUE</span>, <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 1 0</code></pre>
 </div>
 </div>
@@ -1918,9 +1913,9 @@ t.test(x, y)</code></pre>
 <div id="lists" class="section level4">
 <h4>Lists</h4>
 <p>If you want to create a collection of vectors with varying data types, create a list.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="co"># numeric</span></a>
-<a class="sourceLine" id="cb52-2" title="2">     <span class="st">&quot;a&quot;</span>, <span class="co"># character</span></a>
-<a class="sourceLine" id="cb52-3" title="3">     <span class="ot">TRUE</span>) <span class="co"># logical</span></a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="kw">list</span>(<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="co"># numeric</span></a>
+<a class="sourceLine" id="cb51-2" title="2">     <span class="st">&quot;a&quot;</span>, <span class="co"># character</span></a>
+<a class="sourceLine" id="cb51-3" title="3">     <span class="ot">TRUE</span>) <span class="co"># logical</span></a></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1 3 5 7
 ## 
@@ -1933,14 +1928,14 @@ t.test(x, y)</code></pre>
 <div id="matrix" class="section level4">
 <h4>Matrix</h4>
 <p>A matrix contains multiple vectors.</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">(height_weight &lt;-<span class="st"> </span><span class="kw">matrix</span>(</a>
-<a class="sourceLine" id="cb54-2" title="2">        <span class="kw">c</span>(<span class="dv">72</span>, <span class="dv">58</span>, <span class="dv">67</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">61</span>, <span class="dv">164</span>, <span class="dv">115</span>, <span class="dv">142</span>, <span class="dv">117</span>, <span class="dv">120</span>, <span class="dv">123</span>), <span class="co"># data</span></a>
-<a class="sourceLine" id="cb54-3" title="3">        <span class="dt">nrow =</span> <span class="dv">6</span>, <span class="co"># number of rows</span></a>
-<a class="sourceLine" id="cb54-4" title="4">        <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="co"># number of columns</span></a>
-<a class="sourceLine" id="cb54-5" title="5">        <span class="dt">byrow =</span> <span class="ot">FALSE</span>, <span class="co"># arranging the matrix by rows</span></a>
-<a class="sourceLine" id="cb54-6" title="6">        <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;p1&quot;</span>, <span class="st">&quot;p2&quot;</span>, <span class="st">&quot;p3&quot;</span>, <span class="st">&quot;p4&quot;</span>, <span class="st">&quot;p5&quot;</span>, <span class="st">&quot;p6&quot;</span>), <span class="co"># name of the row</span></a>
-<a class="sourceLine" id="cb54-7" title="7">                        <span class="kw">c</span>(<span class="st">&quot;height&quot;</span>, <span class="st">&quot;weight&quot;</span>)) <span class="co"># name of the column</span></a>
-<a class="sourceLine" id="cb54-8" title="8">        ))</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1">(height_weight &lt;-<span class="st"> </span><span class="kw">matrix</span>(</a>
+<a class="sourceLine" id="cb53-2" title="2">        <span class="kw">c</span>(<span class="dv">72</span>, <span class="dv">58</span>, <span class="dv">67</span>, <span class="dv">59</span>, <span class="dv">60</span>, <span class="dv">61</span>, <span class="dv">164</span>, <span class="dv">115</span>, <span class="dv">142</span>, <span class="dv">117</span>, <span class="dv">120</span>, <span class="dv">123</span>), <span class="co"># data</span></a>
+<a class="sourceLine" id="cb53-3" title="3">        <span class="dt">nrow =</span> <span class="dv">6</span>, <span class="co"># number of rows</span></a>
+<a class="sourceLine" id="cb53-4" title="4">        <span class="dt">ncol =</span> <span class="dv">2</span>, <span class="co"># number of columns</span></a>
+<a class="sourceLine" id="cb53-5" title="5">        <span class="dt">byrow =</span> <span class="ot">FALSE</span>, <span class="co"># arranging the matrix by rows</span></a>
+<a class="sourceLine" id="cb53-6" title="6">        <span class="dt">dimnames =</span> <span class="kw">list</span>(<span class="kw">c</span>(<span class="st">&quot;p1&quot;</span>, <span class="st">&quot;p2&quot;</span>, <span class="st">&quot;p3&quot;</span>, <span class="st">&quot;p4&quot;</span>, <span class="st">&quot;p5&quot;</span>, <span class="st">&quot;p6&quot;</span>), <span class="co"># name of the row</span></a>
+<a class="sourceLine" id="cb53-7" title="7">                        <span class="kw">c</span>(<span class="st">&quot;height&quot;</span>, <span class="st">&quot;weight&quot;</span>)) <span class="co"># name of the column</span></a>
+<a class="sourceLine" id="cb53-8" title="8">        ))</a></code></pre></div>
 <pre><code>##    height weight
 ## p1     72    164
 ## p2     58    115
@@ -1949,7 +1944,7 @@ t.test(x, y)</code></pre>
 ## p5     60    120
 ## p6     61    123</code></pre>
 <p>We can add a column to our existing matrix by using <code>cbind()</code>,</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1"><span class="kw">cbind</span>(height_weight, <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">27</span>, <span class="dv">19</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="kw">cbind</span>(height_weight, <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">27</span>, <span class="dv">19</span>))</a></code></pre></div>
 <pre><code>##    height weight age
 ## p1     72    164  25
 ## p2     58    115  22
@@ -1958,7 +1953,7 @@ t.test(x, y)</code></pre>
 ## p5     60    120  27
 ## p6     61    123  19</code></pre>
 <p>or add a row by using, <code>rbind()</code></p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1"><span class="kw">rbind</span>(height_weight, <span class="dt">p7 =</span> <span class="kw">c</span>(<span class="dv">51</span>, <span class="dv">109</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">rbind</span>(height_weight, <span class="dt">p7 =</span> <span class="kw">c</span>(<span class="dv">51</span>, <span class="dv">109</span>))</a></code></pre></div>
 <pre><code>##    height weight
 ## p1     72    164
 ## p2     58    115
@@ -1968,7 +1963,7 @@ t.test(x, y)</code></pre>
 ## p6     61    123
 ## p7     51    109</code></pre>
 <p>Like vectors, a matrix can only be of the same data type. Adding a column of different data type (e.g., character) will coerce data into the same type.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="kw">cbind</span>(height_weight, <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Joe&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Bill&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;Toto&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="kw">cbind</span>(height_weight, <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Joe&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Bill&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;Toto&quot;</span>))</a></code></pre></div>
 <pre><code>##    height weight name     
 ## p1 &quot;72&quot;   &quot;164&quot;  &quot;Joe&quot;    
 ## p2 &quot;58&quot;   &quot;115&quot;  &quot;Jane&quot;   
@@ -1980,8 +1975,8 @@ t.test(x, y)</code></pre>
 <div id="data-frames" class="section level4">
 <h4>Data frames</h4>
 <p>We can use a data frame to store data of different types.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">(height_weight &lt;-<span class="st"> </span><span class="kw">data.frame</span>(height_weight,</a>
-<a class="sourceLine" id="cb62-2" title="2">                            <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Joe&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Bill&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;Toto&quot;</span>, <span class="st">&quot;Bruce&quot;</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1">(height_weight &lt;-<span class="st"> </span><span class="kw">data.frame</span>(height_weight,</a>
+<a class="sourceLine" id="cb61-2" title="2">                            <span class="dt">name =</span> <span class="kw">c</span>(<span class="st">&quot;Joe&quot;</span>, <span class="st">&quot;Jane&quot;</span>, <span class="st">&quot;Bill&quot;</span>, <span class="st">&quot;Charlie&quot;</span>, <span class="st">&quot;Toto&quot;</span>, <span class="st">&quot;Bruce&quot;</span>)))</a></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -2033,8 +2028,8 @@ t.test(x, y)</code></pre>
 </table>
 </div>
 <p>One thing to note is that the rows and columns should be consistent within the data frame. Try running this code where we are missing one of participants’ (i.e., p6) age. Try fixing this error.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1"><span class="kw">data.frame</span>(height_weight,</a>
-<a class="sourceLine" id="cb63-2" title="2">           <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">27</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1"><span class="kw">data.frame</span>(height_weight,</a>
+<a class="sourceLine" id="cb62-2" title="2">           <span class="dt">age =</span> <span class="kw">c</span>(<span class="dv">25</span>, <span class="dv">22</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">27</span>))</a></code></pre></div>
 <p>Like vectors, we can perform arithmatic operations on the datasets.</p>
 <div id="exercise-4" class="section level5 tabset tabset-fade tabset-pills">
 <h5><strong>Exercise 4</strong></h5>
@@ -2044,18 +2039,18 @@ t.test(x, y)</code></pre>
 </div>
 <div id="answer-3" class="section level6">
 <h6>Answer</h6>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">height_weight<span class="op">$</span>bmi =<span class="st"> </span><span class="dv">703</span><span class="op">*</span>(height_weight<span class="op">$</span>weight<span class="op">/</span>(height_weight<span class="op">$</span>height<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" title="1">height_weight<span class="op">$</span>bmi =<span class="st"> </span><span class="dv">703</span><span class="op">*</span>(height_weight<span class="op">$</span>weight<span class="op">/</span>(height_weight<span class="op">$</span>height<span class="op">^</span><span class="dv">2</span>))</a></code></pre></div>
 </div>
 </div>
 <div id="exercise-5" class="section level5 tabset tabset-fade tabset-pills">
 <h5><strong>Exercise 5</strong></h5>
 <p>Participants reported on the number of apples they consumed for 5 days (i.e., day1:day5).</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">(height_weight &lt;-<span class="st"> </span><span class="kw">data.frame</span>(height_weight,</a>
-<a class="sourceLine" id="cb65-2" title="2">                             <span class="dt">day1 =</span> <span class="kw">c</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">3</span>),<span class="ot">NA</span>, <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span>)),</a>
-<a class="sourceLine" id="cb65-3" title="3">                             <span class="dt">day2 =</span> <span class="kw">c</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>), <span class="ot">NA</span>),</a>
-<a class="sourceLine" id="cb65-4" title="4">                             <span class="dt">day3 =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">6</span>),</a>
-<a class="sourceLine" id="cb65-5" title="5">                             <span class="dt">day4 =</span> <span class="kw">c</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span>), <span class="ot">NA</span>, <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">3</span>)),</a>
-<a class="sourceLine" id="cb65-6" title="6">                             <span class="dt">day5 =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">6</span>)))</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1">(height_weight &lt;-<span class="st"> </span><span class="kw">data.frame</span>(height_weight,</a>
+<a class="sourceLine" id="cb64-2" title="2">                             <span class="dt">day1 =</span> <span class="kw">c</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">3</span>),<span class="ot">NA</span>, <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span>)),</a>
+<a class="sourceLine" id="cb64-3" title="3">                             <span class="dt">day2 =</span> <span class="kw">c</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">5</span>), <span class="ot">NA</span>),</a>
+<a class="sourceLine" id="cb64-4" title="4">                             <span class="dt">day3 =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">6</span>),</a>
+<a class="sourceLine" id="cb64-5" title="5">                             <span class="dt">day4 =</span> <span class="kw">c</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">2</span>), <span class="ot">NA</span>, <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">3</span>)),</a>
+<a class="sourceLine" id="cb64-6" title="6">                             <span class="dt">day5 =</span> <span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">6</span>)))</a></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -2079,11 +2074,11 @@ t.test(x, y)</code></pre>
 <td align="right">164</td>
 <td align="left">Joe</td>
 <td align="right">22.23997</td>
-<td align="right">2</td>
 <td align="right">8</td>
-<td align="right">9</td>
+<td align="right">4</td>
 <td align="right">6</td>
-<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td>p2</td>
@@ -2091,11 +2086,11 @@ t.test(x, y)</code></pre>
 <td align="right">115</td>
 <td align="left">Jane</td>
 <td align="right">24.03240</td>
-<td align="right">10</td>
+<td align="right">4</td>
 <td align="right">9</td>
+<td align="right">3</td>
 <td align="right">4</td>
-<td align="right">4</td>
-<td align="right">10</td>
+<td align="right">3</td>
 </tr>
 <tr class="odd">
 <td>p3</td>
@@ -2103,11 +2098,11 @@ t.test(x, y)</code></pre>
 <td align="right">142</td>
 <td align="left">Bill</td>
 <td align="right">22.23791</td>
-<td align="right">4</td>
-<td align="right">3</td>
-<td align="right">7</td>
-<td align="right">NA</td>
+<td align="right">6</td>
 <td align="right">5</td>
+<td align="right">8</td>
+<td align="right">NA</td>
+<td align="right">6</td>
 </tr>
 <tr class="even">
 <td>p4</td>
@@ -2116,9 +2111,9 @@ t.test(x, y)</code></pre>
 <td align="left">Charlie</td>
 <td align="right">23.62855</td>
 <td align="right">NA</td>
-<td align="right">2</td>
-<td align="right">10</td>
-<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
@@ -2127,11 +2122,11 @@ t.test(x, y)</code></pre>
 <td align="right">120</td>
 <td align="left">Toto</td>
 <td align="right">23.43333</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">5</td>
 <td align="right">9</td>
-<td align="right">6</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">1</td>
+<td align="right">10</td>
 </tr>
 <tr class="even">
 <td>p6</td>
@@ -2139,29 +2134,32 @@ t.test(x, y)</code></pre>
 <td align="right">123</td>
 <td align="left">Bruce</td>
 <td align="right">23.23811</td>
-<td align="right">1</td>
+<td align="right">6</td>
 <td align="right">NA</td>
-<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
 <td align="right">7</td>
-<td align="right">8</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="co"># readr::write_csv(height_weight, here::here(&quot;dataset&quot;, &quot;height_weight.csv&quot;))</span></a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1"><span class="co"># readr::write_csv(height_weight, here::here(&quot;dataset&quot;, &quot;height_weight.csv&quot;))</span></a></code></pre></div>
 <div id="question-4" class="section level6">
 <h6>Question</h6>
 <p>Compute an average number of apples each participant consumed for the 5 days.</p>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="co"># If you do not currently have height_weight object in your environment, read in the data instead by executing the code below.</span></a>
-<a class="sourceLine" id="cb67-2" title="2">height_weight &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;dataset&quot;</span>, <span class="st">&quot;height_weight.csv&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="co"># If you do not currently have height_weight object in your environment, read in the data instead by executing the code below.</span></a>
+<a class="sourceLine" id="cb66-2" title="2"></a>
+<a class="sourceLine" id="cb66-3" title="3"><span class="co"># </span><span class="al">TODO</span><span class="co">: check if the github raw link is valid</span></a>
+<a class="sourceLine" id="cb66-4" title="4">height_weight &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;dataset&quot;</span>, <span class="st">&quot;height_weight.csv&quot;</span>))</a>
+<a class="sourceLine" id="cb66-5" title="5">height_weight &lt;-<span class="st"> </span>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.github.com/psy218/r_tutorial/master/dataset/height_weight.csv&quot;</span>)</a></code></pre></div>
 </div>
 <div id="answer-4" class="section level6">
 <h6>Answer</h6>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1"><span class="co"># step 1: what are the names of the columns?</span></a>
-<a class="sourceLine" id="cb68-2" title="2"><span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1"><span class="co"># step 1: what are the names of the columns?</span></a>
+<a class="sourceLine" id="cb67-2" title="2"><span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;day1&quot; &quot;day2&quot; &quot;day3&quot; &quot;day4&quot; &quot;day5&quot;</code></pre>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="co"># step 2: select columns you want to compute an average for</span></a>
-<a class="sourceLine" id="cb70-2" title="2">height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))]</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="co"># step 2: select columns you want to compute an average for</span></a>
+<a class="sourceLine" id="cb69-2" title="2">height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))]</a></code></pre></div>
 <div class="kable-table">
 <table>
 <thead>
@@ -2177,73 +2175,73 @@ t.test(x, y)</code></pre>
 <tbody>
 <tr class="odd">
 <td>p1</td>
-<td align="right">2</td>
 <td align="right">8</td>
-<td align="right">9</td>
+<td align="right">4</td>
 <td align="right">6</td>
-<td align="right">7</td>
+<td align="right">9</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td>p2</td>
-<td align="right">10</td>
+<td align="right">4</td>
 <td align="right">9</td>
+<td align="right">3</td>
 <td align="right">4</td>
-<td align="right">4</td>
-<td align="right">10</td>
+<td align="right">3</td>
 </tr>
 <tr class="odd">
 <td>p3</td>
-<td align="right">4</td>
-<td align="right">3</td>
-<td align="right">7</td>
-<td align="right">NA</td>
+<td align="right">6</td>
 <td align="right">5</td>
+<td align="right">8</td>
+<td align="right">NA</td>
+<td align="right">6</td>
 </tr>
 <tr class="even">
 <td>p4</td>
 <td align="right">NA</td>
-<td align="right">2</td>
-<td align="right">10</td>
-<td align="right">2</td>
+<td align="right">3</td>
+<td align="right">4</td>
+<td align="right">4</td>
 <td align="right">2</td>
 </tr>
 <tr class="odd">
 <td>p5</td>
+<td align="right">5</td>
+<td align="right">8</td>
+<td align="right">5</td>
 <td align="right">9</td>
-<td align="right">6</td>
-<td align="right">2</td>
-<td align="right">3</td>
-<td align="right">1</td>
+<td align="right">10</td>
 </tr>
 <tr class="even">
 <td>p6</td>
-<td align="right">1</td>
+<td align="right">6</td>
 <td align="right">NA</td>
-<td align="right">1</td>
+<td align="right">2</td>
+<td align="right">2</td>
 <td align="right">7</td>
-<td align="right">8</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="co"># step 3: compute means for each participant (i.e., row-wise)</span></a>
-<a class="sourceLine" id="cb71-2" title="2"><span class="kw">rowMeans</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))], <span class="dt">na.rm =</span> T)</a></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb70-1" title="1"><span class="co"># step 3: compute means for each participant (i.e., row-wise)</span></a>
+<a class="sourceLine" id="cb70-2" title="2"><span class="kw">rowMeans</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))], <span class="dt">na.rm =</span> T)</a></code></pre></div>
 <pre><code>##   p1   p2   p3   p4   p5   p6 
-## 6.40 7.40 4.75 4.00 4.20 4.25</code></pre>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="co">## NOT this:</span></a>
-<a class="sourceLine" id="cb73-2" title="2"><span class="co"># functions that work for vectors may not work for data frames. </span></a>
-<a class="sourceLine" id="cb73-3" title="3"><span class="kw">mean</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))], <span class="dt">na.rm =</span> T) </a></code></pre></div>
+## 6.40 4.60 6.25 3.25 7.40 4.25</code></pre>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1"><span class="co">## NOT this:</span></a>
+<a class="sourceLine" id="cb72-2" title="2"><span class="co"># functions that work for vectors may not work for data frames. </span></a>
+<a class="sourceLine" id="cb72-3" title="3"><span class="kw">mean</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))], <span class="dt">na.rm =</span> T) </a></code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1"><span class="co">## NOT this:</span></a>
-<a class="sourceLine" id="cb75-2" title="2"><span class="co"># this will compute the average of daily apple consumption across the 6 participants</span></a>
-<a class="sourceLine" id="cb75-3" title="3"><span class="kw">colMeans</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))], <span class="dt">na.rm =</span> T) </a></code></pre></div>
-<pre><code>## day1 day2 day3 day4 day5 
-##  5.2  5.6  5.5  4.4  5.5</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" title="1"><span class="co"># NOT this:</span></a>
-<a class="sourceLine" id="cb77-2" title="2"><span class="co"># this will remove the entire row that contains missing value. </span></a>
-<a class="sourceLine" id="cb77-3" title="3"><span class="kw">rowMeans</span>(<span class="kw">na.omit</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))])) <span class="co"># </span></a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1"><span class="co">## NOT this:</span></a>
+<a class="sourceLine" id="cb74-2" title="2"><span class="co"># this will compute the average of daily apple consumption across the 6 participants</span></a>
+<a class="sourceLine" id="cb74-3" title="3"><span class="kw">colMeans</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))], <span class="dt">na.rm =</span> T) </a></code></pre></div>
+<pre><code>##     day1     day2     day3     day4     day5 
+## 5.800000 5.800000 4.666667 5.600000 5.500000</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="co"># NOT this:</span></a>
+<a class="sourceLine" id="cb76-2" title="2"><span class="co"># this will remove the entire row that contains missing value. </span></a>
+<a class="sourceLine" id="cb76-3" title="3"><span class="kw">rowMeans</span>(<span class="kw">na.omit</span>(height_weight[ , <span class="kw">c</span>(<span class="kw">paste</span>(<span class="st">&quot;day&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">sep =</span><span class="st">&quot;&quot;</span>))])) <span class="co"># </span></a></code></pre></div>
 <pre><code>##  p1  p2  p5 
-## 6.4 7.4 4.2</code></pre>
+## 6.4 4.6 7.4</code></pre>
 </div>
 </div>
 </div>
