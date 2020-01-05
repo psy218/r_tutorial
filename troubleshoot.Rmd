@@ -20,11 +20,21 @@ knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FA
 # Troubleshooting
 
 ## General tips
-0. Update your R and RStudio  
+### 0. Update your R and RStudio  
+Check your R and RStudio versions regularly by running this code (for R),
+```{r}
+R.version.string
+```
+   
+and RStudio -> About RStudio (for RStudio)   
+![](http://mercury.webster.edu/aleshunas/R_learning_infrastructure/images/About%20RStudio%20dialog.png)
 
 
+`Restart R` periodically: Session -> Restart R   
+![](https://community.rstudio.com/uploads/default/original/2X/9/993b9b9c1f1231fa1c462115b7eb52991b5a7c14.png)
 
-1. Debug sequentially
+
+### 1. Debug sequentially
 
 Functions may rely on other subordinate function(s), which may be the source of an error. For example, `outer_function()` relies on `nested_function()`, which relies on `nested_nested_function()`. 
 ```{r}
@@ -34,7 +44,7 @@ nested_nested_function <- function(input3) "input3" + 1
 ```
 
 When we run the `outer_function()`, we will see an error message.
-```{r error=TRUE, eval=FALSE, message=TRUE}
+```{r error=TRUE, message=TRUE}
 outer_function(3)
 ```
 
@@ -46,16 +56,17 @@ You can either press `Show Traceback` option,
 or run `traceback()`, and check at which step you got the error message. 
 
 If you are running all the functions in one line, work from the inner-most function (i.e., `nested_nested_function()`) and work out:
-```{r}
+```{r error=TRUE, message=TRUE}
 outer_function(nested_function(nested_nested_function(3)))
 ```
 
 
-2. Practice nonattachment 
+### 2. Practice nonattachment 
 
 Dry-run your codes before saving it as an object or making a permanent change (e.g., creating a new column in a dataset).   
 ```{r eval = FALSE}
-bmi_summary <- starwars %>% 
+# bmi_summary <- 
+starwars %>% 
   # select(height, mass, gender) %>% 
   mutate(bmi = 703 * mass/(height^2)) %>% 
   group_by(gender) %>% 
@@ -64,25 +75,26 @@ bmi_summary <- starwars %>%
 ```
 
 
-3. Be consistent 
+### 3. Be consistent   
 Name your objects (or variables, functions) with a clear rule that makes sense to you; a consistent naming convention will go a long way.   
 
-For example, I specify the type of an object at the end of an object name, following `_`:
+For example, I specify the type of an object at the end of an object name, following `_`. For example, I name my regression summary output as `model_lm`:
 ```{r eval = FALSE}
-# regression summary, denoted by "_lm"
 heightMass_lm <- starwars %>% 
   lm(height ~ mass,
      data = .) %>% 
   summary
+```
 
-# dataset, denoted by "_dataset"
+For datasets, I used `name_dataset`:
+```{r eval=FALSE}
 starwars_dataset <- dplyr::starwars
 ```
 
-For variables, I use consistent abbreviations.  
-`variable.gc` group-centered
-`variable.c` (mean-)centered
-`variable.rs` reverse-scored 
+For variables, I use consistent abbreviations:   
+`variable.gc` group-centered   
+`variable.c` (mean-)centered   
+`variable.rs` reverse-scored    
 
 
 ## Packages & Functions
@@ -91,11 +103,11 @@ If you have problem installing packages, check this [help page](https://support.
 
 
 ### Package loading   
-```{r eval = FALSE, error = TRUE}
+```{r error = TRUE}
 library(nonexistent_package)
 ```
 
-If you get this error although you swear you installed it a million times, 
+If you get this error although you swear you installed it a million times,    
 
 a) check whether you can find it under System Library in the Packages tab  
 ![](Fig/system_library.png)  
@@ -110,13 +122,14 @@ c) install for the last time the package using the RStudio Packages tab:
 
 
 ### Help for a function
-Looking for a manual for a function in two ways:
+Looking for a manual for a function in two ways:   
+
 1. using ?function
 ```{r}
 ?sum
 ```
 
-2. help(function)
+2. help(function)   
 ```{r}
 help(sum)
 ```
@@ -126,7 +139,7 @@ If help page returns no documentation, try `??function`
 ??sum
 ```
 
-### Funtion arguments
+### Funtion arguments   
 ```{r}
 args(sum)
 ```
@@ -134,12 +147,8 @@ args(sum)
 Type the function name (e.g., sum()) and press `Tab` key
 ![](https://rc2e.com/images_v2/mean_tooltip.png)
 
-```{r}
 
-```
-
-
-## Look for relevant functions & packages  
+## Look for relevant functions & packages   
 1. [CRAN Task Views](http://cran.r-project.org/web/views/)
 Packages related to [Social Science research](http://cran.r-project.org/web/views/SocialSciences.html) and [Reproducible Research](http://cran.r-project.org/web/views/ReproducibleResearch.html)
 
@@ -158,13 +167,15 @@ Search the web
 2. [StackOverflow](http://stackoverflow.com)
 
 
-# [Common errors](https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md)  
+# Common errors
+For more details, check Noam Ross's [analysis of the most common errors](https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md) asked on Stack Overflow. 
+  
 
-## Error 1 {.tabset .tabset-fade .tabset-pills}  
+## [Object not found](http://varianceexplained.org/courses/errors/) {.tabset .tabset-fade .tabset-pills}  
 
-### [Object not found](http://varianceexplained.org/courses/errors/)
+### Error   
 
-```{r echo=FALSE, message=TRUE, warning=TRUE}
+```{r message=TRUE, error=TRUE}
 Basket
 ```
 
@@ -189,9 +200,10 @@ some_object*(x+1)
 ```
 
 
-## Error 2 {.tabset .tabset-fade .tabset-pills}  
-### [Function not found](http://varianceexplained.org/courses/errors/)  
-```{r echo=TRUE, eval=FALSE, message=TRUE, error=TRUE}
+## [Function not found](http://varianceexplained.org/courses/errors/) {.tabset .tabset-fade .tabset-pills}  
+
+### Error  
+```{r echo=TRUE, message=TRUE, error=TRUE}
 some_function(x)
 ```
 
@@ -210,14 +222,11 @@ For older versions of R, these are some *problem* functions that can be resolved
 ```
 dplyr::select()
 ```
-```{r echo=FALSE}
-# TODO: find common problem functions  
-```
 
-## Error 3 {.tabset .tabset-fade .tabset-pills}  
-### Syntax errors  
+## Syntax Error {.tabset .tabset-fade .tabset-pills}  
+### Error   
 
-```{r eval = FALSE, message=TRUE, error=TRUE}
+```{r message=TRUE, error=TRUE}
 # retain observations for those whose height is smaller than 100 or equal to 200. 
 starwars[starwars$height < 100 | = 200, ]
 ```
@@ -225,25 +234,25 @@ starwars[starwars$height < 100 | = 200, ]
 ### Solutions
 Chekc your logical operators   
 
-```{r, echo = TRUE, eval = TRUE, code = readLines("ts_error3.R")}
+```{r, echo =TRUE, eval = TRUE, code = readLines("ts_error3.R")}
 ```
 
-Make sure each logical operator is accompanied by its corresponding object(s), and check your operators are correctly specified. For example, one equal sign (`r =`) is designated for object assignment; two equal signs (`r ==`) should be used to denote equal to. 
+Make sure each logical operator is accompanied by its corresponding object(s), and check your operators are correctly specified. For example, one equal sign (`=`) is designated for object assignment; two equal signs (`==`) should be used to denote equal to. 
 
-## Error 4 {.tabset .tabset-fade .tabset-pills}  
-### Prompt sign change from `>` to `+` 
+## No Output {.tabset .tabset-fade .tabset-pills}    
+There may be times where R doesn't return anything even though you are running multiple codes. This is indicated by the prompt sign change from `>` to `+`:  
+![](Fig/promt_plus.png)
 
-![](Fig/prompt_plus.png)
-
+### Error   
 Fix these errors:  
 a) 
-```{r eval=FALSE, message=TRUE, error=TRUE}
+```{r message=TRUE, error=TRUE}
 starwars %>% 
   dplyr::select(height, mass
 ```
    
 b)  
-```{r eval=FALSE, message=TRUE, error=TRUE}
+```{r message=TRUE, error=TRUE}
 starwars[ ,c("height", "mass)]
 ```
 
@@ -262,10 +271,10 @@ b) check your quotes
 c) Or hit `esc` key  
 This will cancel the incomplete code, and allows you to inspect the code.  
 
-## Error 5 {.tabset .tabset-fade .tabset-pills}  
-### `cannot open`  
+## ...cannot open {.tabset .tabset-fade .tabset-pills}  
+### Error   
 
-```{r eval = FALSE}
+```{r error = TRUE, message = TRUE}
 data_to_import <- readr::read_csv("path_to_my_R_folder/folder_that_contains_my_data/dataset_name.csv")
 ```
 
@@ -282,26 +291,27 @@ If the error persists, use `Import Dataset` instead:
 ![](Fig/RStudio_import_dataset.png) 
 
 
-## Error 6 {.tabset .tabset-fade .tabset-pills}    
-### `subscript out of bounds`  
+## ...subscript out of bounds {.tabset .tabset-fade .tabset-pills}    
+You may get an error message that says your subscript is out of bounds. 
 
-```{r}
+### Error    
+```{r error = TRUE, message = TRUE}
 starwars[ ,c(140, 110)]
 ```
 
 ### Solution  
-This error usually denotes nonexistent element; check you are trying to access existing elements.  
+This error usually denotes nonexistent element; check whether you are trying to access existing elements.  
 ```{r}
 dim(starwars)
 ```
 The first corresponds to the number of rows (observations) and the second corresponds to the number of columns (variables).  
 
-## Error 7 {.tabset .tabset-fade .tabset-pills}   
-### Missing values    
+## Missing values {.tabset .tabset-fade .tabset-pills}   
+### Error   
 `NA` serves as a placeholder for missing values. Untreated NAs may (or may not) throw an error message.   
 
 a) 
-```{r eval = FALSE, message=TRUE, error=TRUE}
+```{r message=TRUE, error=TRUE}
 starwars %>% 
   lm(height ~ mass, 
      na.action = NULL,
