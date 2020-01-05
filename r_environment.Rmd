@@ -14,7 +14,8 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
+options(digits = 3, scipen = 999)
 ```
 
 # R Packages 
@@ -91,14 +92,14 @@ library(here)
 ```
 
 ## R & RStudio versions  
-As of today, `r Sys.Date(),` the most updated versions of R and RStudio are 3.6.2 and 1.2.5033, respectively. 
+As of today, `r Sys.Date()`, the most updated versions of R and RStudio are 3.6.2 and 1.2.5033, respectively. 
 
 Check you R version, and 
 ```{r}
 getRversion()
 ```
 your RStudio version from `RStudio` -> `About RStudio`:
-![](rstudio_version.png)
+![](Fig/rstudio_version.png)
 
 You may encounter errors related to the old versions of R; consider keeping your R relatively updated. 
 
@@ -110,7 +111,7 @@ Consider creating a separate project for every new study and for different purpo
 You can open the RProject project *project_name.Rproj*, which will oepn a separate RStudio window with the scripts you have been working prior to closing.  
 
 For example, you would click on the `r_tutorial.Rproj` when you want to resume working on the project.
-![](rproj.png)
+![](Fig/rproj.png)
 
 
 ### Exercise 1
