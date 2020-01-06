@@ -22,17 +22,24 @@ options(digits = 3, scipen = 999)
 [Tidyverse](https://www.tidyverse.org/) is a collection of R packages that facilitate data manipulation and exploration (cf. [a blog post on not using Tidyverse](https://blog.ephorie.de/why-i-dont-use-the-tidyverse)). 
 
 Let's load tidyverse, and see what packages are included. 
-```{r}
+```{r message = TRUE}
 library(tidyverse)
 ```
+
+These are select core packages that are included in Tidyverse.   
+1. [ggplot2](https://r4ds.had.co.nz/data-visualisation.html)   
+2. [dplyr](https://dplyr.tidyverse.org/)   
+3. [tidyr](https://r4ds.had.co.nz/tidy-data.html)   
+4. [readr](https://r4ds.had.co.nz/data-import.html)   
+5. [tibble](https://r4ds.had.co.nz/tibbles.html)   
+6. [purrr](https://r4ds.had.co.nz/iteration.html)   
+7. [forcats](https://r4ds.had.co.nz/factors.html)   
 
 ![](Fig/tidyverse_pkg.png)
 
 Note the packages under tidyverse_conflicts(); these are tidyverse functions that have the same name as other functions from different packages (e.g., base R).  
 
-# Data Manipulation  
-
-We will use an example dataset, starwars, to work through data manipulations. 
+For data manipulation exercises, we will use an example dataset, starwars from `dplyr` package. 
 
 ```{r}
 data(starwars)
@@ -43,46 +50,14 @@ Let's first inspect our dataset using `glimpse()`.
 glimpse(starwars)
 ```
 
-
 ## **piping** (%>%) 
 Base R and tidyverse R take different approaches to perform multiple functions.
-Tidyverse R uses the pipe operator (`%>%`), which translates as "then."
+Tidyverse R uses the pipe operator (`%>%`), which losely translates as "*then*"  
 
-As an example, let's calculate the average height of female Starwars characters.
+The pipe operator (`%>%`) becomes handy when you...   
 
-<div class = "row">
-<div class = "col-md-6">
-<br><br> base R   
-In order to perform multiple functions using base R, we perform them sequentially or nest functions. 
-```{r ex1_baseR, eval = FALSE}
-# sequential operations
-female_height_only <- starwars[starwars$gender=="female", ]$height # subset data 
-mean(female_height_only, na.rm = T) # calculate mean of the subset
-
-# nesting subset function inside mean
-colMeans(subset(starwars, # subsetting the data frame 
-                subset = gender == "female", # based on the condition 
-                select = "height"), # column of interest
-         na.rm = T) # then perform mean on the subsetted data
-```
-</div>
-
-<div class = "col-md-6">
-<br><br>tidyverse R    
-tidyverse uses a pipe (`%>%`) to perform multiple functions sequentially without creating an object. 
-```{r ex1_tidyverseR, eval = FALSE}
-starwars %>% # take the starwars dataset, then (`%>%`)
-  subset(subset = gender == "female", select = "height") %>% # subset the data, then (`%>%`)
-  colMeans(na.rm = T) # calculate the mean
-```
-</div>
-</div>
-
-
-The pipe operator becomes handy when you...   
-
-1. have many interim stpes     
-For example, when we want to run a regression with mean-centred variables   
+1. have many interim steps     
+For example, when we want to run a regression with mean-centered variables   
 ```{r}
 starwars %>% 
   group_by(gender) %>% # step 1) mean centering height around gender
@@ -115,6 +90,38 @@ starwars %>%
 
 
 
+
+As an example, let's calculate the average height of female Starwars characters.
+
+<div class = "row">
+<div class = "col-md-6">
+<br><br> base R   
+In order to perform multiple functions using base R, we perform them sequentially or nest functions. 
+```{r ex1_baseR, eval = FALSE}
+# sequential operations
+female_height_only <- starwars[starwars$gender=="female", ]$height # subset data 
+mean(female_height_only, na.rm = T) # calculate mean of the subset
+
+# nesting subset function inside mean
+colMeans(subset(starwars, # subsetting the data frame 
+                subset = gender == "female", # based on the condition 
+                select = "height"), # column of interest
+         na.rm = T) # then perform mean on the subsetted data
+```
+</div>
+
+<div class = "col-md-6">
+<br><br>tidyverse R    
+tidyverse uses a pipe (`%>%`) to perform multiple functions sequentially without creating an object. 
+```{r ex1_tidyverseR, eval = FALSE}
+starwars %>% # take the starwars dataset, then (`%>%`)
+  subset(subset = gender == "female", select = "height") %>% # subset the data, then (`%>%`)
+  colMeans(na.rm = T) # calculate the mean
+```
+</div>
+</div>
+
+
 ## *dplyr* verbs  
 
 There are [5 dplyr functions](https://dplyr.tidyverse.org/) that are useful for data manipulation. 
@@ -127,6 +134,7 @@ There are [5 dplyr functions](https://dplyr.tidyverse.org/) that are useful for 
 |[`summarize()`](#summarize)|summarize variables|summarize(starwars, mean_height = mean(height, na.rm = T))|
 |`arrange()`|order variables|arrange(starwars, height, desc(mass))|
 
+# Data Manipulation  
 ## Subsetting data with `select()` & `filter()`  
 
 ### <a name="select"></a>`select()` columns    
@@ -156,7 +164,7 @@ starwars %>%
 
 You can combine `select()` function with conditional statements such as `starts_with()`. 
 
-For example, if we want to find all the columns whose names that do NOT (i.e., negating with the minus sign, `-`) begin with the letter *s*, we can nest the conditional statment, `starts_with("s")` inside the `select()` function. 
+For example, if we want to find all the columns whose names that do NOT (i.e., negating with the minus sign, `-`) begin with the letter *s*, we can nest the conditional statement, `starts_with("s")` inside the `select()` function. 
 
 ```{r paged.print=TRUE}
 starwars %>% 
@@ -211,12 +219,12 @@ starwars %>%
 
 
 ### **Exercise 1** {.tabset .tabset-fade .tabset-pills}  
-Let's subset our starwars dataset using multiple conditions. 
+Let's subset our starwars data set using multiple conditions. 
 
 #### Question
 Find the names (`name`) and gender (`gender`) of human characters (i.e., `species == Human`) who are between 23 to 35 years of age (i.e., `birth_year`)and do not have blue eyes (i.e., `eye_colour`). 
 
-#### Answer
+#### Answer  
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/pr_Q1.R")}
 ```
 

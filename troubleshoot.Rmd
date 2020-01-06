@@ -1,7 +1,5 @@
 ---
 title: "troubleshoot"
-author: "Sue"
-date: "28/12/2019"
 output: 
   html_document:
     keep_md: true
@@ -337,11 +335,18 @@ b)
 
 
 # Resources & References 
-## Interactive tutorial with Swirl
+
+This tutorial heavily relies on the [R Cookbook](https://rc2e.com/), [R for Data Science](https://r4ds.had.co.nz/), and [Data Carpentry](https://datacarpentry.org/).
+
+
+## Interactive tutorial with Swirl  
+The {swirl} package offers interactive lessons within R. 
 ```{r eval=FALSE}
 install.packages("swirl")
 librar("swirl")
-swirl()
+swirl::install_course_github("matt-dray", "tidyswirl") # for tidyverse course
+# swirl() # uncomment this to start the course
 ```
 
-This tutorial heavily relies on the [R Cookbook](https://rc2e.com/), [R for Data Science](https://r4ds.had.co.nz/), and [Data Carpentry](https://datacarpentry.org/).
+Check out swirl lessons available for download [here](https://swirlstats.com/scn/title.html).  
+

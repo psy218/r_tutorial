@@ -179,14 +179,15 @@ starwars <- starwars %>%
 ## 1) Data Preparation  
 Before analyzing your data, make sure your data is *clean*. 
 
-Data preparation can involve:   
-1) making sure your variables have the correct class attributes 
+Data preparation can involve:    
+
+1. making sure your variables have the correct class attributes 
   - e.g., a numeric variable not coded as character variable
   
-2) observations are correctly coded
+2. observations are correctly coded
   - e.g., a question with the 7-point Likert-type scale ranging from 1 to 7 (and not 5 - 11).
   
-3) checking missing data
+3. checking missing data
 
 
 Let's first inspect our dataset using `glimpse()` function from the `tibble` package. 

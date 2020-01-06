@@ -1,7 +1,5 @@
 ---
 title: "Setting Up R Environment"
-author: "Sue"
-date: "25/12/2019"
 output: 
   html_document:
     keep_md: true
@@ -82,12 +80,12 @@ A mailing address is useful for file organization. When you are importing a file
 ## Working Directory 
 
 Let's find where our current R session is operating at. 
-```{r eval = FALSE}
+```{r eval = TRUE}
 getwd()
 ```
 
 We can look at the files available at the current folder by either going to the *Files* tab in the RStudio panel, or run the following codes.
-```{r eval=FALSE}
+```{r eval=TRUE}
 list.files()
 dir()
 ```
