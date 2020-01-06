@@ -101,17 +101,7 @@ There is a R package for the relative path, `here`. Install & load the package.
 library(here)
 ```
 
-## R & RStudio versions  
-As of today, `r Sys.Date()`, the most updated versions of R and RStudio are 3.6.2 and 1.2.5033, respectively. 
 
-Check you R version, and 
-```{r}
-getRversion()
-```
-your RStudio version from `RStudio` -> `About RStudio`:
-![](Fig/rstudio_version.png)
-
-You may encounter errors related to the old versions of R; consider keeping your R relatively updated. 
 
 ## RStudio Project
 To avoid importing and exporting errors, we can create a new project inside the RStudio. 
@@ -151,7 +141,7 @@ file.copy(from = here::here("dataset", "GLMData.csv"), # the original file & its
 We can now use a relative path to import files. 
 
 Import example dataset "GLMData.csv" located in the dataset folder, and assign an object name (e.g., "df").
-```{r}
+```{r eval=FALSE}
 df <- read_csv(here::here("test_dataset", "GLMData.csv"))
 ```
 

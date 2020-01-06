@@ -21,14 +21,17 @@ knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FA
 
 ## General tips
 ### 0. Update your R and RStudio  
+As of today, `r Sys.Date()`, the most updated versions of R and RStudio are 3.6.2 and 1.2.5033, respectively. 
+
 Check your R and RStudio versions regularly by running this code (for R),
 ```{r}
 R.version.string
 ```
    
 and RStudio -> About RStudio (for RStudio)   
-![](http://mercury.webster.edu/aleshunas/R_learning_infrastructure/images/About%20RStudio%20dialog.png)
+![](Fig/rstudio_version.png)
 
+You may encounter errors related to the old versions of R; consider keeping your R and RStudio up to date. 
 
 `Restart R` periodically: Session -> Restart R   
 ![](https://community.rstudio.com/uploads/default/original/2X/9/993b9b9c1f1231fa1c462115b7eb52991b5a7c14.png)
