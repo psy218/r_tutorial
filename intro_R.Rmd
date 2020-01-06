@@ -144,11 +144,11 @@ Or, a fruit whose quantity exceeds 3.
 basket$fruits[basket$fruit_quantity > 3] 
 ```
 
-### **Exercise 1** {.tabset .tabset-fade .tabset-pills}
-#### Question    
+#### **Exercise 1** {.tabset .tabset-fade .tabset-pills}
+##### Question    
 Find all the fruits and veggies whose names do not start with the letter "c".
 
-#### Answer   
+##### Answer   
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q4.R")}
 ```
 
