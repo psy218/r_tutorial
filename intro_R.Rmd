@@ -385,6 +385,34 @@ Data codebook here:
 example_data <- readr::read_csv("https://raw.githubusercontent.com/psy218/r_tutorial/master/dataset/example_data.csv")
 ```
 
+### Scoring variable
+Many functions operate column-wise.  
+
+For example, let's see what happens when we apply `mean(x)` function to conscientiousness items of BFI (i.e., BFI_3 and BFI_8) within the example dataset.  
+```{r}
+mean(c(example_data$BFI_3, example_data$BFI_8), na.rm = TRUE)
+```
+This returns a single value, the average of everyone's scores on BFI_3 and BFI_8. 
+
+When we need to create an aggregate score for each observation (e.g., participant, row), we need to use the functions that operate row-wise (vs. column-wise): e.g., `rowMeans(x)`, `rowSums(x)`.   
+
+We can use `rowMeans(x)` function to create an average of conscientiousness items for each participant.  
+```{r}
+rowMeans(cbind(example_data$BFI_3, example_data$BFI_8), na.rm = TRUE)
+```
+
+For the operations that do not have separate row-wise functions, we can use `apply(x)` function to specify that we want to apply the function row-wise.   
+Specifically, we first define the data we are applying our functions (i.e., `X = `), indicate what function we want to apply (i.e., `FUN = `), and whether we want to apply our function row-wise (i.e., `1`) or column-wise(`2`) in the `MARGIN = ` argument. 
+```{r}
+args(apply)
+```
+
+So instead of using `rowMeans(x)`, the following will yield the same:   
+```{r}
+apply(cbind(example_data$BFI_3, example_data$BFI_8), 1, mean, na.rm = T)
+```
+
+
 ### Reverse-coding
 We can reverse-code variables by creating a custom function with two arguments: the maximum value of our scale (`max`) and the variable we want to reverse code (`x`).
 ```{r}
@@ -422,7 +450,8 @@ reverse_data <- cbind(apply(example_data[ ,paste("BFI", c(1, 3, 4, 5), sep = "_"
 ```
 
 
-### Scoring variable
+
+
 #### **Exercise 4** {.tabset .tabset-fade .tabset-pills}
 
 ##### Question
