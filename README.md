@@ -1,6 +1,6 @@
 # R Tutorial for PSY2002
 ## Tutorial materials
-* [Intro to R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/intro_R.html)  
+* [Intro to R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/intro_R.html?versionId=null)  
 * [RStudio Setup](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/r_environment.html)
 * [Troubleshooting in R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/troubleshoot.html)
 * [Practical R](https://psyc218.s3.ca-central-1.amazonaws.com/r_tutorial/practical_r.html?versionId=null)
