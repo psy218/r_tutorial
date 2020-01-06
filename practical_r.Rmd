@@ -1,7 +1,5 @@
 ---
 title: "Practical R"
-author: "Sue"
-date: "24/12/2019"
 output: 
   html_document:
     keep_md: true
@@ -32,7 +30,7 @@ library(tidyverse)
 
 Note the packages under tidyverse_conflicts(); these are tidyverse functions that have the same name as other functions from different packages (e.g., base R).  
 
-# Data Wrangling
+# Data Manipulation  
 
 We will use an example dataset, starwars, to work through data manipulations. 
 
@@ -259,7 +257,6 @@ starwars %>%
 We can conditionally mutate our datasets based on variable names (`mutate_at()`) and specific conditions (`mutate_if()`). 
 
 ##### `mutate_at()` to score variables  
-^[For base R, check Data Transformation in [Intro to R](intro_R.Rmd#data_transformation).]   
 
 Let's use an example data with participant's demographic data (i.e., age, gender) and responses to BFI-10 (Rammstedt & John, 2007).  
 
