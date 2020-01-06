@@ -366,7 +366,8 @@ Data codebook here:
 *Note*. "BFI_1", "BFI_3", "BFI_4", and "BFI_5" are reverse-keyed. 
 
 ```{r}
-example_data <- readr::read_csv(here::here("dataset", "example_data.csv"))
+# example_data <- readr::read_csv(here::here("dataset", "example_data.csv"))
+example_data <- readr::read_csv("https://raw.githubusercontent.com/psy218/r_tutorial/master/dataset/example_data.csv")
 ```
 
 #### Reverse-coding
