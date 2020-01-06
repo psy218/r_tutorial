@@ -30,28 +30,38 @@ devtools::install_github("hadley/emo")
 ```
 
 ### For PSY2002
-These are the packages you would need for PSY2002 lectures. Once you have them installed, you would only have to "load" them into your environment on an as-needed basis. 
-```{r eval=FALSE}
-install.packages(c("plotrix", "car", # lecture 1
-                   "mediation", # lecture 2
-                   "lavaan", "semPlot", # Lecture 3
-                   "lme4", "lmerTest", "emmeans", "e1071", # Lectures 4 & 5
-                   "pscl", "MASS", "boot", # Lecture 6
-                   "cluster", # lecture 9
-                   "psych", # lecture 10
-                   "survival", "km.ci", # lecture 11
-                   "TSA", "TTR", "tseries", "nlme" # lecture 12
-                   ))
+These are the packages you would need for PSY2002 lectures. 
+```{r}
+psy2002_packages <- c("plotrix", "car", # lecture 1
+                      "mediation", # lecture 2
+                      "lavaan", "semPlot", # Lecture 3
+                      "lme4", "lmerTest", "emmeans", "e1071", # Lectures 4 & 5
+                      "pscl", "MASS", "boot", # Lecture 6
+                      "cluster", # lecture 9
+                      "psych", # lecture 10
+                      "survival", "km.ci", # lecture 11
+                      "TSA", "TTR", "tseries", "nlme") # lecture 12
 
 ```
+
+Let's try installing these packages using `install.packages()` function. 
+
+```{r eval=FALSE}
+install.packages(psy2002_packages)
+```
+Once you have them installed, you would only have to "load" them into your environment on an as-needed basis. 
 
 ## Package loading  
-You have to load necessary package(s) to your current R environment using library() function.
-```{r}
-library("tidyverse")
+You have to load necessary package(s) to your current R environment using `library()` function.
+
+Let's try loading packages we installed for PSY2002.  
+```{r eval=FALSE}
+invisible(lapply(psy2002_packages, # a vector of package names we need for PSY2002
+                 library, # function we want to apply to the vector of multiple packages
+                 character.only = TRUE)) # additional argument for library() function
 ```
 
-You can check what packages are currently loaded into memory by executing `search()` function. 
+You can check what packages are currently loaded into memory by executing `search()` function.
 ```{r}
 search()
 ```
@@ -125,15 +135,15 @@ File → New Project → New Directory
 Having a separate RStudio Project will allow you to have a working directory dedicated for a specific projet. 
 
 Step 2: Importing a file
-Create a new folder called *dataset*.
+Create a new folder called *test_dataset*.
 ```{r eval=FALSE}
-dir.create(here::here("dataset"))
+dir.create(here::here("test_dataset"))
 ```
 
 Then create a copy of the example dataset called **GLMData.csv**, and move it into the new *dataset* folder.
 ```{r eval=FALSE}
-file.copy(from = here::here("GLMData.csv"), # the original file & its location
-          to = here::here("dataset", "GLMData.csv")) # the new folder location
+file.copy(from = here::here("dataset", "GLMData.csv"), # the original file & its location
+          to = here::here("test_dataset", "GLMData.csv")) # the new folder location
 ```
 
 
@@ -142,6 +152,6 @@ We can now use a relative path to import files.
 
 Import example dataset "GLMData.csv" located in the dataset folder, and assign an object name (e.g., "df").
 ```{r}
-df <- read_csv(here::here("dataset", "GLMData.csv"))
+df <- read_csv(here::here("test_dataset", "GLMData.csv"))
 ```
 
