@@ -148,6 +148,10 @@ basket$fruits[basket$fruit_quantity > 3]
 ##### Question    
 Find all the fruits and veggies whose names do not start with the letter "c".
 
+```{r}
+# your answer here
+```
+
 ##### Answer   
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q4.R")}
 ```
@@ -335,6 +339,11 @@ Characters with brown hair are tad taller than the average height of all the cha
 ##### Question
 Within the starwars dataset, find the names of the character whose height falls between the 5th and 95th quantiles. 
 
+```{r}
+# your answer here
+
+```
+
 ##### Answer  
 
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q6.R")}
@@ -350,7 +359,8 @@ For each of the gender group, find the means and stadnard deviations of their he
 ```
 
 
-## <a id="data_transformation"></a>3) Data Transformation    
+
+## 3) Data Transformation    
 
 Let's use an example data with participant's demographic data (i.e., age, gender) and responses to BFI-10 (Rammstedt & John, 2007)  
 
@@ -375,7 +385,7 @@ Data codebook here:
 example_data <- readr::read_csv("https://raw.githubusercontent.com/psy218/r_tutorial/master/dataset/example_data.csv")
 ```
 
-#### Reverse-coding
+### Reverse-coding
 We can reverse-code variables by creating a custom function with two arguments: the maximum value of our scale (`max`) and the variable we want to reverse code (`x`).
 ```{r}
 # I will name it `reverse_x()`
