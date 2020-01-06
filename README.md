@@ -14,8 +14,7 @@ or [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/ps
 
 ## Event Description
 * Date: Tuesday, January 7th
-* Location: Sidney Smith Rm. 85 (in the subground)
-  ![](Fig/ss85.png)
+* Location: Sidney Smith Rm. 2119
 * Schedule:
   - 11am - 12:15pm: Intro to R
   - 12:15pm - 12:50pm: RStudio Setup & Troubleshoot in R

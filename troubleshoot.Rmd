@@ -222,6 +222,7 @@ For older versions of R, these are some *problem* functions that can be resolved
 
 ```
 dplyr::select()
+psych::alpha()
 ```
 
 ## Syntax Error {.tabset .tabset-fade .tabset-pills}  

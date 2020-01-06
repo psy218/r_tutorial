@@ -391,6 +391,11 @@ starwars %>%
                     ~sd(., na.rm = T))) 
 ```
 
+Use `ungroup()` to remove grouping.  
+```{r}
+starwars %>% 
+  ungroup()
+```
 
 
 #### **Exercise 2** {.tabset .tabset-fade .tabset-pills}  
