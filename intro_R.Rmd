@@ -1,7 +1,5 @@
 ---
 title: "Intro_R"
-author: "Sue"
-date: "Sys.Date()"
 output: 
   html_document:
     keep_md: true
@@ -19,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FA
 ```
 
 ```{r}
+# packages we may need 
 library(tidyverse)
 ```
 
@@ -62,8 +61,8 @@ basket[2, # 2nd row
 We can access multiple elements by using a vector (`c()`) inside a bracket, or `:`sign. 
 
 ```{r}
-basket[c(1, 3), # first element in the 3rd column
-       c(2, 3)] # second element in the 2nd row & 3rd column
+basket[c(1, 3), # elements in the first and third rows
+       c(2, 3)] # first element in the second row & third element in the third row
 
 basket[c(1, 3), 
        2:3] # same as c(2, 3)
@@ -155,6 +154,7 @@ For the exercises, we will use an example dataset, starwars.
 starwars <- dplyr::starwars
 
 # I am going to mess up the data for our exercises; Run this code for extra challenge. 
+# install.packages("magrittr") # uncomment this if you do not have this package installed. 
 library("magrittr")
 starwars %<>% 
   mutate_at(vars("height"), as.character) %>%  # height is now a character variable
