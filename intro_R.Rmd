@@ -25,9 +25,13 @@ library(tidyverse)
 ## Accessing data inside a data frame
 Let's create a data frame called `basket` that contains different kinds of fruits and veggies. 
 ```{r}
-basket <- data.frame(fruits = sample(stringr::fruit, 3), # randomly selecting 3 fruits
-                     veggies = c("carrots", "broccoli", "celery"), # 3 kinds of veggies
-                     quantity = c(3, 2, 5)) # number of fruits & veggies
+basket <- data.frame(fruits = sample(stringr::fruit, 5), # randomly selecting 5 fruits
+                     veggies = c("carrots", "broccoli", "celery", "pepper", "peas"), # 5 kinds of veggies
+                     fruit_quantity = c(3, 2, 5, 4, 5), # number of veggies
+                     veggie_quantity = c(1, 4, 2, 2, 10)) # number of veggies
+
+# I'm going to save this dataset as my randomly-sampled fruits will be different from yours
+# write_csv(basket, here::here("dataset", "basket.csv"))
 ```
 
 ### Indexing
@@ -137,26 +141,27 @@ basket$veggies[basket$veggies %in% c("broccoli", "celery")]
 
 Or, a fruit whose quantity exceeds 3. 
 ```{r}
-basket$fruits[basket$quantity > 3] 
+basket$fruits[basket$fruit_quantity > 3] 
+```
+
+### **Exercise 1** {.tabset .tabset-fade .tabset-pills}
+#### Question    
+Find all the fruits and veggies whose names do not start with the letter "c".
+
+#### Answer   
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q4.R")}
 ```
 
 
-
-
-
-
-
-# Data Manipulation
-
+# Data Manipulation   
 For the exercises, we will use an example dataset, starwars. 
 ```{r starwars_data}
 # import the example dataset
 starwars <- dplyr::starwars
 
 # I am going to mess up the data for our exercises; Run this code for extra challenge. 
-# install.packages("magrittr") # uncomment this if you do not have this package installed. 
-library("magrittr")
-starwars %<>% 
+library(tidyverse)
+starwars <- starwars %>% 
   mutate_at(vars("height"), as.character) %>%  # height is now a character variable
   mutate(hair_color = replace(hair_color, is.na(hair_color), 999)) %>% 
   mutate(gender = case_when( 
