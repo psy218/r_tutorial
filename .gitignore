@@ -7,3 +7,5 @@ rtutorial_draft.key
 ~Fig/
 intro_R_files/
 practical_r_files/
+.DS_Store
+.Rhistory
