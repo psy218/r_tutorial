@@ -21,12 +21,12 @@ or [here](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/ps
   - 12:15pm - 12:50pm: RStudio Setup & Troubleshoot in R
   - 1pm - 2pm: Practical R
 * Contents
-  - **Intro to R**
+  - [**Intro to R**](intro_R.Rmd)
     - R syntax and grammar
     - Understanding and applying functions
-  - **RStudio Setup & Troubleshoot in R**
+  - [**RStudio Setup**](r_environment.Rmd) & [**Troubleshoot in R**](troubleshoot.Rmd)
     - Setting up RStudio to create a self-contained project
     - How to identify and troubleshoot errors in R
-  - **Practical R**
+  - [**Practical R**](practical_r.Rmd)
     - Tidyverse syntax and grammar (e.g., pipes)
     - Data wrangling with dplyr
