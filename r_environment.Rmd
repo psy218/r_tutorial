@@ -24,6 +24,7 @@ Although you have to load your packages into your R environment for every sessio
 ```{r eval=FALSE}
 install.packages(c("tidyverse", "here"))
 # packages that are not available on CRAN
+# install.packages("devtools")
 devtools::install_github("hadley/emo") 
 ```
 

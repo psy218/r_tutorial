@@ -24,6 +24,8 @@ library(tidyverse)
 # Data Structure
 ## Accessing data inside a data frame
 Let's create a data frame called `basket` that contains different kinds of fruits and veggies. 
+
+
 ```{r}
 basket <- data.frame(fruits = sample(stringr::fruit, 5), # randomly selecting 5 fruits
                      veggies = c("carrots", "broccoli", "celery", "pepper", "peas"), # 5 kinds of veggies
@@ -54,6 +56,8 @@ The first element (i.e., *i*) corresponds to the row, and the second (i.e., *j*)
 basket
 ```
 
+
+
 ##### Single elements
 For example, we can access the second element in the 2nd column like this:
 ```{r}
@@ -69,7 +73,7 @@ basket[c(1, 3), # elements in the first and third rows
        c(2, 3)] # first element in the second row & third element in the third row
 
 basket[c(1, 3), 
-       2:3] # same as c(2, 3)
+         2:3] # same as c(2, 3)
 ```
 
 ##### Negative index
@@ -156,6 +160,20 @@ Find all the fruits and veggies whose names do not start with the letter "c".
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/Q4.R")}
 ```
 
+```{r}
+startsWith(as.character(basket$fruits), "c")
+```
+
+```{r}
+!startsWith(as.character(basket$fruits), "c")
+```
+
+```{r}
+basket[ !startsWith( as.character(basket$fruits), "c") , "fruits"] 
+```
+
+
+
 
 # Data Manipulation   
 For the exercises, we will use an example dataset, starwars. 
@@ -164,7 +182,7 @@ For the exercises, we will use an example dataset, starwars.
 starwars <- dplyr::starwars
 
 # I am going to mess up the data for our exercises; Run this code for extra challenge. 
-library(tidyverse)
+
 starwars <- starwars %>% 
   mutate_at(vars("height"), as.character) %>%  # height is now a character variable
   mutate(hair_color = replace(hair_color, is.na(hair_color), 999)) %>% 
@@ -215,7 +233,18 @@ Height variable is not numeirc; convert it to a numeric variable.
 ```{r}
 starwars$height <- as.numeric(starwars$height)
 ```
+```{r}
+is.numeric(starwars$height)
+```
 
+```{r}
+as.logical(starwars$mass)
+```
+
+
+```{r}
+is.numeric(starwars$height_numeric)
+```
 
 #### Factors
 Categorical variables can have a special class attribute as **factors**. You can specify the levels of factors and specify whether these levels are ordered (i.e., levels are sorted into an increasing order) or unordered. 
@@ -342,6 +371,9 @@ Within the starwars dataset, find the names of the character whose height falls 
 
 ```{r}
 # your answer here
+quantile(starwars$mass, 
+         probs = c(.05, .95), 
+         na.rm = T)
 
 ```
 

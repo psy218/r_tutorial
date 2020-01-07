@@ -130,16 +130,16 @@ There are [5 dplyr functions](https://dplyr.tidyverse.org/) that are useful for 
 
 |verb|function|example|
 |:-|:-|:-|
-|[`select()`](#select_function)|choose variables by (column) names|`select(starwars, height, mass)`|
-|[`filter()`](#filter_function)|choose observations by (conditional) values|`filter(starwars, gender == "none")`|
-|[`mutate()`](#mutate_function)|transform or create new variables|`mutate(starwars, BMI = $weight/height^2$)`|
-|[`summarize()`](#summarize_function)|summarize variables|`summarize(starwars, mean_height = mean(height, na.rm = T))`|
+|`select()`|choose variables by (column) names|`select(starwars, height, mass)`|
+|`filter()`|choose observations by (conditional) values|`filter(starwars, gender == "none")`|
+|`mutate()`|transform or create new variables|`mutate(starwars, BMI = $weight/height^2$)`|
+|`summarize()`|summarize variables|`summarize(starwars, mean_height = mean(height, na.rm = T))`|
 |`arrange()`|order variables|`arrange(starwars, height, desc(mass))`|
 
 # Data Manipulation  
 ## Subsetting data with `select()` & `filter()`  
 
-### <a id="select_function"></a>`select()` columns    
+### `select()` columns    
 Like the square bracket `[]`, the dollar sign `$` in base R, and `subset(data, select = column)`, `select(x)` allows you to extract elements by the column name(s). 
 
 ![](Fig/select_func.png)
@@ -184,7 +184,7 @@ These are some useful conditional statements you can use with `select()`:
 |`one_of(c("height", "mass"))`|select one of `height` or `mass`|
 
 
-### <a id="filter_function"></a>`filter()` observations  
+### `filter()` observations  
 
 Like the conditional statement inside the square bracket `[]`, `filter()` allows you to extract elements that meet the specified conditions.   
 ![](Fig/filter_func.png)  
@@ -231,7 +231,7 @@ Find the names (`name`) and gender (`gender`) of human characters (i.e., `specie
 
 ## Summarize data with `mutate()` and `summarize()`   
 
-### <a id="mutate_function"></a>`mutate()` variables  
+### `mutate()` variables  
 `mutate()` creates a new variable by operating on our dataset. 
 
 ![](Fig/mutate_func.png)  
@@ -298,20 +298,20 @@ reverse_x <- function(x, max) {
 ```
 
 Step 2: Reverse score items (without saving) and calculate an aggregate score  
-```{r}
-example_data <- example_data %>% 
+```{r rows.print = 5, cols.print = 5}
+example_data %>% 
   mutate_at(vars(paste("BFI", c(1, 3:5, 7, 11), sep = "_")),  # selecting which variables to reverse score
             ~reverse_x(., max = 5)) %>% # apply our custom functions 
   mutate(extraversion = rowMeans(cbind(BFI_1, BFI_6), na.rm = T), # then create a new variable to store aggregate scores
          conscientiousness = rowMeans(cbind(BFI_3, BFI_8), na.rm = T),
          neuroticism = rowMeans(cbind(BFI_4, BFI_9, BFI_11), na.rm = T),
          agreableness = rowMeans(cbind(BFI_2, BFI_7), na.rm = T),
-         openness = rowMeans(cbind(BFI_5, BFI_10), na.rm = T))
+         openness = rowMeans(cbind(BFI_5, BFI_10), na.rm = T)) 
   
 ```
 
 
-### <a id="summarize_function"></a>`summarize()` data  
+### `summarize()` data  
 
 Without creating a new variable, we can create a summary of our data. For example, let's look at average height and mass with their standard deviations using `mean()` and `sd()` function. 
 
