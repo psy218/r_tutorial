@@ -334,6 +334,35 @@ b)
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/ts_error7b.R")}
 ```
 
+# Misc. errors  
+Let's try to troubleshoot some errors you may encounter in the course using Liz's GLM dataset:
+```{r}
+glm_data <- readr::read_csv("https://raw.githubusercontent.com/psy218/r_tutorial/master/dataset/GLMData.csv")
+```
+
+## Example 1 {.tabset .tabset-fade .tabset-pills}   
+### Error  
+When you are running a binomial logistic regression, you may encounter an error like this:  
+```{r error=TRUE}
+# base R
+summary(glm(sex ~ happiness + marital_status, 
+            family = "binomial",
+            data = glm_data))
+
+# tidyverse R
+glm_data %>% 
+  glm(sex ~ happiness + marital_status,
+      family = "binomial", 
+      data = .) %>% 
+  summary
+```
+
+Try troubleshooting it. 
+
+### Solution  
+```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/ts_error8.R")}
+```
+
 
 # Resources & References 
 

@@ -35,9 +35,8 @@ These are select core packages that are included in Tidyverse.
 6. [purrr](https://r4ds.had.co.nz/iteration.html)   
 7. [forcats](https://r4ds.had.co.nz/factors.html)   
 
-![](Fig/tidyverse_pkg.png)
 
-Note the packages under tidyverse_conflicts(); these are tidyverse functions that have the same name as other functions from different packages (e.g., base R).  
+Note the packages under `tidyverse_conflicts()`; these are tidyverse functions that have the same name as other functions from different packages (e.g., base R).  
 
 For data manipulation exercises, we will use an example dataset, starwars from `dplyr` package. 
 
