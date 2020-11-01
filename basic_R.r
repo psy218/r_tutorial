@@ -1,4 +1,12 @@
+#' This is the r-script that complements [Basic R](tutorial_draft.Rmd)
+#' *Contents* (i.e., lines that start with a pound sign, `#`) correspond to the tutorial above
+#' Run *r codes* (i.e., lines that do not start with a pound sign) by putting your cursor on top of the line you want to run and,
+#' a) press `Run` button on the right-hand corner, or
+#' b) use the keyboard shortcut: command + enter (mac) or ctrl + enter (window)
+#' Test your knowledge with *exercises* 
+
 #################### RStudio & R Environment ####################
+
 ## Packages ------------------------------------------------------------
 #' Packages can be thought as softwares or applications (e.g., Microsoft Word, Chrome) that your default R may not be equipped with. 
 #' We download these applications with `install.packages()` function. Let's install a package called `readr`, which makes importing data into R easier & faster.   
@@ -9,13 +17,24 @@ library(readr)
 
 #' Although you have to install a package only ONCE, you have to load the pakcage every time you start a new R session.  
 
+#' In prepration of the tutorial, please install Tidyverse.
+install.packages("tidyverse")
+
+#' In addition to Tidyverse, these are some packages that I often use:
+#' (delete the pound sign in the code below if you want to install these packages)
+# select_packages = c("here", "psych", "e1071", "corrr", "car", "emmeans", "lme4", "lmerTest", "lavaan")
+# install.packages(select_packages)
+
 #' Different packages may include different functions that have the same name, which will confuse R. 
 #' When you get an error that a function cannot be found, explicitly specify what package includes the function you are referring to by using `package_name::function`. 
 package_function_is_from::some_function(x)
 
 
 #################### R basic building block  ####################
-#' 
+#' R syntax
+#' R grammar is made up of 4 parts: 1) **object**, 2) **function**, 3) **argument**, and 4) **variables**.
+#' Baking an apple pie as an example, an *apple pie* is an object, a *knife* is a function (from a package), and a *recipe* is an argument (e.g., ingredient) and variables (e.g., 3 apples). 
+
 ## 1) Functions ------------------------------------------------------------
 #' We can perform basic arithmetic in R using the same mathematical operators 
 #' |`+`| plus    |
@@ -25,7 +44,7 @@ package_function_is_from::some_function(x)
 
 1 + 1
 
-#' We can apply functions for common calculations, such as mean, median, and standard deviations.
+#' These are functions for common calculations that are useful for **descriptive statistics**:
 #' ```
 mean(x)
 median(x)
@@ -36,7 +55,11 @@ sqrt(x)
 abs(x)
 #' ```
 
-#' We can also conduct statistical tests using built-in functions 
+#' Try finding a square root of 25 in your console:
+sqrt(25)
+
+
+#' We can also conduct statistical analyses using built-in functions 
 #' ```
 cor(x, y)
 cov(x, y)
@@ -59,12 +82,18 @@ t.test(x, y)
 
 
 
+
 ## 2) Object -------------------------------------------------------------------
-#' You can save the output of the previous calculation into an **object**. 
-#' You can give it any name, but make sure there is no space (e.g., "my age") and unique (no two objects should have the same name unless you want to overwrite the first object). 
-#' Any word that are not in quotations will be treated as an object. 
-#' 
+
+#' R is an ephemeral being; it does things that you tell it to, but its output won’t be automatically saved. As such, you need to save the output (e.g., computing results or dataset) into something called **objects**, which will appear in the Environment pane.
+
+#' To inspect objects availalbe in your local workspace, check the Environment panel, or run the following code:
+ls()
+
 #' To create an object, you have to use the assignment operators of either `<-` or `=`. 
+#' Let’s try saving the output of the previous calculation as an object. 
+#' You can give it any name, but make sure the name contains no space (e.g., “my age”) and is unique (no two objects should have the same name unless you want to overwrite the first object). 
+
 #' Let's save the previous calculation, save the output as "my_age"
 #' TODO: Change 1991 to your birth year.  
 
@@ -75,25 +104,24 @@ my_age = 2020 - 1991
 my_age
 
 
-#' Objects are things saved in your current environment. To inspect objects availalbe in your local workspace, check the Environment panel, or run `ls()`.
-ls()
+#' *Note*. Any word that are not in quotations will be treated as an object. 
 
-#' ### Multiple values
+
 #' Objects can contain more than 1 value in the forms of **vectors** or **data frames**. 
-#' 
-
-#### Vectors ####
+#### 2a) Vectors ####
 #' Vectors can be created by using `c()`: a function that combines multiple values.  
 #' Be sure the variables are separated by a comma, `,`. 
-#' TODO: ask people around you for their ages and birth month, and create two separate vectors for their ages and birth months.
+c(1, 3, 7, 10)
 
-age <- c(29, 24, 21, 26)
+#' TODO: ask people around you for their ages and birth months, and create two separate vectors for their ages and birth months.
+
+age <- c(29, 24, 21, 26) # an object named `age`, which is a vector that contains 4 values 
 birth_month <- c(6, 11, 10, 9)
 
 #' You can perform simple arithmetics on the vectors. 
+c(1, 3) + c(0.25, -2) # add two vectors
 
-c(1, 3) + c(0.25, -2)
-age * 3
+age * 3 # try running this code yourself
 
 #' ##### **Exercise 2** 
 
@@ -102,8 +130,6 @@ age * 3
 #' 28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26. 
 #' 
 #' ###### Your answer (write your code below). 
-
-mean(x)
 
 
 
@@ -118,11 +144,15 @@ mean(c(28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26),
 
 mean(28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26)
 
-#### Data set ####
+
+#### 2b) Data frames ####
 #' A data set is a type of an object that contains multiple vectors organized in columns and rows. 
 #' Let's create a data set containing age and birth month using `data.frame(vector1, vector2, vector3)` function.
 
+# create a data frame with age and birth month
 birth_data <- data.frame(age, birth_month)
+
+# look into the new data frame (named `birth_data`)
 birth_data
 
 #' The two vectors are now organized in columns, each row representing an observation. 
@@ -130,7 +160,7 @@ birth_data
 #' We can add a column to our existing matrix by using `cbind()`.
 #' For example, create a new vector containing the biological sex of the same people you asked for age and birth month:
 
-sex <- c("man", "woman", "woman", "intersex")
+sex <- c("male", "female", "female", "intersex")
 
 #' And column-bind the new vector
 cbind(birth_data, # data set we want to append the new vector to
@@ -142,9 +172,18 @@ birth_data <-  cbind(birth_data,
 
 #' or add a row by using, `rbind()`
 rbind(birth_data, # data set we want to append the new vector
-      c(22, 10, "woman")) # new vecotr 
+      c(22, 10, "female")) # new vecotr 
 
+#' If we look at the data frame birth_data, you will notice that there is no new column named sex or a new row containing data from a 22-year-old female who was born in Oct. 
+birth_data
 
+#' This is because we didn’t store the output of these operations (i.e., adding a new column and a new row) into anything.
+#' You need to “update” your data frame (birth_data), if you want to keep a new column and row by overwriting birth_data
+#' overwriting the data frame with a new column, sex
+birth_data <- cbind(birth_data, sex)
+
+#' overwriting the data frame with a new row
+# birth_data <- rbind(birth_data, c(22, 10, "female"))
 
 
 #' Like vectors, we can perform arithmatic operations on the datasets.
@@ -161,8 +200,13 @@ rbind(birth_data, # data set we want to append the new vector
 
 
 ## ---- answer ----------
-cbind(birth_data, 
-      brith_year = c(2020 - age))
+# find the year of birth by subtracting age stored in the `birth_data` from 2020,
+# and store it in a vector named `birth_year`
+birth_year = 2020 - as.numeric(birth_data$age)
+
+# append the `birth_year` column to birth_data
+cbind(birth_data, birth_year = c(2020 - age))
+
 
 
 #################### Working with data ####################
