@@ -121,13 +121,18 @@ birth_month <- c(6, 11, 10, 9)
 #' You can perform simple arithmetics on the vectors. 
 c(1, 3) + c(0.25, -2) # add two vectors
 
-age * 3 # try running this code yourself
+#' Try adding two vectors that differ in their lengths. How many values did you get?
+c(1, 3) + c(0.25, -2, 10)
+
+#' perform multiplication on an object named `age`, which is a vector containing 4 values
+age * 3 
 
 #' ##### **Exercise 2** 
 
 #### Ex2) Question ####
 #' Compute the average age of the students whose ages are as follows:
 #' 28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26. 
+#' `NA` denotes a missing value
 #' 
 #' ###### Your answer (write your code below). 
 
@@ -137,13 +142,15 @@ age * 3 # try running this code yourself
 ## ---- answer ----------
 students_age <- c(28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26)
 
-mean(students_age)
+# use a function, `mean,` on a vector containing ages (i.e., student_age)
+# you need to tell R to ignore any missing values (i.e., `NA`) in the vector from computation with this argument: `na.rm = TRUE`; `na.rm` stands for missing value (`na`) remove (`rm`), and `TRUE` (or `FALSE`) specifies whether missing values should be removed
 
-mean(c(28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26),
-     na.rm = TRUE)
+mean(students_age, na.rm = TRUE) 
 
-mean(28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26)
-
+# NOT this:
+mean(28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26) # this will give you 28, because it only uses the first element.
+# Nor this:
+mean(c(28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26)) # you have to say na. rm = TRUE 
 
 #### 2b) Data frames ####
 #' A data set is a type of an object that contains multiple vectors organized in columns and rows. 
@@ -187,8 +194,7 @@ birth_data <- cbind(birth_data, sex)
 
 
 #' Like vectors, we can perform arithmatic operations on the datasets.
-#' ##### **Exercise 4** 
-
+#' **Exercise**
 #### Ex3) Question ####
 #' Using the birth_data, a) compute the birth year by subtracting `age` from 2020, and b) append it to the dataset. 
 
@@ -217,14 +223,20 @@ cbind(birth_data, birth_year = c(2020 - age))
 
 ## a) Point-and-click  
 #' We can use `Import Dataset` option under the Environment tab
-#' You would click on `From Text` option; I prefer `(reader)` as it is more efficient & flexible. 
+#' You would click on `From Text` option; I prefer `From Text (readr)` as it is more efficient & flexible. 
 
-## b) Using R function  
+## b) Using R functions    
 
 #' Or, we can use `read.csv()` or `read_csv()` function to read in the data set saved as a `.csv` file. 
 #' You need to provide a path to the folder that contains your data set, and save it as a new object. 
 dataset <- read.csv("./dataset/data.csv") # base
 dataset <- readr::read_csv("./dataset/data.csv") # readr package
+
+#' The example above uses an absolute path: the full address for the file location. I’d recommend using a relative path, which uses your current “working directory” (where your R is doing stuff) as a base camp and locate files relative to that base camp.
+#' `here` function from `here` package makes that easier; you only need to specify folder names from your current working directory.
+getwd() # run this code to get your current working directory
+dataset <- readr::read_csv(here::here("dataset",  # name of the folder that contains the data file
+                                      "data.csv")) # name of the data file
 
 ## c) `file.choose()`  
 #' We can use `file.choose()` function inside `read_csv()`, if we are unsure about the path to the file.  
@@ -262,11 +274,23 @@ birth_data[["sex"]]
 #' We use the dollar sign (i.e., `$`) to specify a column. 
 birth_data$sex
 
+#' The dollar sign comes handy when you want to create a new column inside an existing dataset. For example, instead of using  cbind(), I can do the following:
 
+birth_data$names = c("su", "dj_power", "kool_kid", "mc_nano")
+
+#' We now have a new column, `names`, in the birth_data.
+birth_data
 
 #### c) By conditions ####
-#' We can also select elements conditionally; that is, we can specify the condition by which an element must satisfy. 
-#' R will evaluate the logical statement that specifies the condition, and return only those elements that meet the specified condition. 
+#' We can also select elements conditionally; that is, we can specify the condition by which an element must satisfy. R will evaluate the statement and return only those elements (or columns) that meet the specified condition.
+#' We can do this by using a square bracket, like how we accessed elements by location. We place the condition inside the square bracket on which the condition to be evaluated: [i, ] for rows; [, j] for columns.
+# dataset[condition, ]  # subsetting rows that meet the condition
+# dataset[ , condition] # subsetting columns that meet the condition
+
+#' You can also have different conditions for rows (row_condition) and columns (column_condition)
+# dataset[row_condition, column_condition] 
+
+#' Mathematical Annotations
 #' 
 #'         Conditional statements use these operators:  
 #'         |`==`|equal to                 |`x == y`|  
@@ -285,13 +309,21 @@ birth_data$sex
 #' For example, let's say I only want people (i.e., observations; rows) who are older than 24 years of age.
 #' You should first construct a logical statement: i.e., older than 24.
 birth_data$age > 24 
-
-#' then apply it to the data set you want the statement to be applied to
+#' Each row of the age column inside birth_data will be evaluated on the logical statement to be TRUE or FALSE, and the logical values (TRUE/ FALSE) will be used to subset the rows that are TRUE. The rows that meet our condition (i.e., age > 24) are the first and the last rows, which corresponds to the logical values returned from our logical statement
+#' Place the logical statement inside a square bracket, and apply that to the dataset you want to subset:
 birth_data[birth_data$age > 24, ] 
+#' Notice that I left j inside the bracket [i, j] empty; this denotes every column that meets the condition specified in i (i.e., birth_data$age > 24).
+# If you only want a specific column (i.e., age column) and the rows that meet the condition (i.e., age > 24), you need to add a conditional statement for the column (i.e., providing the name of the column, “age”) in the place of j.
+birth_data[birth_data$age > 24, "age"]
 
 #' alternatively, you can use `subset(x, subset, select)` function. 
 subset(x = birth_data, # object / dataset you want to subset
        subset = age > 24) # logical statement for the condition you want 
+
+#' Specify the select argument, if you want a subset of columns. Repeating the example above:
+subset(x = birth_data, 
+       subset = age > 24, # a conditional statement for the row (*i*) = age > 24
+       select = "age") # conditional statement for the column (*j*) = name of the column you want to select  
 
 #' **Exercise**
 #### Ex4) Question ####
@@ -304,29 +336,25 @@ subset(x = birth_data, # object / dataset you want to subset
 
 
 #### answer -----------------
-#' step 1. Define the logical statements. 
-birth_data$birth_month %in% c(7:10)
-birth_data$sex == "man"
+#' step 1. Construct logical statements. 
+#' statement 1: born in the summer (i.e., July ~ Oct)
+birth_data$birth_month %in% c(7:10) 
+#' statement 2: male
+birth_data$sex == "male"
 
-#' step 2. Combine the two statements with the correct operator, `|`.
-birth_data$birth_month %in% c(7:10) | birth_data$sex == "man"
+#' step 2. Combine the two statements with the correct operator, `|` (i.e., or).
+birth_data$birth_month %in% c(7:10) | birth_data$sex == "male"
 
-#'. step 3. Specify what information you want: age. 
+#'. step 3. Specify the column you want: age. 
 birth_data$age
 
-#' step 4. combine all the above!
-birth_data$age[birth_data$birth_month %in% c(7:10)]
+#' step 4. combine all of the above!
+birth_data[birth_data$birth_month %in% c(7:10) | birth_data$sex == "male", "age"]
 
-#' OR,
-birth_data[birth_data$birth_month %in% c(7:10) | birth_data$sex == "man", "age"]
-
-#' OR,
+#' Or, use the `subset()` function
 subset(x = birth_data, 
-       subset = birth_month %in% c(7:10)|sex == "age",
+       subset = birth_month %in% c(7:10)| sex == "male",
        select = age)
-
-
-
 
 
 #' **Exercise**
@@ -354,7 +382,7 @@ ifelse(test = birth_data$age > 19, # logical statement that specifies the condit
 
 
 ## ---- answer ---------
-birth_data$yr_remaining = ifelse(test = birth_data$sex == "men",
+birth_data$yr_remaining = ifelse(test = birth_data$sex == "male",
                                  yes = 80 - birth_data$age,
                                  no = 84 -  birth_data$age)
 
@@ -364,7 +392,7 @@ birth_data
 
 ## 3) Class attributes ---------------------------------------------------
 #' Variables can have different class attributes. They can be
-#' numeric
+#' numeric; or double
 typeof(1)
 #' integer (whole number)
 typeof(2L)

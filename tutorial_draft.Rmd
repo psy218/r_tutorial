@@ -238,11 +238,20 @@ You can perform simple arithmetics on vectors.
 ```{r}
 # add two vectors
 c(1, 3) + c(0.25, -2)
+```
+R returned two values from the multiplication above.   
 
+Try adding two vectors that differ in their lengths. For example:  
+```{r eval = FALSE}
+c(1, 3) + c(0.25, -2, 10)
+```
+What value(s) did R return?    
+
+```{r}
 # perform multiplication on an object named `age`, which is a vector containing 4 values  
 age * 3
 ```
-
+Notice how the constant, 3, is being recycled to be multipled to each element contained in the vector, `age`.
 
 #### **Exercise 2** {.tabset .tabset-fade .tabset-pills}
 
@@ -250,7 +259,7 @@ age * 3
 
 Compute the average age of the students whose ages are as follows:
 
-28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26.
+28, 20, 24, 27, 19, NA, 18, 28, 22, 21, 21, 26. <aside>`NA` denotes a missing value</aside>   
 
 ##### Answer
 
@@ -287,15 +296,15 @@ cbind(birth_data, # data set we want to append the new vector to
 
 or add a row by using, `rbind()`
 ```{r}
-rbind(birth_data, # data set we want to append the new vector
-      c(22, 10, "female")) # new vecotr
+rbind(birth_data, # data set we want to append the new row
+      c(22, 10)) # new observation with each variable corresponding data for respective columns (i.e., age, birth month) 
 ```
 
-If we look at the data frame `birth_data`, you will notice that there is no new column named `sex` or a new row containing data from 22-year-old female who was born in Oct.   
+If we look at the data frame `birth_data`, you will notice that there is no new column named `sex` or a new row containing data from 22-year-old person born in Oct.   
 ```{r}
 birth_data
 ```
-This is because we didn't store the output of these operations (i.e., adding a new column and a new row) into anything. 
+This is because we didn't store the output of these operations (i.e., adding a new column and a new row) into anything, i.e., an object. 
 
 You need to "update" your data frame (`birth_data`), if you want to keep a new column and row by overwriting `birth_data`,   
 ```{r}
@@ -310,19 +319,18 @@ birth_data <- rbind(birth_data,
                     c(22, 10, "female"))
 ```
 
-or, create a new object with a different name.
+Or, create a new object with a different name and keep the original data frame (`birth_data`) as is. 
 ```{r eval=FALSE}
 birth_data_w_sex = cbind(birth_data,
                          sex)
 ```
-
 
 Like vectors, we can perform arithmatic operations on the datasets.
 
 #### **Exercise 3** {.tabset .tabset-fade .tabset-pills}
 
 ##### Question
-Using the birth_data, a) compute the birth year by subtracting `age` from 2020, and b) append it to the dataset.
+Using the `birth_data`, a) compute the birth year by subtracting `age` from 2020, and b) append it to the dataset.
 
 ##### Answer
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/basic_q3.R")}
@@ -341,16 +349,27 @@ Let's review 3 ways you can import a csv file into our global environment.
 We can use `Import Dataset` option under the Environment tab:
 ![](Fig/import_dataset.png)
 
-You would click on `From Text` option; I prefer `(reader)` as it is more efficient & flexible.   
+You would click on `From Text` option; I prefer `From Text (readr)` as it is more efficient & flexible.   
 
 2. **Using R function**  
-Or, we can use `read.csv()` or `read_csv()` function to read in the data set saved as a `.csv` file. 
-You need to provide a path to the folder that contains your data set, and save it as a new object. 
+Or, we can use `read.csv()` (base R) or `readr::read_csv()` function to read in the data set saved as a `.csv` file. 
+You need to provide a path to the folder that contains your data set (i.e., "/dataset/data.csv" for the example below), and save it as a new object. 
 
 ```{r eval=FALSE}
-dataset <- read.csv("./dataset/data.csv") # base
+dataset <- read.csv("./dataset/data.csv") # base R
 dataset <- readr::read_csv("./dataset/data.csv") # readr package
 ```
+
+The example above uses an absolute path: the full address for the file location. I'd recommend using a relative path, which uses your current "working directory" (where your R is doing stuff) as a base camp and locate files relative to that base camp.   
+
+`here` function from `here` package makes that easier; you only need to specify folder names from your current working directory. <aside>run `getwd()` in your console for the working director`</aside>   
+
+For the same operation as above, we can do this instead:  
+```{r eval = FALSE}
+dataset <- readr::read_csv(here::here("dataset",  # name of the folder from your working direcotr that contains the data file
+                                      "data.csv")) # name of the data file 
+```
+
 
 3. `file.choose()`  
 We can use `file.choose()` function inside `read_csv()`, if we are unsure about the path to the file.  
@@ -358,7 +377,7 @@ We can use `file.choose()` function inside `read_csv()`, if we are unsure about 
 dataset <- readr::read_csv(file.choose())
 ```
 
-## Accessing element  
+## Accessing element {#access_element}  
 
 We can use a square bracket (i.e., []) to access an element inside an object (including a dataset) by its location or column names.
 
@@ -366,7 +385,7 @@ We can use a square bracket (i.e., []) to access an element inside an object (in
 data.frame[i, j]
 ```
 
-### By location  
+### By location {#by_location} 
 We provide the two numbers representing the location of an element inside the bracket. 
 The first element (i.e., *i*) corresponds to the row, and the second (i.e., *j*) corresponds to the column.
 
@@ -395,7 +414,7 @@ birth_data[c(1, 3),
 
 
 ### By column name
-We can also use column names. All the codes below will access information stored in the *fruit* column. 
+We can also use column names. All the codes below will access information stored in the *sex* column. 
 
 ```{r}
 birth_data["sex"]
@@ -403,22 +422,40 @@ birth_data["sex"]
 birth_data[["sex"]]
 ```
 
-We use the dollar sign (i.e., `$`) to specify a column by its name.  
+We use the **dollar sign** (i.e., `$`) to specify a column by its name.  
 ```{r}
 birth_data$sex
 ```
 
-Try pressing the *Tab* key after typing the `dollar sign`.
+The dollar sign comes handy when you want to create *a new column* inside an existing dataset. For example, instead of using `cbind()`, I can do the following:   
+```{r}
+# creating a new colunm, named `names`, which contains (random) names
+birth_data$names = c("su", "dj_power", "kool_kid", "mc_nano")
+```
+
+We now have a new column, `names`, in the `birth_data`.  
+```{r}
+birth_data
+```
 
 ### By conditions
-We can also select elements conditionally; that is, we can specify what element we want.
-R will evaluate the statement and return only those elements that meet the specified condition.
+We can also select elements conditionally; that is, we can specify which element inside a dataset we want.
+R will evaluate the statement and return only those elements (or columns) that meet the specified condition. 
+
+We can do this by using a square bracket, like how we [accessed elements by location](#access_element). We place the condition inside the square bracket on which the condition to be evaluated: [**i**, ] for rows; [, **j**] for columns.     
 ```
-dataset[condition, ]
+dataset[condition, ]  # subsetting rows that meet the condition
+dataset[ , condition] # subsetting columns that meet the condition
 ```
+
+You can also have different conditions for rows (`row_condition`) and columns (`column_condition`)   
+```
+dataset[row_condition, column_condition] 
+```
+
 #### Mathematical Annotations
 
-Conditional statements follow the same operations:
+Conditional statements use the same operators:  
 
 |operator|meaning|example|
 |:--:|:--|:--|
@@ -428,6 +465,7 @@ Conditional statements follow the same operations:
 |`<`|less than|`x < y`|
 |`>=`|greater than or equal to|`x >= y`|
 |`<=`|less than or equal to|`x <= y`|
+
 
 You can have multiple conditions by using the following operators:
 
@@ -440,15 +478,31 @@ You can have multiple conditions by using the following operators:
 
 For example, let's say I only want people (i.e., observations; rows) who are older than 24 years of age.
 
-You should first construct a logical statement: i.e., older than 24.
-```{r}
+You should first **construct a logical statement** for the condition: i.e., older than 24. 
+```
 birth_data$age > 24
 ```
 
-then apply it to the data set you want the statement to be applied to
+Each row of the `age` column inside `birth_data` will be evaluated on the logical statement to be TRUE or FALSE, and the logical values (TRUE/ FALSE) will be used to subset the rows that are `TRUE`. Specifically, when we look at the dataset,  
+```{r}
+birth_data
+```
+the rows that meet our condition (i.e., age > 24) are the first and the last rows, which corresponds to the logical values returned from our logical statement
+```{r}
+birth_data$age > 24 # only first and last rows are TRUE
+```
+
+Place the logical statement inside a square bracket, and apply that to the dataset you want to subset:  
 ```{r}
 birth_data[birth_data$age > 24, ]
 ```
+Notice that I left `j` inside the bracket [i, **j**] empty; this denotes *every* column that meets the condition specified in **i** (i.e., birth_data$age > 24).   
+
+If you only want a specific column (i.e., age column) and the rows that meet the condition (i.e., age > 24), you need to add a conditional statement for the column (i.e., providing the name of the column, "age") in the place of **j**.  
+```{r}
+birth_data[birth_data$age > 24, "age"]
+```
+
 
 alternatively, you can use `subset(x, subset, select)` function.
 ```{r}
@@ -456,10 +510,17 @@ subset(x = birth_data, # object / dataset you want to subset
        subset = age > 24) # logical statement for the condition you want
 ```
 
+Specify the `select` argument, if you want a subset of columns. Repeating the example above:  
+```{r}
+subset(x = birth_data, 
+       subset = age > 24, # a conditional statement for the row (*i*) = age > 24
+       select = "age") # conditional statement for the column (*j*) = name of the column you want to select  
+```
+
 ### **Exercise 4** {.tabset .tabset-fade .tabset-pills}
 
 #### Question
-Find the age of those who were either born in the summer (i.e., July ~ Oct) OR a man.  
+Find the age of those who were either born in the summer (i.e., July ~ Oct) OR male.   
 
 #### Answer
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/basic_q4.R")}
@@ -474,8 +535,8 @@ Life expectancies for male and female Canadians are different (i.e., 80 and 84, 
 #### Question
 Let's find out how long we have left to live by subtracting `age` from 80 for men and 84 for women.
 
-Use `ifelse(test, yes, no)` function.
-For example,
+Use `ifelse(test, yes, no)` function.   
+For example, <aside>Or, run `?ifelse()` in your console to see arguments for the function</aside> 
 ```{r eval=FALSE}
 ifelse(test = birth_data$age > 19, # logical statement that specifies the condition
        yes = "can drink", # for those that meet the condition
@@ -491,12 +552,12 @@ ifelse(test = birth_data$age > 19, # logical statement that specifies the condit
 
 
 
-## Class attributes
+## Class attributes {#class_attribute}
 Variables can have different class attributes. They can be
 
 <div class = "row">
 <div class = "col-md-3">
-<br><br><b>numeric</b> (numbers)
+<br><br><b>numeric</b> (numbers; *double*)
 
 ```{r}
 typeof(1)
@@ -504,7 +565,7 @@ typeof(1)
 </div>
 
 <div class = "col-md-3">
-<br><br><b>integer</b> (whoe number)
+<br><br><b>integer</b> (whole number)
 
 ```{r}
 typeof(2L)
@@ -526,14 +587,14 @@ typeof(TRUE)
 </div>
 </div>
 
-Remeber any characters/ word strings not in quotations are considered an object, so R will look for an object in your workspace if you provide an unquoted word string. For example, try running the following codes on your Console. 
+Remeber any characters/ word strings not in quotations are considered an object, so R will look for an object in your workspace if you provide an unquoted word string. For example, try running the following codes on your console. 
 ```{r eval = FALSE}
 "apple" # a random word string that will just be printed on Console
 apple # R will throw an error unless you have an object named "apple" in your workspace
 ```
 
 
-One thing to note is that variables in a vector must have the same class attributes.
+One thing to note is that variables in a vector must have the same [class attributes](#class_attribute).  
 For example, let's create a vector `x` with values of different class attributes.
 ```{r}
 (x <- c(1, 3, 5, 7, # numeric
@@ -541,10 +602,12 @@ For example, let's create a vector `x` with values of different class attributes
        TRUE)) # logical
 ```
 
-When we inspect class attribute of this vector, it forces all the variables to have the same data type.
+When we inspect class attribute of this vector, it forces all the variables to have the same data type.  
 ```{r}
 typeof(x)
 ```
+As such, numeric (e.g., 1, 3) and logical (i.e., TRUE) variables are treated as characters, which can be problematic for data analysis. 
+
 
 Inspect the vector below:
 ```{r}
@@ -583,7 +646,7 @@ When we need to convert a variable from one class to another, we use `as.class` 
 
 |as.class()|function|
 |:--|:--|
-|`as.numeric()`|convert to numeric|
+|`as.numeric()`;`as.double()`|convert to numeric|
 |`as.character()`|convert to character|
 |`as.logical()`|convert to logical|
 |`as.factor()`|convert to factor|
@@ -591,7 +654,7 @@ When we need to convert a variable from one class to another, we use `as.class` 
 Let's convert our age variable into numeric  
 ```{r}
 # first I am going to get rid of "years" 
-birth_data$age <- gsub("[a-z]", "",birth_data$age)
+birth_data$age <- gsub("[a-z]", "", birth_data$age)
 ```
 
 we will use `as.numeric()` to convert our age variable, which is a character variable, to numeric.  
