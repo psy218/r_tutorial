@@ -19,22 +19,98 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, tidy = TRUE
 ```
 
 # RStudio & R Environment  
-## RStudio panels
+**R** is a programming language for statistical computing, and **RStudio** is a *separate* tool/ application that facilitates using R. Because they are separate applications, you need to install and update them separately:  
+[**R**](https://www.r-project.org/)    
+[**RStudio**](https://rstudio.com/). 
+
+You can launch RStudio to do things with R without having to launch R separately; however, you should restart R regularly even if you start a new RStudio session: 
+![](Fig/restart_R.png)
+
+This is because even if your RStudio session may be fresh, your R may have accumulated things from a previous R session.  
+
+## RStudio panes  
 ![](Fig/rstudio_panel.png)
+<table>
+  <thead>
+    <tr>
+      <td><b>Panes</b></td>
+      <td><b>Tabs</b></td>
+      <td><b>Descriptions</b></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>script editor</b></td>
+      <td>r-scripts</td>
+      <td>this is where your <i>r-scripts</i> will be; think of a <i>r-script</i> as a notebook on which you write and edit all the computations you perform using R. Note that the result/ output of these computations won't be saved in an r-script</td>
+    </tr>
+    <tr>
+      <td><b>workspace</b></td>
+      <td>environment</td>
+      <td>lists things that are available in a given session, such as dataset you imported and a custom function</td>
+    </tr>
+    <tr>
+      <td><b>console</b></td>
+      <td>console</td>
+      <td>console is where you communicate with R to do things (e.g., computation, graph), and it will show you what R is doing and its result (e.g., computing results). If you want a papertrail of what you ask R to do, write a line of code in a r-script and run that line with Run button</td>
+    </tr>
+    <tr>
+      <td rowspan = 4><b>file/help</b></td>
+      <td>files</td>
+      <td>shows you local files stored in your computer</td>
+    </tr>
+    <tr>
+      <td>plots</td>
+      <td>previews of a plot you create with R</td>
+    </tr>
+    <tr>
+      <td>packages</td>
+      <td>lists all the packages that you have installed </td>
+    </tr>
+    <tr>
+      <td>help</td>
+      <td>shows you manuals for R functions and packages</td>
+    </tr>
+  </tbody>
+</table>
 
-## Packages  
-Packages can be thought as softwares or applications (e.g., Microsoft Word, Chrome) that your default R may not be equipped with. 
 
-We download these applications with `install.packages()` function. Let's install a package called `readr`, which makes importing data into R easier & faster.   
+More details [here](https://bookdown.org/ndphillips/YaRrr/the-four-rstudio-windows.html). 
+
+## Packages {#packages} 
+Packages are like applications (e.g., Microsoft Word, Chrome) that your default R may not be equipped with. 
+
+We download these applications with `install.packages()` function. Let's **install** a package called `readr`, which makes importing data into R easier & faster.   
 ```{r eval=FALSE}
 install.packages("readr")
 ```
 
-Once we have the package installed, we now have to load the package to our current R environment with `library()` function. 
+Once we have the package installed, we now have to **load** the package to our current R environment with `library()` function. 
 ```{r eval=FALSE}
 library(readr)
 ```
-Although you have to install a package only ONCE, you have to load the pakcage every time you start a new R session.  
+Although you have to install a package only ONCE (because it installs on your computer), you have to load the pakcage you need to use every time you start a new R session. 
+
+
+In prepration of the tutorial, please install **Tidyverse**.
+```{r eval=FALSE}
+install.packages("tidyverse")
+```
+
+In addition to Tidyverse, these are some packages that I often use:  
+
+|  pakcage name|  function |  description |
+|:--|:--|:------------|
+| here|  `here()`|  find & import files using relative paths |
+| psych|  `alpha()`|  computes internal consistency (e.g., alpha, omega) |
+| e1071|  `skewness()`; `kurtosis()`|  computes skewness and kurtosis |
+| corrr|  `correlate()`|  zero-order correlations |
+| car|  `Anova()`|  computes type-III analysis-of-variance |
+| emmeans|  `emmeans()`|  for marignal means |
+| lme4|  `lmer()`|  fit multilevel linear regression models |
+| lmerTest|  `lmer()`| an add-on for `lme4`; computes degrees of freedom & returns p-values associated with test statistics|
+| lavaan|  `sem()`|  fit structural equation models |
+
 
 Different packages may include different functions that have the same name, which will confuse R. 
 
@@ -44,10 +120,24 @@ When you get an error that a function cannot be found, explicitly specify what p
 package_function_is_from::some_function(x)
 ```
 
-# R basic building block
 ***   
-## Functions
-We can perform basic arithmetic in R using the same mathematical operators.
+# R basic building block
+## R syntax  
+R grammar is made up of 4 parts: [object](#object), [function](#function), argument, and variables.   
+
+Baking an apple pie as an example, an *apple pie* is an object, a *knife* is a function (from a package), and a *recipe* is an argument (e.g., ingredient) and variables (e.g., 3 apples).
+![](Fig/r_syntax.png)
+This can be translated as the following r code:  
+```{r eval=FALSE}
+# this is just for demonstration; the following line of code will give you an error in your R, because there is no function called `knife`
+apple_pie <- knife(ingridient = apple, 
+                   how_many = 3)
+```
+
+
+
+## Functions {#function}  
+We can perform **basic arithmetic** in R using the same mathematical operators.
 
 |operator|function|example|
 |:--:|:--|:--|
@@ -60,23 +150,28 @@ We can perform basic arithmetic in R using the same mathematical operators.
 1 + 1
 ```
 
-We can apply functions for common calculations, such as mean, median, and standard deviations.
+These are functions for common calculations that are useful for **descriptive statistics**:  
 ```
-mean(x)
-median(x)
-mode(x)
-sd(x)
-var(x)
-sqrt(x)
-abs(x)
+mean(x)   # average of x 
+median(x) # median of x
+mode(x)   # mode of x
+sd(x)     # standard deviaiton of x
+var(x)    # variance of x
+sqrt(x)   # square root x
+abs(x)    # absolute value of x
 ```
 
-We can also conduct statistical tests using built-in functions
+Try finding a square root of 25 in your console:  
+![](Fig/r_function_console.png){width=50%}  
+
+
+We can also conduct simple **statistical analyses** using built-in functions:  
 ```
-cor(x, y)
-cov(x, y)
-t.test(x, y)
+cor(x, y)      # correlation between x and y
+cov(x, y)      # covariance between x and y
+t.test(x, y)   # t-test betweeen x and y
 ```
+
 
 ## **Exercise 1** {.tabset .tabset-fade .tabset-pills}
 
@@ -90,52 +185,64 @@ Calculate your age by subtracting your birth year from 2020.
 ```
 
 
-## Object
-You can save the output of the previous calculation into an **object**.
-You can give it any name, but make sure there is no space (e.g., "my age") and unique (no two objects should have the same name unless you want to overwrite the first object).
 
-Any word that are not in quotations will be treated as an object. 
 
-To create an object, you have to use the assignment operators of either `<-` or `=`.
-Let's save the previous calculation, save the output as "my_age".
+## Object {#object}
+R is an ephemeral being; it does things that you tell it to, but its output won't be automatically saved. As such, you need to save the output (e.g., computing results or dataset) into something called **objects**, which will appear in the Environment pane.  
 
-```{r my_age, eval=TRUE}
-my_age <- 2020 - 1991
-my_age = 2020 - 1991
+To inspect objects availalbe in your local workspace, you can check the Environment panel, or run `ls()`.
+```{r eval=FALSE}
+ls() # this will list all objects available in your workspace 
 ```
 
-Review what's stored in the object by calling on the name of the object.
+To create an object, you have to use the assignment operators of either `<-` or `=`.   
+
+Let's try saving the output of the previous calculation as an object. 
+You can give it any name, but make sure the name is       
+  - free of *spaces* (e.g., "my age") and *special character* (e.g., "\*my age~~"), and   
+  - *unique* (no two objects should have the same name unless you want to overwrite the first object).
+
+
+Let's save the previous calculation, save the output as an object named `my_age`.    
+```{r my_age, eval=TRUE}
+my_age <- 2020 - 1991 # using `<-` operator
+my_age = 2020 - 1991 # using `=` operator
+```
+
+Review what's stored in the new object by calling on the name of the object in your console.
 ```{r}
 my_age
 ```
 
-Objects are things saved in your current environment. To inspect objects availalbe in your local workspace, check the Environment panel, or run `ls()`.
-```{r}
-ls()
-```
+*Note*. Any characters or word strings that are not in quotations will be treated as an object. 
 
-### Multiple values
-Objects can contain more than 1 value in the forms of **vectors** or **data frames**.
+<br>
+</br>
+Objects can contain more than 1 value in the forms of [**vectors**](#vector) or [**data frames**](#dataframe).
 
-#### Vectors
-Vectors can be created by using `c()`: a function that combines multiple values.
-Be sure the variables are separated by a comma, `,`.
+### Vectors {#vector}  
+Vectors can be created by using `c()`: a function that combines multiple values.  
+Make sure variables are separated by a comma, `,`.
 ```{r}
 c(1, 3, 7, 10)
 ```
 
+
 Ask people around you for their ages and birth month, and create two separate vectors for their ages and birth months.
 ```{r}
-age <- c(29, 24, 21, 26)
-birth_month <- c(6, 11, 10, 9)
+age <- c(29, 24, 21, 26) # an object named `age` that contains 4 values 
+birth_month <- c(6, 11, 10, 9) 
 ```
 
-You can perform simple arithmetics on the vectors.
+You can perform simple arithmetics on vectors.  
 ```{r}
+# add two vectors
 c(1, 3) + c(0.25, -2)
 
+# perform multiplication on an object named `age`, which is a vector containing 4 values  
 age * 3
 ```
+
 
 #### **Exercise 2** {.tabset .tabset-fade .tabset-pills}
 
@@ -151,13 +258,16 @@ Compute the average age of the students whose ages are as follows:
 ```
 
 
-#### Data frames
-A data set is a type of an object that contains multiple vectors organized in columns and rows.
+### Data frames {#dataframe}  
+A data set is a type of an object that contains multiple vectors organized in columns and rows.  
 Let's create a data set containing age and birth month using `data.frame(vector1, vector2, vector3)` function.
 
 ```{r}
-birth_data <- data.frame(age, birth_month)
-birth_data
+# create a data frame with age and birth month
+birth_data <- data.frame(age, birth_month) 
+
+# look into the new data frame (named `birth_data`) 
+birth_data 
 ```
 
 The two vectors are now organized in columns, each row representing an observation.
@@ -166,27 +276,45 @@ We can add a column to our existing matrix by using `cbind()`.
 For example, create a new vector containing the biological sex of the same people you asked for age and birth month:
 
 ```{r}
-sex <- c("man", "woman", "woman", "intersex")
+sex <- c("male", "female", "female", "intersex")
 ```
 
-And column-bind the new vector
+And column-bind the new vector named `sex`
 ```{r}
 cbind(birth_data, # data set we want to append the new vector to
       sex) # new vector
 ```
 
-you need to "update" your object (birth_data) if you want to keep the column
+or add a row by using, `rbind()`
 ```{r}
+rbind(birth_data, # data set we want to append the new vector
+      c(22, 10, "female")) # new vecotr
+```
+
+If we look at the data frame `birth_data`, you will notice that there is no new column named `sex` or a new row containing data from 22-year-old female who was born in Oct.   
+```{r}
+birth_data
+```
+This is because we didn't store the output of these operations (i.e., adding a new column and a new row) into anything. 
+
+You need to "update" your data frame (`birth_data`), if you want to keep a new column and row by overwriting `birth_data`,   
+```{r}
+# overwriting the data frame with a new column, sex 
 birth_data <-  cbind(birth_data,
                      sex)
 ```
 
-or add a row by using, `rbind()`
-```{r}
-rbind(birth_data, # data set we want to append the new vector
-      c(22, 10, "woman")) # new vecotr
+```{r eval=FALSE}
+# overwriting the data frame with a new row 
+birth_data <- rbind(birth_data, 
+                    c(22, 10, "female"))
 ```
 
+or, create a new object with a different name.
+```{r eval=FALSE}
+birth_data_w_sex = cbind(birth_data,
+                         sex)
+```
 
 
 Like vectors, we can perform arithmatic operations on the datasets.
@@ -205,17 +333,17 @@ Using the birth_data, a) compute the birth year by subtracting `age` from 2020, 
 ## Data import  
 Because we can only work on objects that exist in the environment, we need to **import** any external files into RStudio.  
 
-Many data sets you would come across would be stored as a .csv file. <aside>CSV stands for "comma-separate values"</aside>
+Many datasets you would come across would be stored as a .csv file. <aside>CSV stands for "comma-separate values"</aside>
 Let's review 3 ways you can import a csv file into our global environment.  
 
 
-1. Point-and-click  
+1. **Point-and-click**  
 We can use `Import Dataset` option under the Environment tab:
 ![](Fig/import_dataset.png)
 
 You would click on `From Text` option; I prefer `(reader)` as it is more efficient & flexible.   
 
-2. Using R function  
+2. **Using R function**  
 Or, we can use `read.csv()` or `read_csv()` function to read in the data set saved as a `.csv` file. 
 You need to provide a path to the folder that contains your data set, and save it as a new object. 
 
@@ -232,7 +360,7 @@ dataset <- readr::read_csv(file.choose())
 
 ## Accessing element  
 
-We can use a square bracket (i.e., []) to access an element inside a data frame by its location or column names.
+We can use a square bracket (i.e., []) to access an element inside an object (including a dataset) by its location or column names.
 
 ```
 data.frame[i, j]
@@ -275,7 +403,7 @@ birth_data["sex"]
 birth_data[["sex"]]
 ```
 
-We use the dollar sign (i.e., `$`) to specify a column.  
+We use the dollar sign (i.e., `$`) to specify a column by its name.  
 ```{r}
 birth_data$sex
 ```
@@ -368,7 +496,7 @@ Variables can have different class attributes. They can be
 
 <div class = "row">
 <div class = "col-md-3">
-<br><br> numeric (numbers)
+<br><br><b>numeric</b> (numbers)
 
 ```{r}
 typeof(1)
@@ -376,7 +504,7 @@ typeof(1)
 </div>
 
 <div class = "col-md-3">
-<br><br>integer (whoe number)
+<br><br><b>integer</b> (whoe number)
 
 ```{r}
 typeof(2L)
@@ -384,19 +512,25 @@ typeof(2L)
 </div>
 
 <div class = "col-md-3">
-<br><br>character (or *string*)
+<br><br><b>character</b> (or *string*)
 ```{r}
 typeof("a")
 ```
 </div>
 
 <div class = "col-md-3">
-<br><br>or logical (TRUE/FALSE)
+<br><br>or <b>logical</b> (TRUE/FALSE)
 ```{r}
 typeof(TRUE)
 ```
 </div>
 </div>
+
+Remeber any characters/ word strings not in quotations are considered an object, so R will look for an object in your workspace if you provide an unquoted word string. For example, try running the following codes on your Console. 
+```{r eval = FALSE}
+"apple" # a random word string that will just be printed on Console
+apple # R will throw an error unless you have an object named "apple" in your workspace
+```
 
 
 One thing to note is that variables in a vector must have the same class attributes.
