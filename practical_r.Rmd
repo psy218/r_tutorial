@@ -6,14 +6,18 @@ output:
     theme: cosmo
     highlight: tango
     toc: true
-    toc_float: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: false
     toc_depth: 5
     df_print: paged
+    css: style.css
 ---
 
 ```{r setup, include=FALSE}
 # RMarkdown set-up; disregard this 
-knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE, tidy = TRUE)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, message = FALSE, warning = FALSE, tidy = TRUE,
+                      collapse = FALSE)
 options(digits = 3, scipen = 999)
 ```
 
@@ -36,24 +40,46 @@ These are select core packages that are included in Tidyverse:
 6. [purrr](https://r4ds.had.co.nz/iteration.html) for iterative programming  
 7. [forcats](https://r4ds.had.co.nz/factors.html) for manipulating factors (i.e., categorical variables)  
 
-*Note* the packages under `tidyverse_conflicts()`; these are tidyverse functions that have the same name as other functions from different packages (e.g., base R).  
+*Note* the packages under `tidyverse_conflicts()`; these are tidyverse functions that have the same names as other functions from different packages (e.g., base R).  
 
+Use `package_name::function` to prevent errors from conflicting packages. For example, we can specifically call on `select()` function from `dplyr` package like this:     
+```{r echo=TRUE, eval=FALSE}
+dplyr::select()
+```
 
-
-For data manipulation exercises, we will use an example dataset, starwars from `dplyr` package. 
-
-```{r}
+## data for excercises  
+For data manipulation exercises, we will use two example datasets:
+1) starwars from `dplyr` package, and   
+```{r starwars_data}
+# load a dataset 
 data(starwars)
 ```
 
-Let's first inspect our dataset using `glimpse()`.  
-```{r}
-glimpse(starwars)
+2) data with participant's demographic data (i.e., age, gender) and responses to BFI-10 (Rammstedt & John, 2007).  
+
+Data codebook here:  
+
+|variable name|description|variable name|description|
+|:-:|:-----|:-:|:------|
+|pid|participant id| | |
+|age|participant age (in years)| | |
+|gender|participant gender|BFI_6|is outgoing, sociable|
+|BFI_1|is reserved|BFI_7|tends to find fault with others|
+|BFI_2|is generally trusting|BFI_8|does a thorough job|
+|BFI_3|tends to be lazy|BFI_9|gets nervous easily|
+|BFI_4|is relaxed|BFI_10|has an active imagination|
+|BFI_5|has few artistic interests|BFI_11|handles stress well|
+
+
+*Note*. BFI items are scored on 1 - 5 Likert scale; "BFI_1", "BFI_3", "BFI_4", and "BFI_5" are reverse-keyed. 
+
+```{r ocean_data, paged.print=TRUE}
+(ocean_data <- readr::read_csv("https://raw.githubusercontent.com/psy218/r_tutorial/master/dataset/example_data.csv"))
 ```
 
 ## **piping** (%>%) 
-Base R and tidyverse R take different approaches to perform multiple functions.
-Tidyverse R uses the pipe operator (`%>%`), which losely translates as "*then*"  
+Base R and tidyverse R take different approaches to performing multiple functions.
+Tidyverse R uses a pipe operator (`%>%`), which losely translates to "*then*"  
 
 The pipe operator (`%>%`) becomes handy when you...   
 
@@ -63,6 +89,7 @@ For example, when we want to run a regression with mean-centered variables
 starwars %>% 
   group_by(gender) %>% # step 1) mean centering height around gender
   mutate(height_mc = height - mean(height, na.rm = T)) %>% 
+  ungroup() %>%  # ungroup the dataset
   lm(mass ~ height_mc, # step 2) then run a regression model using the mean-centered height
      data = .) %>% 
   summary # step 3) see the summary table
@@ -72,24 +99,32 @@ starwars %>%
 For example, when we want to summarize our data and plot the summary data without saving it.
 ```{r}
 starwars %>% 
-  #filter(mass < 1000) %>% 
-  group_by(gender) %>% 
-  summarize_at(vars(c("height", "mass")), list(~mean(., na.rm = T), ~sd(.,na.rm = T))) %>% 
-  pivot_longer(cols = -gender, 
-               names_to = c("var", "stat"),
-               names_sep = "_",
-               values_to = "value") %>% 
-  spread(stat, value) %>% 
-  ggplot(aes(x = as.factor(gender), y = mean, fill = as.factor(var))) +
-  geom_col(position = position_dodge(width=0.9)) +
-  xlab("Gender") + 
+  # subsetting columns to graph: sex, height, and mass
+  select(sex, height:mass) %>% 
+  pivot_longer(cols = -sex, 
+               names_to = c("dimension"),
+               values_to = "value",
+               values_drop_na = T) %>% 
+  drop_na(sex) %>% 
+  # plot mean and errorbars around the mean
+  ggplot(aes(x = sex, 
+             y = value, 
+             fill = dimension)) +
+  stat_summary(fun.y = mean, 
+               geom = "bar", 
+               position = position_dodge(.8),
+               width = .8) +
+  stat_summary(fun.data = mean_sdl, # mean +/- constant*sd
+               fun.args = list(mult = 1), # constant (1sd)
+               geom = "errorbar", 
+               width = 0.25, position = position_dodge(.8)) +
+  xlab("Sex of Starwars Character") + 
   ylab("Average Measurement") +
-  geom_errorbar(aes(ymin = mean - sd, ymax = mean + sd), 
-                position = position_dodge(width=0.9), width = 0.25) + 
-  scale_fill_discrete("") +
+  scale_fill_manual("",
+                    labels = c("height", "mass"),
+                    values = c("#D55E00", "#999999")) +
   theme_bw()
 ```
-
 
 
 
@@ -97,7 +132,7 @@ As an example, let's calculate the average height of female Starwars characters.
 
 <div class = "row">
 <div class = "col-md-6">
-<br><br> Base R   
+<br><br><b>Base R</b>   
 In order to perform multiple functions using base R, we perform them sequentially or nest multiple functions. 
 ```{r ex1_baseR, eval = FALSE}
 # sequential operations
@@ -113,7 +148,7 @@ colMeans(subset(starwars, # subsetting the data frame
 </div>
 
 <div class = "col-md-6">
-<br><br>tidyverse R    
+<br><br><b>tidyverse R</b>    
 tidyverse uses a pipe (`%>%`) to perform multiple functions sequentially without creating an object. 
 ```{r ex1_tidyverseR, eval = FALSE}
 starwars %>% # take the starwars dataset
@@ -123,6 +158,15 @@ starwars %>% # take the starwars dataset
 </div>
 </div>
 
+### tidy dot  
+When you use the pipe operator, you can refer to the output from a previous operation with a `.`. For example, when we fit a linear model with a starwars dataset, we can *forward* the dataset straight into the subsequent operation with a `dot` like this:    
+```{r}
+starwars %>% 
+  lm(mass ~ height, 
+     data = .)
+```
+
+
 
 ## *dplyr* verbs  
 
@@ -130,68 +174,103 @@ There are [5 dplyr functions](https://dplyr.tidyverse.org/) that are useful for 
 
 |verb|function|example|
 |:-|:-|:-|
-|`select()`|choose variables by (column) names|`select(starwars, height, mass)`|
-|`filter()`|choose observations by (conditional) values|`filter(starwars, gender == "none")`|
-|`mutate()`|transform or create new variables|`mutate(starwars, BMI = $weight/height^2$)`|
-|`summarize()`|summarize variables|`summarize(starwars, mean_height = mean(height, na.rm = T))`|
+|[`select()`](#select)|choose variables by (column) names|`select(starwars, height, mass)`|
+|[`filter()`](#filter)|choose observations by (conditional) values|`filter(starwars, gender == "none")`|
+|[`mutate()`](#mutate)|transform or create new variables|`mutate(starwars, BMI = $weight/height^2$)`|
+|[`summarize()`](#summarize)|summarize variables|`summarize(starwars, mean_height = mean(height, na.rm = T))`|
 |`arrange()`|order variables|`arrange(starwars, height, desc(mass))`|
 
 # Data Manipulation  
 ## Subsetting data with `select()` & `filter()`  
 
-### `select()` columns    
-Like the square bracket `[]`, the dollar sign `$` in base R, and `subset(data, select = column)`, `select(x)` allows you to extract elements by the column name(s). 
+### `select()` columns {#select}    
+Like the square bracket `data[, "column_name"]`, the dollar sign `data$column_name`, and `subset(data, select = column_name)` function, `select(x)` allows you to extract elements by column name(s). 
 
 ![](Fig/select_func.png)
 
 <div class = "row">
 <div class = "col-md-6">
-<br><br>Base R
+<br><br><b>Base R</b>
 ```{r rows.print = 5}
 starwars[ ,c("height", "mass")]
 ```
 </div>
 
 <div class = "col-md-6">
-<br><br>Tidyverse R
+<br><br><b>Tidyverse R</b>
 ```{r rows.print = 5}
 starwars %>% 
   select(height, mass) 
 ```
 </div>
 </div>
-
-#### conditional selection
-
-You can combine `select()` function with conditional statements such as `starts_with()`. 
-
-For example, if we want to find all the columns whose names that do NOT (i.e., negating with the minus sign, `-`) begin with the letter *s*, we can nest the conditional statement, `starts_with("s")` inside the `select()` function. 
-
-```{r rows.print=5, cols.print=5}
+<br></br>  
+We can also select *out* a column with a minus sign (i.e., `-`). For example, we can keep all columns but columns from `films` to `starships` like this:  
+```{r}
 starwars %>% 
-  select(-starts_with("s")) 
+  select(-films:starships)
 ```
+
+<br></br>
+We can select multiple columns that share a prefix with `num_range()`.   
+This is useful when you have multiple items for a scale that start with the same prefix. For example, if you have 10 items for BFI measure that follow the same naming pattern of BFI_number (e.g., BFI_1, BFI_2), you can provide the prefix followed by the item numbers: `num_range("BFI_", 1:10)`  
+```{r}
+ocean_data %>% 
+  select(num_range("BFI_", 1:10))
+```
+<br></br>
+
+#### conditional selection {#conditional_select}  
+
+You can combine `select()` function with conditional statements, such as `starts_with()`. 
 
 These are some useful conditional statements you can use with `select()`:   
 
 |condition|function|
-|:-|:-|
+|:-|:---------|
 |`starts_with("x")`|column names that begin with "x"|
 |`ends_with("x")`|column names that end with "x"|
 |`contains("x")`|column names that contain "x"|
 |`num_range("x", 1:3)`|columns that match `x1`, `x2`, and `x3`|
-|`everything()`|select everything|
+|`everything()`|select all columns; useful for rearranging|
 |`one_of(c("height", "mass"))`|select one of `height` or `mass`|
 
+For example, if we want to find all the columns whose names begin with the letter *s*, we can nest the conditional statement, `starts_with("s")` inside the `select()` function. 
 
-### `filter()` observations  
+```{r rows.print=5, cols.print=5}
+starwars %>% 
+  select(starts_with("s")) 
+```
 
-Like the conditional statement inside the square bracket `[]`, `filter()` allows you to extract elements that meet the specified conditions.   
+
+
+#### renaming with `select()`
+You can rename column names by providing a new name followed by an equal sign and the original name inside the select function: `select(new_name = original_name)`.      
+```{r}
+# renaming `films` to `movie` and reorganize columns such that name and species come before all other columns
+starwars %>% 
+  select(name, species, # columns to be placed first
+         movie = films, # renaming films to movie
+         everything())  # reorganizing columns 
+```
+<br></br>
+
+### `filter()` observations {#filter} 
+
+Like the conditional statement inside a square bracket `[]`, `filter()` allows you to extract elements that meet specified conditions.  
+
+
 ![](Fig/filter_func.png)  
+
+For example, we can retain data from starwars characters whose height is greater than 100 by providing the conditional statement (`height > 100`) in `filter()`:  
+```{r}
+starwars %>% 
+  filter(height > 100)
+```
 
 <div class = "row">
 <div class = "col-md-6">
-<br><br>Base R
+<br><br><b>Base R</b>
 ```{r rows.print=5, cols.print=5}
 starwars[c(starwars$mass<1000 & starwars$height > 100), ]
 ```
@@ -199,7 +278,7 @@ starwars[c(starwars$mass<1000 & starwars$height > 100), ]
 </div>
 
 <div class = "col-md-6">
-<br><br>tidyverse R
+<br><br><b>tidyverse R</b>
 ```{r rows.print=5, cols.print=5}
 starwars %>% 
   filter(mass < 1000, height > 100)
@@ -207,15 +286,17 @@ starwars %>%
 </div>
 </div>  
 
+
 #### conditional filtering  
 Like `select()`, you can add more specification inside the `filter()` function with logical operators (e.g., `==`), and `between()` or `is.na()` statements. 
 
+For example, you can choose starwars characters that have `mass` data by using a `is.na()` function, but negated with `!`. <aside>an exclamanation mark before a function negates it; `!function()`</aside>
 ```{r include = FALSE, cols.print=5, rows.print=5}
 starwars %>% 
   filter(!is.na(mass)) # choosing observations that do NOT have missing data for mass 
   
 ```
-
+<br></br>
 
 
 ### **Exercise 1** {.tabset .tabset-fade .tabset-pills}  
@@ -228,17 +309,18 @@ Find the names (`name`) and gender (`gender`) of human characters (i.e., `specie
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/pr_Q1.R")}
 ```
 
-
+<br></br>
 ## Summarize data with `mutate()` and `summarize()`   
 
-### `mutate()` variables  
-`mutate()` creates a new variable by operating on our dataset. 
+### `mutate()` variables {#mutate}  
+`mutate()` creates a new variable (or an existing variable) by operating on our dataset.   
 
 ![](Fig/mutate_func.png)  
+We do so by providing a name of a new (or existing) column name followed by an equal sign and operations: `mutate(column_name = operation(old_column))`. Operations can be a simple arithmatic (e.g., adding two columns together), or a function (e.g., averaging multiple columns with `mean()` function).    
 
 <div class = "row">
 <div class = "col-md-6">
-<br><br>Base R
+<br><br><b>Base R</b>
 ```{r eval = FALSE}
 # using `within()`
 within(starwars, 
@@ -250,7 +332,7 @@ starwars$bmi = 703 * starwars$mass/(starwars$height^2)
 </div>
 
 <div class = "col-md-6">
-<br><br>tidyverse R
+<br><br><b>tidyverse R</b>
 ```{r rows.print=5}
 starwars %>% 
   mutate(bmi = 703 * mass/(height^2)) %>% 
@@ -259,65 +341,105 @@ starwars %>%
 </div>
 </div>
 
-#### conditional mutation  
+These are some functions you can use with `mutate()`:   
 
-We can conditionally mutate our datasets based on variable names (`mutate_at()`) and specific conditions (`mutate_if()`). 
-
-##### `mutate_at()` to score variables  
-
-Let's use an example data with participant's demographic data (i.e., age, gender) and responses to BFI-10 (Rammstedt & John, 2007).  
-
-Data codebook here:  
-
-|variable name|description|variable name|description|
-|:-|:-:|:-|:-:|
-|pid|participant id| | |
-|age|participant age (in years)| | |
-|gender|participant gender|BFI_6|is outgoing, sociable|
-|BFI_1|is reserved|BFI_7|tends to find fault with others|
-|BFI_2|is generally trusting|BFI_8|does a thorough job|
-|BFI_3|tends to be lazy|BFI_9|gets nervous easily|
-|BFI_4|is relaxed|BFI_10|has an active imagination|
-|BFI_5|has few artistic interests|BFI_11|handles stress well|
-
-
-*Note*. "BFI_1", "BFI_3", "BFI_4", and "BFI_5" are reverse-keyed. 
-
+1) Conditionally operate on a column with `ifelse()` <aside>run `?ifelse()`, or check Ex 5 in the basic tutorial for `ifelse()` function</aside>    
 ```{r}
-# example_data <- readr::read_csv(here::here("dataset", "example_data.csv"))
-example_data <- readr::read_csv("https://raw.githubusercontent.com/psy218/r_tutorial/master/dataset/example_data.csv")
+starwars %>% 
+  mutate(skin_color = ifelse(skin_color == "pale", 
+                             yes = "ghostly",
+                             no = skin_color))
 ```
 
-Let's reverse score, and create aggregate scores of OCEAN. 
-
-Step 1: I am creating a custom function to reverse score items. 
+2) Code a certain value as missing (i.e., `NA`) with `na_if()` by providing the column name followed by the value that should be coded as missing (e.g., -99): `na_if(column_name, -99)`  
 ```{r}
-reverse_x <- function(x, max) {
-  ifelse(is.na(x) == FALSE, (max + 1) - x , NA)
-}
+starwars %>%
+  select(name, eye_color) %>%
+  mutate(eye_color = na_if(eye_color, # column to recode
+                           "unknown")) # value to be converted to a missing value  
+```
+
+
+
+
+#### conditional mutation {#conditional_mutate}  
+
+**mutate_at()**   
+We can conditionally mutate our datasets based on variable names (`mutate_at()`) and/or specific conditions (`mutate_if()`). 
+
+`mutate_at()` takes two additional arguments:    
+1) names of the column(s) you want to mutate (`.vars`), and    
+2) function(s) to mutate with (`.funs`):  
+```{r eval=FALSE}
+data %>% 
+  mutate_at(.vars = c("column_name1", "column_name2", "column_name3"), # column names 
+            .funs = list(min, max, mean, sd), # multiple functions to be applied on those columns
+            na.rm = TRUE) # specification for the functions above; removing missing values   
+```
+
+You can also combine conditional [select()](#conditional_select) statements inside `mutate_at()`, nested in `vars()`.
+```{r eval = FALSE}
+# `starts_with()`
+data %>% 
+  mutate_at(vars(starts_with("BFI_")), ~function(.))
+```
+<br></br>
+
+**mutate_if()**   
+`mutate_if()` requires a conditional statement (`.predicate`), instead of variable names. 
+```
+data %>% 
+  mutate_if(.predicate = conditional_statement,
+            .funs = list(min, max))
+```
+
+The conditional statements can be a type of variables (e.g., `is.numeric`; `is.double`; `is.character`), which is useful for iterating through columns of the same type. 
+
+
+For example, you may have to convert varialbes that are numeric to whole numbers. You can do this with `mutate_if()`:      
+```{r eval=FALSE}
+starwars %>% 
+  mutate_if(is.double, # if a variable is double (numeric)
+            as.integer) # convert it to whole numbers 
+```
+
+
+##### item-scoring with `mutate_at()`     
+`mutate_at()` is useufl for scoring measures with multiple items saved across columns.  
+
+Let's reverse score BFI items 1, 3, 4, and 5, and create aggregate scores of OCEAN.    
+
+Step 1: Selectively reverse score items that are reverse-keyed: BFI_1, 3:5
+```{r}
+ocean_data %>% 
+  mutate_at(c("BFI_1", "BFI_3", "BFI_4", "BFI_5"), # select reverse-keyed items
+            # vars(num_range("BFI_", c(1, 3:5))), 
+            ~(6 - .)) # reverse-score the selected columns (as indicated by the tidy dot) 
 ```
 
 Step 2: Reverse score items (without saving) and calculate an aggregate score  
 ```{r rows.print = 5, cols.print = 5}
-example_data %>% 
-  mutate_at(vars(paste("BFI", c(1, 3:5, 7, 11), sep = "_")),  # selecting which variables to reverse score
-            ~reverse_x(., max = 5)) %>% # apply our custom functions 
-  mutate(extraversion = rowMeans(cbind(BFI_1, BFI_6), na.rm = T), # then create a new variable to store aggregate scores
+ocean_data %>% 
+  # reverse code items first 
+  mutate_at(vars(num_range("BFI_", c(1, 3:5))), 
+            ~(6 - .)) %>% 
+  # then create a new variable to store aggregate scores
+  mutate(extraversion = rowMeans(cbind(BFI_1, BFI_6), na.rm = T), 
          conscientiousness = rowMeans(cbind(BFI_3, BFI_8), na.rm = T),
          neuroticism = rowMeans(cbind(BFI_4, BFI_9, BFI_11), na.rm = T),
          agreableness = rowMeans(cbind(BFI_2, BFI_7), na.rm = T),
-         openness = rowMeans(cbind(BFI_5, BFI_10), na.rm = T)) 
-  
+         openness = rowMeans(cbind(BFI_5, BFI_10), na.rm = T),
+         .after = gender) # place them after gender
 ```
 
 
-### `summarize()` data  
+### `summarize()` data {#summarize}  
 
-Without creating a new variable, we can create a summary of our data. For example, let's look at average height and mass with their standard deviations using `mean()` and `sd()` function. 
+Without creating a new variable with `mutate()`, we can create a summary of our data using `summarize()` function with a similar formula: `variable_name = operation(column_name)`. 
 
 ![](Fig/summarize_func.png)
 
-
+For example, let's look at average `height` and `mass` with their standard deviations using `mean()` and `sd()` functions.   
 ```{r}
 starwars %>% 
   summarize(height_mean = mean(height, na.rm = T),
@@ -335,12 +457,13 @@ starwars %>%
                     ~sd(., na.rm = T))) # second function
 ```
 
-#### summary functions  
+#### summary functions    
 You can use the following functions with `summary()`. 
 
 |name|function|
 |:-|:-|
 |`n()`|# of observations or row |
+|`n_distinct()`|# of *unique* observations or a given column |
 |`mean(x)`|average of x |
 |`sd(x)`|standard deviation of x |
 |`min(x)`|minimum value of x |
@@ -348,10 +471,10 @@ You can use the following functions with `summary()`.
 |`sum(is.na(x))`|# of missing observations|
 
 
-
 ```{r}
 starwars %>% 
   summarize(height_n = n(),
+            unique_sex = n_distinct(sex),
             height_mean = mean(height, na.rm = T),
             height_sd = sd(height, na.rm = T),
             height_min = min(height, na.rm = T),
@@ -360,7 +483,10 @@ starwars %>%
 ```
 Check for more useful summary functions with `?summarize()` 
 
-#### selective summary with `summarize_at()`   
+
+#### selective summary      
+Like [conditional mutatation](#conditional_mutate), `summarize()` function can be applied selective at specific variables (`summarize_at()`) or variables of a specific type (`summarize_if()`).  
+
 
 You can selectively apply the same functions to multiple variables using `summarize_at()`:  
 ```{r}
@@ -376,30 +502,63 @@ starwars %>%
                names_sep = "_")
 ```
 
-
-
-#### conditional summary with `group_by()`  
-When we want to create a summary for different groups (e.g., gender), we can combine `mutate()` and `summarize()` with `group_by()` function.  
-
-For example, we can calculate average height and mass for each gender group.  
+`summarize_if()` is useful for data inspection of similar variable types (e.g., numeric/double):   
 ```{r}
 starwars %>% 
-  group_by(gender) %>% # grouping our data based on gender
-  summarise_at(vars(height, mass), 
-               list(~mean(., na.rm = T), 
-                    ~sd(., na.rm = T))) 
+  summarise_if(is.numeric, # the type of variable that makes sense to compute descriptive stats.  
+               list(mean = mean, sd = sd, # functions for the descriptive stats: mean, sd, & range 
+                    min = min, max = max),
+               na.rm = T) %>% # additional specification for those functions: removing missing values  
+  # (optional) organization to make the table easier to read  
+  pivot_longer(cols = everything(), 
+               names_to = c(".value", "test"),
+               names_pattern = "(.*)_(mean|sd|min|max)")
 ```
 
-Use `ungroup()` to remove grouping.  
+
+### conditional manipulation with `group_by()`  
+When we want to mutate or create a summary for different groups (e.g., gender), we can combine `mutate()` and `summarize()` with `group_by()` function.  
+
+We provide a dataset, then provide a grouping variable inside `group_by()` (e.g., "sex"; `group_by(sex)`) to divide the dataset based on the grouping variable (i.e., sex), and mutate or summarize separately for these groups.    
+
+For example, we can calculate average height and mass for each sex group.  
 ```{r}
 starwars %>% 
-  ungroup()
+  group_by(sex) %>% # grouping our data based on gender
+  summarise_at(c("height", "mass"), 
+               list(mean = mean, sd = sd),
+               na.rm = TRUE) 
 ```
+`group_by()` is also useful when we want to mean-centre variables.   
+```{r paged.print=TRUE}
+ocean_data %>% 
+  # this is just another way of computing aggregate scores; see item-scoring under `mutate_at()`   
+  rowwise() %>% # tell R to do this for every row  
+  mutate(BFI_1 = 6 - BFI_1, # reverse score BFI_1
+         extraversion = mean(c_across(c("BFI_1", "BFI_6")))) %>% # create an extraversion score
+  group_by(gender) %>%  # group data by gender  
+  mutate(extraversion_gm = mean(extraversion, na.rm = T), # mean extraversion for women and men  
+         # subtract individual extraversion score from average extraversion of women and men  
+         extraversion_gmc = extraversion - extraversion_gm, 
+         .after = extraversion) %>%  # where we want these columns to appear 
+  # ungroup() data so the subsequent operations won't be applied separately to different groups  
+  ungroup() 
+```
+
+
+
 
 
 #### **Exercise 2** {.tabset .tabset-fade .tabset-pills}  
 ##### Question  
-Create an aggregate score of `neuroticism` for each participant by 1a) reverse-coding BFI_4, and BFI_11, 1b) averaging neuroticm items (i.e., BFI_4, BFI_9, and BFI_11), and 2) mean-center neuroticism score on gender. 
+1) Create an aggregate score of `neuroticism` for each participant by 
+a) inspecting neuroticism items (i.e., BFI_4, BFI_9 BFI_11),    
+b) reverse-coding BFI_4, and BFI_11, and   
+c) averaging neuroticm items (i.e., BFI_4, BFI_9, and BFI_11).   
+
+2) Create a descriptive table of the neuroticism variable with its mean and standard deviations, separately for men and women (avaiable gender groups in the dataset).  
+
+3) Run a linear regression analysis with extraversion as neuroticism as an outcome variable and gender, age, and their interaction terms as predictors.  
 
 ##### Answer    
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/pr_Q2.R")}
