@@ -208,7 +208,7 @@ starwars %>%
 We can also select *out* a column with a minus sign (i.e., `-`). For example, we can keep all columns but columns from `films` to `starships` like this:  
 ```{r}
 starwars %>% 
-  select(-films:starships)
+  select(-c(films:starships))
 ```
 
 <br></br>
@@ -340,16 +340,30 @@ starwars %>%
 ```
 </div>
 </div>
-
+<br></br>
 These are some functions you can use with `mutate()`:   
 
-1) Conditionally operate on a column with `ifelse()` <aside>run `?ifelse()`, or check Ex 5 in the basic tutorial for `ifelse()` function</aside>    
+1) Conditionally operate on a column with `ifelse()` <aside>run `?ifelse()`, or check Ex 5 in the Basic R tutorial for `ifelse()` function</aside>    
 ```{r}
 starwars %>% 
   mutate(skin_color = ifelse(skin_color == "pale", 
                              yes = "ghostly",
                              no = skin_color))
 ```
+
+This is useful for recoding variables; e.g., dummy-coding or assigning numerical values to a categorical variable.   
+```{r}
+# recode `gender` by creating a new variable, `women` to represent dummy-coded women  
+ocean_data %>% 
+  mutate(women = ifelse(gender == "female", 
+                        yes = 0, # assigning `0` to women 
+                        no = ifelse(gender == "male", 
+                                    yes = 1, # assinging `1` to men
+                                    gender))) %>%  # every other variables (e.g., NA) will remain the same 
+  # check the dummy-coded women variable 
+  select(pid, gender, women)
+```
+
 
 2) Code a certain value as missing (i.e., `NA`) with `na_if()` by providing the column name followed by the value that should be coded as missing (e.g., -99): `na_if(column_name, -99)`  
 ```{r}
