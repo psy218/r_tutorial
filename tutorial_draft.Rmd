@@ -10,7 +10,7 @@ output:
       smooth_scroll: false
     toc_depth: 5
     df_print: paged
-    css: style.css
+    #css: style.css
 ---
 
 ```{r setup, include=FALSE}
@@ -285,7 +285,7 @@ We can add a column to our existing matrix by using `cbind()`.
 For example, create a new vector containing the biological sex of the same people you asked for age and birth month:
 
 ```{r}
-sex <- c("male", "female", "female", "intersex")
+sex <- c("man", "woman", "woman", "man")
 ```
 
 And column-bind the new vector named `sex`
@@ -316,7 +316,7 @@ birth_data <-  cbind(birth_data,
 ```{r eval=FALSE}
 # overwriting the data frame with a new row 
 birth_data <- rbind(birth_data, 
-                    c(22, 10, "female"))
+                    c(22, 10, "woman"))
 ```
 
 Or, create a new object with a different name and keep the original data frame (`birth_data`) as is. 
@@ -530,7 +530,7 @@ Find the age of those who were either born in the summer (i.e., July ~ Oct) OR m
 
 ### **Exercise 5** {.tabset .tabset-fade .tabset-pills}
 
-Life expectancies for male and female Canadians are different (i.e., 80 and 84, respectively; [Statistics Canada](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310038901)).
+Life expectancy for male and female Canadians are different (i.e., 80 and 84, respectively; [Statistics Canada](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1310038901)).
 
 #### Question
 Let's find out how long we have left to live by subtracting `age` from 80 for men and 84 for women.
