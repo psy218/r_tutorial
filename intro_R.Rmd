@@ -191,10 +191,8 @@ starwars <- starwars %>%
   mutate_at(vars("height"), as.character) %>%  # height is now a character variable
   mutate(hair_color = replace(hair_color, is.na(hair_color), 999)) %>%
   mutate(gender = case_when(
-    gender == "female" ~ 0,
-    gender == "male" ~ 1,
-    gender == "hermaphrodite" ~ 2,
-    gender == "none" ~ 3,
+    gender == "feminine" ~ 0,
+    gender == "masculine" ~ 1,
     TRUE ~ NA_real_))
 ```
 
@@ -261,10 +259,8 @@ table(starwars$gender)
 There are 4 levels associated with the gender variable:
 |level|label|
 |:--|:--:|
-|0|female|
-|1|male|
-|2|hermaphrodite|
-|3|none|
+|0|feminine|
+|1|masculine|
 
 Let's check if this variable is a factor.
 ```{r}
