@@ -2,6 +2,7 @@
 title: "Basic R"
 output:
   html_document:
+    self_contained: true
     theme: cosmo
     highlight: tango
     toc: true
@@ -285,7 +286,7 @@ We can add a column to our existing matrix by using `cbind()`.
 For example, create a new vector containing the biological sex of the same people you asked for age and birth month:
 
 ```{r}
-sex <- c("man", "woman", "woman", "man")
+sex <- c("male", "female", "female", "male")
 ```
 
 And column-bind the new vector named `sex`
@@ -316,7 +317,7 @@ birth_data <-  cbind(birth_data,
 ```{r eval=FALSE}
 # overwriting the data frame with a new row 
 birth_data <- rbind(birth_data, 
-                    c(22, 10, "woman"))
+                    c(22, 10, "female"))
 ```
 
 Or, create a new object with a different name and keep the original data frame (`birth_data`) as is. 

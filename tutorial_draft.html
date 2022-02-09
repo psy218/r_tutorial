@@ -660,13 +660,13 @@ Let’s create a data set containing age and birth month using <code>data.frame(
 </div>
 <p>The two vectors are now organized in columns, each row representing an observation.</p>
 <p>We can add a column to our existing matrix by using <code>cbind()</code>. For example, create a new vector containing the biological sex of the same people you asked for age and birth month:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;man&quot;</span>, <span class="st">&quot;woman&quot;</span>, <span class="st">&quot;woman&quot;</span>, <span class="st">&quot;man&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;male&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>)</span></code></pre></div>
 <p>And column-bind the new vector named <code>sex</code></p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(birth_data, <span class="co"># data set we want to append the new vector to</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>      sex) <span class="co"># new vector</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"man"},{"1":"24","2":"11","3":"woman"},{"1":"21","2":"10","3":"woman"},{"1":"26","2":"9","3":"man"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"male"},{"1":"24","2":"11","3":"female"},{"1":"21","2":"10","3":"female"},{"1":"26","2":"9","3":"male"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>or add a row by using, <code>rbind()</code></p>
@@ -691,7 +691,7 @@ Let’s create a data set containing age and birth month using <code>data.frame(
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>                     sex)</span></code></pre></div>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># overwriting the data frame with a new row </span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>birth_data <span class="ot">&lt;-</span> <span class="fu">rbind</span>(birth_data, </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">10</span>, <span class="st">&quot;woman&quot;</span>))</span></code></pre></div>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>                    <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">10</span>, <span class="st">&quot;female&quot;</span>))</span></code></pre></div>
 <p>Or, create a new object with a different name and keep the original data frame (<code>birth_data</code>) as is.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>birth_data_w_sex <span class="ot">=</span> <span class="fu">cbind</span>(birth_data,</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>                         sex)</span></code></pre></div>
@@ -708,7 +708,7 @@ Let’s create a data set containing age and birth month using <code>data.frame(
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">brith_year =</span> <span class="fu">c</span>(<span class="dv">2020</span> <span class="sc">-</span> age))</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["brith_year"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"29","2":"6","3":"man","4":"1991"},{"1":"24","2":"11","3":"woman","4":"1996"},{"1":"21","2":"10","3":"woman","4":"1999"},{"1":"26","2":"9","3":"man","4":"1994"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["brith_year"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"29","2":"6","3":"male","4":"1991"},{"1":"24","2":"11","3":"female","4":"1996"},{"1":"21","2":"10","3":"female","4":"1999"},{"1":"26","2":"9","3":"male","4":"1994"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -797,14 +797,14 @@ We can use <code>file.choose()</code> function inside <code>read_csv()</code>, i
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)] <span class="co"># first element in the second row &amp; third element in the third row</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["birth_month"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"6","2":"man","_rn_":"1"},{"1":"10","2":"woman","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["birth_month"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"6","2":"male","_rn_":"1"},{"1":"10","2":"female","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>birth_data[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>         <span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="co"># same as c(2, 3)</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["birth_month"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"6","2":"man","_rn_":"1"},{"1":"10","2":"woman","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["birth_month"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[2],"type":["chr"],"align":["left"]}],"data":[{"1":"6","2":"male","_rn_":"1"},{"1":"10","2":"female","_rn_":"3"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -814,14 +814,14 @@ We can use <code>file.choose()</code> function inside <code>read_csv()</code>, i
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>birth_data[<span class="st">&quot;sex&quot;</span>]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["sex"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"man"},{"1":"woman"},{"1":"woman"},{"1":"man"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["sex"],"name":[1],"type":["chr"],"align":["left"]}],"data":[{"1":"male"},{"1":"female"},{"1":"female"},{"1":"male"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>birth_data[[<span class="st">&quot;sex&quot;</span>]]</span></code></pre></div>
-<pre><code>## [1] &quot;man&quot;   &quot;woman&quot; &quot;woman&quot; &quot;man&quot;</code></pre>
+<pre><code>## [1] &quot;male&quot;   &quot;female&quot; &quot;female&quot; &quot;male&quot;</code></pre>
 <p>We use the <strong>dollar sign</strong> (i.e., <code>$</code>) to specify a column by its name.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>birth_data<span class="sc">$</span>sex</span></code></pre></div>
-<pre><code>## [1] &quot;man&quot;   &quot;woman&quot; &quot;woman&quot; &quot;man&quot;</code></pre>
+<pre><code>## [1] &quot;male&quot;   &quot;female&quot; &quot;female&quot; &quot;male&quot;</code></pre>
 <p>The dollar sign comes handy when you want to create <em>a new column</em> inside an existing dataset. For example, instead of using <code>cbind()</code>, I can do the following:</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># creating a new colunm, named `names`, which contains (random) names</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>birth_data<span class="sc">$</span>names <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;su&quot;</span>, <span class="st">&quot;dj_power&quot;</span>, <span class="st">&quot;kool_kid&quot;</span>, <span class="st">&quot;mc_nano&quot;</span>)</span></code></pre></div>
@@ -829,7 +829,7 @@ We can use <code>file.choose()</code> function inside <code>read_csv()</code>, i
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>birth_data</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"man","4":"su"},{"1":"24","2":"11","3":"woman","4":"dj_power"},{"1":"21","2":"10","3":"woman","4":"kool_kid"},{"1":"26","2":"9","3":"man","4":"mc_nano"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"male","4":"su"},{"1":"24","2":"11","3":"female","4":"dj_power"},{"1":"21","2":"10","3":"female","4":"kool_kid"},{"1":"26","2":"9","3":"male","4":"mc_nano"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -919,7 +919,7 @@ dataset[ , condition] # subsetting columns that meet the condition</code></pre>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>birth_data</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"man","4":"su"},{"1":"24","2":"11","3":"woman","4":"dj_power"},{"1":"21","2":"10","3":"woman","4":"kool_kid"},{"1":"26","2":"9","3":"man","4":"mc_nano"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"male","4":"su"},{"1":"24","2":"11","3":"female","4":"dj_power"},{"1":"21","2":"10","3":"female","4":"kool_kid"},{"1":"26","2":"9","3":"male","4":"mc_nano"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>the rows that meet our condition (i.e., age &gt; 24) are the first and the last rows, which corresponds to the logical values returned from our logical statement</p>
@@ -929,7 +929,7 @@ dataset[ , condition] # subsetting columns that meet the condition</code></pre>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>birth_data[birth_data<span class="sc">$</span>age <span class="sc">&gt;</span> <span class="dv">24</span>, ]</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"man","4":"su","_rn_":"1"},{"1":"26","2":"9","3":"man","4":"mc_nano","_rn_":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"male","4":"su","_rn_":"1"},{"1":"26","2":"9","3":"male","4":"mc_nano","_rn_":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Notice that I left <code>j</code> inside the bracket [i, <strong>j</strong>] empty; this denotes <em>every</em> column that meets the condition specified in <strong>i</strong> (i.e., birth_data$age &gt; 24).</p>
@@ -941,7 +941,7 @@ dataset[ , condition] # subsetting columns that meet the condition</code></pre>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">subset =</span> age <span class="sc">&gt;</span> <span class="dv">24</span>) <span class="co"># logical statement for the condition you want</span></span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"man","4":"su","_rn_":"1"},{"1":"26","2":"9","3":"man","4":"mc_nano","_rn_":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"29","2":"6","3":"male","4":"su","_rn_":"1"},{"1":"26","2":"9","3":"male","4":"mc_nano","_rn_":"4"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>Specify the <code>select</code> argument, if you want a subset of columns. Repeating the example above:</p>
@@ -967,10 +967,10 @@ dataset[ , condition] # subsetting columns that meet the condition</code></pre>
 <span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>birth_data<span class="sc">$</span>birth_month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
 <pre><code>## [1] FALSE FALSE  TRUE  TRUE</code></pre>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>birth_data<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;man&quot;</span></span></code></pre></div>
-<pre><code>## [1]  TRUE FALSE FALSE  TRUE</code></pre>
+<pre><code>## [1] FALSE FALSE FALSE FALSE</code></pre>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; step 2. Combine the two statements with the correct operator, `|`.</span></span>
 <span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>birth_data<span class="sc">$</span>birth_month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|</span> birth_data<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;man&quot;</span></span></code></pre></div>
-<pre><code>## [1]  TRUE FALSE  TRUE  TRUE</code></pre>
+<pre><code>## [1] FALSE FALSE  TRUE  TRUE</code></pre>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;. step 3. Specify what information you want: age. </span></span>
 <span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>birth_data<span class="sc">$</span>age</span></code></pre></div>
 <pre><code>## [1] 29 24 21 26</code></pre>
@@ -979,7 +979,7 @@ dataset[ , condition] # subsetting columns that meet the condition</code></pre>
 <pre><code>## [1] 21 26</code></pre>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; OR,</span></span>
 <span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>birth_data[birth_data<span class="sc">$</span>birth_month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">|</span> birth_data<span class="sc">$</span>sex <span class="sc">==</span> <span class="st">&quot;man&quot;</span>, <span class="st">&quot;age&quot;</span>]</span></code></pre></div>
-<pre><code>## [1] 29 21 26</code></pre>
+<pre><code>## [1] 21 26</code></pre>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; OR,</span></span>
 <span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">subset</span>(<span class="at">x =</span> birth_data, </span>
 <span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">subset =</span> birth_month <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">10</span>)<span class="sc">|</span>sex <span class="sc">==</span> <span class="st">&quot;age&quot;</span>,</span>
@@ -1015,7 +1015,7 @@ Or, run <code>?ifelse()</code> in your console to see arguments for the function
 <span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>birth_data</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]},{"label":["yr_remaining"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"29","2":"6","3":"man","4":"su","5":"55"},{"1":"24","2":"11","3":"woman","4":"dj_power","5":"60"},{"1":"21","2":"10","3":"woman","4":"kool_kid","5":"63"},{"1":"26","2":"9","3":"man","4":"mc_nano","5":"58"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["age"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]},{"label":["yr_remaining"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"29","2":"6","3":"male","4":"su","5":"55"},{"1":"24","2":"11","3":"female","4":"dj_power","5":"60"},{"1":"21","2":"10","3":"female","4":"kool_kid","5":"63"},{"1":"26","2":"9","3":"male","4":"mc_nano","5":"58"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -1074,7 +1074,7 @@ For example, let’s create a vector <code>x</code> with values of different cla
 <span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>birth_data</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["age"],"name":[1],"type":["chr"],"align":["left"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]},{"label":["yr_remaining"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"29 years","2":"6","3":"man","4":"su","5":"55"},{"1":"24","2":"11","3":"woman","4":"dj_power","5":"60"},{"1":"21","2":"10","3":"woman","4":"kool_kid","5":"63"},{"1":"26","2":"9","3":"man","4":"mc_nano","5":"58"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["age"],"name":[1],"type":["chr"],"align":["left"]},{"label":["birth_month"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["sex"],"name":[3],"type":["chr"],"align":["left"]},{"label":["names"],"name":[4],"type":["chr"],"align":["left"]},{"label":["yr_remaining"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"29 years","2":"6","3":"male","4":"su","5":"55"},{"1":"24","2":"11","3":"female","4":"dj_power","5":"60"},{"1":"21","2":"10","3":"female","4":"kool_kid","5":"63"},{"1":"26","2":"9","3":"male","4":"mc_nano","5":"58"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 <p>we can no longer use the <code>mean()</code> function…</p>
