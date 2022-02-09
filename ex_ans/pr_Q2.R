@@ -7,7 +7,7 @@ reverse_x <- function(x, max) {
 #' @param neuroticism aggregate score of neuroticism (BFI_4, BFI_11, BFI_9)
 #' @param neuroticism_mc mean-centered neuroticism 
 
-example_data <- example_data %>% 
+ocean_data <- ocean_data %>% 
   mutate_at( vars(c("BFI_4", "BFI_11")), # specify which variables to apply the function
              ~reverse_x(., max = 5)) %>% # apply the reverse-score function
   mutate(neuroticism = rowMeans(cbind(BFI_4, BFI_11, BFI_9), na.rm = T)) %>%  # create an aggregate score

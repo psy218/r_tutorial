@@ -11,7 +11,7 @@ output:
       smooth_scroll: false
     toc_depth: 5
     df_print: paged
-    css: style.css
+    # css: style.css
 ---
 
 ```{r setup, include=FALSE}
@@ -99,15 +99,15 @@ starwars %>%
 For example, when we want to summarize our data and plot the summary data without saving it.
 ```{r}
 starwars %>% 
-  # subsetting columns to graph: sex, height, and mass
-  select(sex, height:mass) %>% 
-  pivot_longer(cols = -sex, 
+  # subsetting columns to graph: gender, height, and mass
+  select(gender, height:mass) %>% 
+  pivot_longer(cols = -gender, 
                names_to = c("dimension"),
                values_to = "value",
                values_drop_na = T) %>% 
-  drop_na(sex) %>% 
+  drop_na(gender) %>% 
   # plot mean and errorbars around the mean
-  ggplot(aes(x = sex, 
+  ggplot(aes(x = gender, 
              y = value, 
              fill = dimension)) +
   stat_summary(fun.y = mean, 
@@ -118,7 +118,7 @@ starwars %>%
                fun.args = list(mult = 1), # constant (1sd)
                geom = "errorbar", 
                width = 0.25, position = position_dodge(.8)) +
-  xlab("Sex of Starwars Character") + 
+  xlab("gender of Starwars Character") + 
   ylab("Average Measurement") +
   scale_fill_manual("",
                     labels = c("height", "mass"),
@@ -235,11 +235,11 @@ These are some useful conditional statements you can use with `select()`:
 |`everything()`|select all columns; useful for rearranging|
 |`one_of(c("height", "mass"))`|select one of `height` or `mass`|
 
-For example, if we want to find all the columns whose names begin with the letter *s*, we can nest the conditional statement, `starts_with("s")` inside the `select()` function. 
+For example, if we want to find all the columns whose names begin with the letter *h*, we can nest the conditional statement, `starts_with("h")` inside the `select()` function. 
 
 ```{r rows.print=5, cols.print=5}
 starwars %>% 
-  select(starts_with("s")) 
+  select(starts_with("h")) 
 ```
 
 
@@ -488,7 +488,7 @@ You can use the following functions with `summary()`.
 ```{r}
 starwars %>% 
   summarize(height_n = n(),
-            unique_sex = n_distinct(sex),
+            unique_gender = n_distinct(gender),
             height_mean = mean(height, na.rm = T),
             height_sd = sd(height, na.rm = T),
             height_min = min(height, na.rm = T),
@@ -533,12 +533,12 @@ starwars %>%
 ### conditional manipulation with `group_by()`  
 When we want to mutate or create a summary for different groups (e.g., gender), we can combine `mutate()` and `summarize()` with `group_by()` function.  
 
-We provide a dataset, then provide a grouping variable inside `group_by()` (e.g., "sex"; `group_by(sex)`) to divide the dataset based on the grouping variable (i.e., sex), and mutate or summarize separately for these groups.    
+We provide a dataset, then provide a grouping variable inside `group_by()` (e.g., "gender"; `group_by(gender)`) to divide the dataset based on the grouping variable (i.e., gender), and mutate or summarize separately for these groups.    
 
-For example, we can calculate average height and mass for each sex group.  
+For example, we can calculate average height and mass for each gender group.  
 ```{r}
 starwars %>% 
-  group_by(sex) %>% # grouping our data based on gender
+  group_by(gender) %>% # grouping our data based on gender
   summarise_at(c("height", "mass"), 
                list(mean = mean, sd = sd),
                na.rm = TRUE) 
