@@ -3,6 +3,7 @@ title: "Practical R"
 output: 
   html_document:
     keep_md: true
+    self_contained: true
     theme: cosmo
     highlight: tango
     toc: true
@@ -55,7 +56,7 @@ For data manipulation exercises, we will use two example datasets:
 data(starwars)
 ```
 
-2) data with participant's demographic data (i.e., age, gender) and responses to BFI-10 (Rammstedt & John, 2007).  
+2) data with participant's demographic data (i.e., age, sex) and responses to BFI-10 (Rammstedt & John, 2007).  
 
 Data codebook here:  
 
@@ -136,12 +137,12 @@ As an example, let's calculate the average height of female Starwars characters.
 In order to perform multiple functions using base R, we perform them sequentially or nest multiple functions. 
 ```{r ex1_baseR, eval = FALSE}
 # sequential operations
-female_height_only <- starwars[starwars$gender=="female", ]$height # subset data 
+female_height_only <- starwars[starwars$gender=="feminine", ]$height # subset data 
 mean(female_height_only, na.rm = T) # calculate mean of the subset
 
 # nesting subset function inside mean
 colMeans(subset(starwars, # subsetting the data frame 
-                subset = gender == "female", # based on the condition 
+                subset = gender == "feminine", # based on the condition 
                 select = "height"), # column of interest
          na.rm = T) # then perform mean on the subsetted data
 ```
@@ -152,7 +153,7 @@ colMeans(subset(starwars, # subsetting the data frame
 tidyverse uses a pipe (`%>%`) to perform multiple functions sequentially without creating an object. 
 ```{r ex1_tidyverseR, eval = FALSE}
 starwars %>% # take the starwars dataset
-  subset(subset = gender == "female", select = "height") %>% # subset the data
+  subset(subset = gender == "feminine", select = "height") %>% # subset the data
   colMeans(na.rm = T) # calculate the mean
 ```
 </div>
@@ -175,7 +176,7 @@ There are [5 dplyr functions](https://dplyr.tidyverse.org/) that are useful for 
 |verb|function|example|
 |:-|:-|:-|
 |[`select()`](#select)|choose variables by (column) names|`select(starwars, height, mass)`|
-|[`filter()`](#filter)|choose observations by (conditional) values|`filter(starwars, gender == "none")`|
+|[`filter()`](#filter)|choose observations by (conditional) values|`filter(starwars, gender == "feminine")`|
 |[`mutate()`](#mutate)|transform or create new variables|`mutate(starwars, BMI = $weight/height^2$)`|
 |[`summarize()`](#summarize)|summarize variables|`summarize(starwars, mean_height = mean(height, na.rm = T))`|
 |`arrange()`|order variables|`arrange(starwars, height, desc(mass))`|
@@ -570,9 +571,9 @@ a) inspecting neuroticism items (i.e., BFI_4, BFI_9 BFI_11),
 b) reverse-coding BFI_4, and BFI_11, and   
 c) averaging neuroticm items (i.e., BFI_4, BFI_9, and BFI_11).   
 
-2) Create a descriptive table of the neuroticism variable with its mean and standard deviations, separately for men and women (avaiable gender groups in the dataset).  
+2) Create a descriptive table of the neuroticism variable with its mean and standard deviations, separately for men and women (available sex groups in the dataset).  
 
-3) Run a linear regression analysis with extraversion as neuroticism as an outcome variable and gender, age, and their interaction terms as predictors.  
+3) Run a linear regression analysis with extraversion as neuroticism as an outcome variable and sex, age, and their interaction terms as predictors.  
 
 ##### Answer    
 ```{r, echo = TRUE, eval = TRUE, code = readLines("ex_ans/pr_Q2.R")}
