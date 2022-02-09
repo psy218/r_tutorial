@@ -167,7 +167,7 @@ birth_data
 #' We can add a column to our existing matrix by using `cbind()`.
 #' For example, create a new vector containing the biological sex of the same people you asked for age and birth month:
 
-sex <- c("male", "female", "female", "intersex")
+sex <- c("man", "woman", "woman", "man")
 
 #' And column-bind the new vector
 cbind(birth_data, # data set we want to append the new vector to
@@ -179,7 +179,7 @@ birth_data <-  cbind(birth_data,
 
 #' or add a row by using, `rbind()`
 rbind(birth_data, # data set we want to append the new vector
-      c(22, 10, "female")) # new vecotr 
+      c(22, 10, "woman")) # new vecotr 
 
 #' If we look at the data frame birth_data, you will notice that there is no new column named sex or a new row containing data from a 22-year-old female who was born in Oct. 
 birth_data
@@ -190,7 +190,7 @@ birth_data
 birth_data <- cbind(birth_data, sex)
 
 #' overwriting the data frame with a new row
-# birth_data <- rbind(birth_data, c(22, 10, "female"))
+# birth_data <- rbind(birth_data, c(22, 10, "woman"))
 
 
 #' Like vectors, we can perform arithmatic operations on the datasets.
@@ -339,21 +339,21 @@ subset(x = birth_data,
 #' step 1. Construct logical statements. 
 #' statement 1: born in the summer (i.e., July ~ Oct)
 birth_data$birth_month %in% c(7:10) 
-#' statement 2: male
-birth_data$sex == "male"
+#' statement 2: man
+birth_data$sex == "man"
 
 #' step 2. Combine the two statements with the correct operator, `|` (i.e., or).
-birth_data$birth_month %in% c(7:10) | birth_data$sex == "male"
+birth_data$birth_month %in% c(7:10) | birth_data$sex == "man"
 
 #'. step 3. Specify the column you want: age. 
 birth_data$age
 
 #' step 4. combine all of the above!
-birth_data[birth_data$birth_month %in% c(7:10) | birth_data$sex == "male", "age"]
+birth_data[birth_data$birth_month %in% c(7:10) | birth_data$sex == "man", "age"]
 
 #' Or, use the `subset()` function
 subset(x = birth_data, 
-       subset = birth_month %in% c(7:10)| sex == "male",
+       subset = birth_month %in% c(7:10)| sex == "man",
        select = age)
 
 
@@ -382,7 +382,7 @@ ifelse(test = birth_data$age > 19, # logical statement that specifies the condit
 
 
 ## ---- answer ---------
-birth_data$yr_remaining = ifelse(test = birth_data$sex == "male",
+birth_data$yr_remaining = ifelse(test = birth_data$sex == "man",
                                  yes = 80 - birth_data$age,
                                  no = 84 -  birth_data$age)
 
