@@ -64,13 +64,14 @@ Data codebook here:
 |:-:|:-----|:-:|:------|
 |pid|participant id| | |
 |age|participant age (in years)| | |
-|gender|participant gender|BFI_6|is outgoing, sociable|
+|gender|participant gender[^1]|BFI_6|is outgoing, sociable|
 |BFI_1|is reserved|BFI_7|tends to find fault with others|
 |BFI_2|is generally trusting|BFI_8|does a thorough job|
 |BFI_3|tends to be lazy|BFI_9|gets nervous easily|
 |BFI_4|is relaxed|BFI_10|has an active imagination|
 |BFI_5|has few artistic interests|BFI_11|handles stress well|
 
+[^1]: Please note that the data incorrectly uses sex labels ("female" and "male") for `gender`; I retained the original column name as the data is not mine. 
 
 *Note*. BFI items are scored on 1 - 5 Likert scale; "BFI_1", "BFI_3", "BFI_4", and "BFI_5" are reverse-keyed. 
 
